@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bacground_exercise"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:id="@+id/exercises_fragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

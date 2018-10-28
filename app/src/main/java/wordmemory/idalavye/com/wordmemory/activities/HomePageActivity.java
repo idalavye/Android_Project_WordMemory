@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.adapters.HomePagePagerAdapter;
+import wordmemory.idalavye.com.wordmemory.fragments.homepage.ExercisesFragment;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.WordsListingFragment;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class HomePageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private BottomAppBar bar;
     private FloatingActionButton fab;
+    private LinearLayout addNewWordLayout;
     private boolean fbModeCenter = true;
 
     @Override
@@ -65,17 +68,26 @@ public class HomePageActivity extends AppCompatActivity {
                     bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
                     fab.setImageResource(R.drawable.ic_arrow);
                     fbModeCenter = false;
+
+
                     tabLayout.setVisibility(View.GONE);
                     WordsListingFragment.listView.setVisibility(View.GONE);
+                    ExercisesFragment.exercise_fragment.setVisibility(View.GONE);
+                    addNewWordLayout.setVisibility(View.VISIBLE);
 
                 } else {
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.slide_in_left);
                     bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
                     fab.setImageResource(R.drawable.ic_add);
+                    fbModeCenter = true;
+
+
                     tabLayout.setVisibility(View.VISIBLE);
                     WordsListingFragment.listView.startAnimation(animation);
                     WordsListingFragment.listView.setVisibility(View.VISIBLE);
-                    fbModeCenter = true;
+                    ExercisesFragment.exercise_fragment.startAnimation(animation);
+                    ExercisesFragment.exercise_fragment.setVisibility(View.VISIBLE);
+                    addNewWordLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -95,6 +107,7 @@ public class HomePageActivity extends AppCompatActivity {
         this.bar = findViewById(R.id.bar);
         setSupportActionBar(bar);
         this.fab = findViewById(R.id.fab);
+        this.addNewWordLayout = findViewById(R.id.add_new_word);
     }
 
     @Override
