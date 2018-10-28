@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.adapters.HomePagePagerAdapter;
+import wordmemory.idalavye.com.wordmemory.fragments.homepage.WordsListingFragment;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -65,12 +66,15 @@ public class HomePageActivity extends AppCompatActivity {
                     fab.setImageResource(R.drawable.ic_arrow);
                     fbModeCenter = false;
                     tabLayout.setVisibility(View.GONE);
+                    WordsListingFragment.listView.setVisibility(View.GONE);
 
                 } else {
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.slide_in_left);
                     bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
                     fab.setImageResource(R.drawable.ic_add);
                     tabLayout.setVisibility(View.VISIBLE);
+                    WordsListingFragment.listView.startAnimation(animation);
+                    WordsListingFragment.listView.setVisibility(View.VISIBLE);
                     fbModeCenter = true;
                 }
             }
