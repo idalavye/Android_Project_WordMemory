@@ -1,6 +1,16 @@
 package wordmemory.idalavye.com.wordmemory.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
+
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +20,11 @@ import wordmemory.idalavye.com.wordmemory.adapters.HomePagePagerAdapter;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private BottomAppBar bar;
+    private FloatingActionButton fab;
+    private boolean fbModeCenter = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +37,7 @@ public class HomePageActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Alıştırmalar"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -44,10 +57,55 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fbModeCenter) {
+                    bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
+                    fab.setImageResource(R.drawable.ic_arrow);
+                    fbModeCenter = false;
+                    tabLayout.setVisibility(View.GONE);
+
+                } else {
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.slide_in_left);
+                    bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+                    fab.setImageResource(R.drawable.ic_add);
+                    tabLayout.setVisibility(View.VISIBLE);
+                    fbModeCenter = true;
+                }
+            }
+        });
+
+        bar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMessage("NavigationMenu");
+            }
+        });
+
     }
 
     private void init() {
-        tabLayout = findViewById(R.id.tab_layout);
-        viewPager = findViewById(R.id.pager);
+        this.tabLayout = findViewById(R.id.tab_layout);
+        this.viewPager = findViewById(R.id.pager);
+        this.bar = findViewById(R.id.bar);
+        setSupportActionBar(bar);
+        this.fab = findViewById(R.id.fab);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.home_page_menu, menu);
+        return true;
+    }
+
+    public boolean search(MenuItem menuItem) {
+        getMessage("Search");
+        return true;
+    }
+
+    private void getMessage(String message) {
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
