@@ -61,6 +61,11 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+        final Animation animationSlideInLeft = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.slide_in_left);
+        final Animation animationForNewWordPage = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
+        animationForNewWordPage.setDuration(2000);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,19 +78,20 @@ public class HomePageActivity extends AppCompatActivity {
                     tabLayout.setVisibility(View.GONE);
                     WordsListingFragment.listView.setVisibility(View.GONE);
                     ExercisesFragment.exercise_fragment.setVisibility(View.GONE);
+                    addNewWordLayout.startAnimation(animationForNewWordPage);
                     addNewWordLayout.setVisibility(View.VISIBLE);
 
                 } else {
-                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.slide_in_left);
+                    addNewWordLayout.clearAnimation();
                     bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
                     fab.setImageResource(R.drawable.ic_add);
                     fbModeCenter = true;
 
 
                     tabLayout.setVisibility(View.VISIBLE);
-                    WordsListingFragment.listView.startAnimation(animation);
+                    WordsListingFragment.listView.startAnimation(animationSlideInLeft);
                     WordsListingFragment.listView.setVisibility(View.VISIBLE);
-                    ExercisesFragment.exercise_fragment.startAnimation(animation);
+                    ExercisesFragment.exercise_fragment.startAnimation(animationSlideInLeft);
                     ExercisesFragment.exercise_fragment.setVisibility(View.VISIBLE);
                     addNewWordLayout.setVisibility(View.GONE);
                 }
