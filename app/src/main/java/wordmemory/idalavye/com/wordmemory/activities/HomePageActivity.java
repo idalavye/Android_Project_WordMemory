@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.adapters.HomePagePagerAdapter;
+import wordmemory.idalavye.com.wordmemory.fragments.homepage.BottomNavigationDrawerFragment;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.ExercisesFragment;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.WordsListingFragment;
 
@@ -102,7 +103,9 @@ public class HomePageActivity extends AppCompatActivity {
         bar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMessage("NavigationMenu");
+
+                BottomNavigationDrawerFragment drawerFragment = BottomNavigationDrawerFragment.getInstance();
+                drawerFragment.show(getSupportFragmentManager(),"Custom Button Sheet");
             }
         });
 
