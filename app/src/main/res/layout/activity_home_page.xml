@@ -76,79 +76,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/add_new_word_button"
             style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:textSize="17sp"
+            app:backgroundTint="@android:color/holo_red_light"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:text="Ekle"
             app:icon="@drawable/ic_add"/>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/added_words"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:chipIcon="@drawable/ic_add"
-                android:checked="true"
-                android:text="Hello - Merhaba"/>
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:chipIcon="@drawable/ic_add"
-                android:checked="true"
-                android:text="Merhaba"/>
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:chipIcon="@drawable/ic_add"
-                android:checked="true"
-                android:text="Merhaba"/>
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:chipIcon="@drawable/ic_add"
-                android:checked="true"
-                android:text="Merhaba"/>
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:chipIcon="@drawable/ic_add"
-                android:checked="true"
-                android:text="Merhaba"/>
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:chipIcon="@drawable/ic_add"
-                android:checked="true"
-                android:text="Merhaba"/>
-
-        </com.google.android.material.chip.ChipGroup>
-
-
-
 
 
     </LinearLayout>

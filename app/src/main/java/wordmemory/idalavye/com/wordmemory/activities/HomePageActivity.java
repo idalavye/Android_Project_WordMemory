@@ -1,5 +1,6 @@
 package wordmemory.idalavye.com.wordmemory.activities;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;

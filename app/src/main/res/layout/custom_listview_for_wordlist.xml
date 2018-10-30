@@ -9,21 +9,10 @@
     android:orientation="horizontal">
 
     <!--<com.github.lzyzsd.circleprogress.DonutProgress-->
-        <!--android:layout_width="56dp"-->
-        <!--android:layout_height="56dp"-->
-        <!--app:donut_progress="30"/>-->
+    <!--android:layout_width="56dp"-->
+    <!--android:layout_height="56dp"-->
+    <!--app:donut_progress="30"/>-->
 
-    <com.github.lzyzsd.circleprogress.ArcProgress
-        android:id="@+id/word_progress"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        app:arc_text_size="19sp"
-        android:layout_marginLeft="8dp"
-        app:arc_finished_color="@android:color/holo_blue_dark"
-        app:arc_unfinished_color="@android:color/darker_gray"
-        app:arc_progress="55"
-        app:arc_bottom_text="Öğrenme"
-        app:arc_text_color="@android:color/holo_green_dark"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/word_image"
@@ -33,7 +22,7 @@
         android:src="@drawable/foto" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:orientation="vertical">
@@ -62,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="16/9/18"
+                android:visibility="gone"
                 android:textColor="@android:color/holo_green_light"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -89,5 +79,17 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <com.github.lzyzsd.circleprogress.ArcProgress
+        android:id="@+id/word_progress"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="8dp"
+        app:arc_bottom_text="Öğrenme"
+        app:arc_finished_color="@android:color/holo_blue_dark"
+        app:arc_progress="55"
+        app:arc_text_color="@android:color/holo_green_dark"
+        app:arc_text_size="19sp"
+        app:arc_unfinished_color="@android:color/darker_gray" />
 
 </LinearLayout>
