@@ -8,6 +8,7 @@
     tools:context=".activities.HomePageActivity">
 
     <com.google.android.material.tabs.TabLayout
+        app:tabRippleColor="@android:color/black"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -166,6 +167,9 @@
         app:fabCradleRoundedCornerRadius="24dp"
         app:fabCradleVerticalOffset="12dp"
 
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
+
 
         app:navigationIcon="@drawable/ic_menu"></com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -174,7 +178,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/design_default_color_primary_dark"
+        android:backgroundTint="@android:color/background_dark"
         android:elevation="0dp"
         android:src="@drawable/ic_add"
         app:layout_anchor="@id/bar" />

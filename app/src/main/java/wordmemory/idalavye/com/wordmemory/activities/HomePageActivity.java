@@ -71,7 +71,7 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (fbModeCenter) {
                     bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
-                    fab.setImageResource(R.drawable.ic_arrow);
+                    fab.setImageResource(R.drawable.ic_reply);
                     fbModeCenter = false;
 
 

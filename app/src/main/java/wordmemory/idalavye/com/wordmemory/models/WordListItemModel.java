@@ -4,13 +4,24 @@ public class WordListItemModel {
     private String word;
     private String word_mean;
     private String date;
+    private int word_progress;
     private int img;
 
-    public WordListItemModel(String word, String word_mean, String date, int img) {
+    public WordListItemModel(String word, String word_mean, String date, int img,int word_progress) {
         this.word = word;
         this.word_mean = word_mean;
         this.date = date;
         this.img = img;
+        this.word_progress = word_progress;
+
+    }
+
+    public int getWord_progress() {
+        return word_progress;
+    }
+
+    public void setWord_progress(int word_progress) {
+        this.word_progress = word_progress;
     }
 
     public String getWord() {

@@ -41,24 +41,24 @@ public class WordsListingFragment extends Fragment {
     private ArrayList<WordListItemModel> getArrayList() {
         ArrayList<WordListItemModel> list = new ArrayList<>();
 
-        list.add(new WordListItemModel("hello", "merhaba", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("car", "araba", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("page", "sayga", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("private", "gizli", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("public", "genel", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("word", "kelime", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("hello", "merhaba", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("car", "araba", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("page", "sayga", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("private", "gizli", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("public", "genel", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("word", "kelime", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("hello", "merhaba", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("car", "araba", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("page", "sayga", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("private", "gizli", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("public", "genel", "10/28/2018", R.drawable.foto));
-        list.add(new WordListItemModel("word", "kelime", "10/28/2018", R.drawable.foto));
+        list.add(new WordListItemModel("hello", "merhaba", "10/28/2018", R.drawable.foto,70));
+        list.add(new WordListItemModel("car", "araba", "10/28/2018", R.drawable.foto,15));
+        list.add(new WordListItemModel("page", "sayga", "10/28/2018", R.drawable.foto,80));
+        list.add(new WordListItemModel("private", "gizli", "10/28/2018", R.drawable.foto,40));
+        list.add(new WordListItemModel("public", "genel", "10/28/2018", R.drawable.foto,17));
+        list.add(new WordListItemModel("word", "kelime", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("hello", "merhaba", "10/28/2018", R.drawable.foto,78));
+        list.add(new WordListItemModel("car", "araba", "10/28/2018", R.drawable.foto,12));
+        list.add(new WordListItemModel("page", "sayga", "10/28/2018", R.drawable.foto,0));
+        list.add(new WordListItemModel("private", "gizli", "10/28/2018", R.drawable.foto,1));
+        list.add(new WordListItemModel("public", "genel", "10/28/2018", R.drawable.foto,78));
+        list.add(new WordListItemModel("word", "kelime", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("hello", "merhaba", "10/28/2018", R.drawable.foto,33));
+        list.add(new WordListItemModel("car", "araba", "10/28/2018", R.drawable.foto,56));
+        list.add(new WordListItemModel("page", "sayga", "10/28/2018", R.drawable.foto,14));
+        list.add(new WordListItemModel("private", "gizli", "10/28/2018", R.drawable.foto,78));
+        list.add(new WordListItemModel("public", "genel", "10/28/2018", R.drawable.foto,65));
+        list.add(new WordListItemModel("word", "kelime", "10/28/2018", R.drawable.foto,54));
 
         return list;
     }

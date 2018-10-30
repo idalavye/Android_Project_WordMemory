@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.github.lzyzsd.circleprogress.DonutProgress;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -41,6 +44,7 @@ public class WordsListViewAdapter extends ArrayAdapter<WordListItemModel> {
         TextView word_mean = convertView.findViewById(R.id.learning_word_mean);
         TextView date = convertView.findViewById(R.id.word_adding_date);
         ImageView image = convertView.findViewById(R.id.word_image);
+        ArcProgress progress = (ArcProgress) convertView.findViewById(R.id.word_progress);
 
         image.setImageDrawable(activity.getResources().getDrawable(
                 arrayList.get(position).getImg()
@@ -48,6 +52,7 @@ public class WordsListViewAdapter extends ArrayAdapter<WordListItemModel> {
         word.setText(arrayList.get(position).getWord());
         word_mean.setText(arrayList.get(position).getWord_mean());
         date.setText(arrayList.get(position).getDate());
+        progress.setProgress(arrayList.get(position).getWord_progress());
 
         Animation animation = AnimationUtils.loadAnimation(activity, android.R.anim.slide_in_left);
         convertView.startAnimation(animation);
