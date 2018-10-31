@@ -42,7 +42,7 @@ public class LoginPageActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
     private Button loginButton;
-    private TextView user_name,user_email;
+    private TextView user_name, user_email;
     private ImageView user_image;
 
     @Override
@@ -105,7 +105,6 @@ public class LoginPageActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-
             updateUI();
         }
     }

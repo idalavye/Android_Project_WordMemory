@@ -147,12 +147,9 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public boolean exit_app(MenuItem menuItem){
-
         mAuth.signOut();
         LoginManager.getInstance().logOut();
-
         updateUI();
-        
         return true;
     }
 
@@ -165,13 +162,9 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if (currentUser == null){
             updateUI();
-        }else{
-
         }
     }
 }

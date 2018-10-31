@@ -5,7 +5,6 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    android:gravity="center"
     android:orientation="horizontal">
 
     <!--<com.github.lzyzsd.circleprogress.DonutProgress-->
@@ -17,14 +16,16 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/word_image"
         android:layout_width="52dp"
+        android:layout_gravity="center_vertical|start"
         android:layout_height="52dp"
         android:layout_margin="16dp"
         android:src="@drawable/foto" />
 
     <LinearLayout
-        android:layout_width="230dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_gravity="center_vertical|start"
         android:orientation="vertical">
 
         <LinearLayout
@@ -80,16 +81,28 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.github.lzyzsd.circleprogress.ArcProgress
-        android:id="@+id/word_progress"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="8dp"
-        app:arc_bottom_text="Öğrenme"
-        app:arc_finished_color="@android:color/holo_blue_dark"
-        app:arc_progress="55"
-        app:arc_text_color="@android:color/holo_green_dark"
-        app:arc_text_size="19sp"
-        app:arc_unfinished_color="@android:color/darker_gray" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:gravity="right"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal">
+
+        <com.github.lzyzsd.circleprogress.ArcProgress
+            android:id="@+id/word_progress"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            app:arc_bottom_text="Öğrenme"
+            app:arc_finished_color="@android:color/holo_blue_dark"
+            app:arc_progress="55"
+            app:arc_text_color="@android:color/holo_green_dark"
+            app:arc_text_size="19sp"
+            app:arc_unfinished_color="@android:color/darker_gray" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
