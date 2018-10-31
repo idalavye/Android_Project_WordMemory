@@ -9,6 +9,7 @@
         <item
             android:id="@+id/exit"
             android:icon="@drawable/ic_close_black_24dp"
+            android:onClick="exit_app"
             android:title="Çıkış Yap" />
     </group>
 

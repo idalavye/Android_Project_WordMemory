@@ -1,6 +1,7 @@
 package wordmemory.idalavye.com.wordmemory.activities;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,12 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -31,6 +36,8 @@ public class HomePageActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private LinearLayout addNewWordLayout;
     private boolean fbModeCenter = true;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +125,8 @@ public class HomePageActivity extends AppCompatActivity {
         setSupportActionBar(bar);
         this.fab = findViewById(R.id.fab);
         this.addNewWordLayout = findViewById(R.id.add_new_word);
+        mAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
@@ -135,4 +144,22 @@ public class HomePageActivity extends AppCompatActivity {
     private void getMessage(String message) {
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    public boolean exit_app(MenuItem menuItem){
+
+        mAuth.signOut();
+        LoginManager.getInstance().logOut();
+
+        updateUI();
+        
+        return true;
+    }
+
+    private void updateUI() {
+        Intent accountIntent = new Intent(getApplicationContext(),LoginPageActivity.class);
+        startActivity(accountIntent);
+        finish();
+    }
+
+
 }

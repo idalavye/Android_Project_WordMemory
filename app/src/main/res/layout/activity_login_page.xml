@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E9F7EF"
     android:padding="16dp"
-    android:background="#BFC9CA"
     tools:context=".activities.LoginPageActivity">
 
     <ImageView
@@ -27,8 +27,8 @@
         android:layout_marginTop="16dp"
         android:text="WORD MEMORY"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +40,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Kelime Öğrenmek Artık Daha Kolay"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="#909497"
         android:textSize="20sp"
+        android:textStyle="bold"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -50,15 +51,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/connect_with_google"
+        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        app:icon="@drawable/google_icon"
-        app:iconSize="26dp"
         android:layout_marginBottom="16dp"
         android:text="Google ile Giriş Yap"
+        app:icon="@drawable/google_icon"
+        app:iconSize="26dp"
         app:layout_constraintBottom_toTopOf="@+id/login_with_facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
@@ -71,6 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
+        android:height="60dp"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:text="Facebook ile Giriş Yap"
         app:icon="@drawable/facebook_icon"
@@ -86,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:height="60dp"
         android:backgroundTint="@android:color/transparent"
         android:text="Email İle Giriş Yap"
         android:textColor="@android:color/holo_blue_dark"
@@ -94,4 +97,4 @@
         app:iconTintMode="multiply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
