@@ -26,14 +26,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Arrays;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.security.FacebookLogin;
@@ -41,16 +34,18 @@ import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class LoginPageActivity extends AppCompatActivity {
 
-    private Button loginButton;
+    private Button facebook_loginButton;
+    private Button google_loginButton;
+    private Button email_loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        loginButton = findViewById(R.id.login_with_facebook);
+        init();
 
-        FacebookLogin.facebook_login(loginButton, LoginPageActivity.this);
+        FacebookLogin.facebook_login(facebook_loginButton, LoginPageActivity.this);
     }
 
     @Override
@@ -80,5 +75,10 @@ public class LoginPageActivity extends AppCompatActivity {
         finish();
     }
 
+    private void init() {
+        facebook_loginButton = findViewById(R.id.login_with_facebook);
+        google_loginButton = findViewById(R.id.connect_with_google);
+        email_loginButton = findViewById(R.id.login_with_email);
+    }
 
 }

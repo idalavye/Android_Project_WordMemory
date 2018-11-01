@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -12,13 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.adapters.ExpandableListViewAdapter;
 import wordmemory.idalavye.com.wordmemory.adapters.WordsListViewAdapter;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 
 public class WordsListingFragment extends Fragment {
 
-    public static ListView listView;
-    public static WordsListViewAdapter adapter;
+    public static ExpandableListView listView;
+    public static ExpandableListViewAdapter adapter;
+    private int lastExpandedPosition = -1;
 
     @Nullable
     @Override
@@ -29,13 +32,23 @@ public class WordsListingFragment extends Fragment {
 
         listView.setNestedScrollingEnabled(true);
         listView.setAdapter(adapter);
+        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
+                    listView.collapseGroup(lastExpandedPosition);
+                }
+
+                lastExpandedPosition = groupPosition;
+            }
+        });
 
         return view;
     }
 
     private void init(View view) {
         this.listView = view.findViewById(R.id.words_listView);
-        adapter = new WordsListViewAdapter(getActivity(), getArrayList());
+        adapter = new ExpandableListViewAdapter(getActivity(), getArrayList());
     }
 
     private ArrayList<WordListItemModel> getArrayList() {

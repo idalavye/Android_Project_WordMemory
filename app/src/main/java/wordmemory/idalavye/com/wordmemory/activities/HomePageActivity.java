@@ -28,6 +28,7 @@ import wordmemory.idalavye.com.wordmemory.adapters.HomePagePagerAdapter;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.BottomNavigationDrawerFragment;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.ExercisesFragment;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.WordsListingFragment;
+import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -37,7 +38,6 @@ public class HomePageActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private LinearLayout addNewWordLayout;
     private boolean fbModeCenter = true;
-    private FirebaseAuth mAuth;
 
 
     @Override
@@ -126,7 +126,7 @@ public class HomePageActivity extends AppCompatActivity {
         setSupportActionBar(bar);
         this.fab = findViewById(R.id.fab);
         this.addNewWordLayout = findViewById(R.id.add_new_word);
-        mAuth = FirebaseAuth.getInstance();
+        Login.mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -147,7 +147,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public boolean exit_app(MenuItem menuItem){
-        mAuth.signOut();
+        Login.mAuth.signOut();
         LoginManager.getInstance().logOut();
         updateUI();
         return true;
@@ -162,7 +162,7 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = Login.mAuth.getCurrentUser();
         if (currentUser == null){
             updateUI();
         }

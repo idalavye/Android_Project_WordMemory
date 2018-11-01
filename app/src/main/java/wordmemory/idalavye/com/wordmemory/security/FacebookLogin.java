@@ -30,8 +30,6 @@ import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class FacebookLogin {
 
-    public static boolean login = false;
-
     public static void facebook_login(final View loginButton, final Activity activity) {
         // Initialize Firebase Auth
         Login.mAuth = FirebaseAuth.getInstance();
@@ -44,7 +42,6 @@ public class FacebookLogin {
             public void onClick(View v) {
 
                 loginButton.setEnabled(false);
-
                 LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("email", "public_profile"));
                 LoginManager.getInstance().registerCallback(Login.mCallbackManager, new FacebookCallback<LoginResult>() {
                     @Override
