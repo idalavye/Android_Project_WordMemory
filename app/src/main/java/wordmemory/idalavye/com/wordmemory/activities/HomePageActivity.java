@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -37,7 +39,9 @@ public class HomePageActivity extends AppCompatActivity {
     private BottomAppBar bar;
     private FloatingActionButton fab;
     private LinearLayout addNewWordLayout;
+    private MaterialSearchView searchView;
     private boolean fbModeCenter = true;
+    private boolean searchViewOpen = false;
 
 
     @Override
@@ -127,20 +131,27 @@ public class HomePageActivity extends AppCompatActivity {
         this.fab = findViewById(R.id.fab);
         this.addNewWordLayout = findViewById(R.id.add_new_word);
         Login.mAuth = FirebaseAuth.getInstance();
-
+        searchView = findViewById(R.id.search_word);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.home_page_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.m_search);
+        searchView.setMenuItem(item);
+
+
+
+//        MenuItem item = menu.findItem(R.id.m_search);
+//        searchView.setMenuItem(item);
+//        searchView.setHint("Arama");
+//        searchView.setHintTextColor(R.color.com_facebook_blue);
+
         return true;
     }
 
-    public boolean search(MenuItem menuItem) {
-        getMessage("Search");
-        return true;
-    }
 
     private void getMessage(String message) {
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
@@ -150,6 +161,11 @@ public class HomePageActivity extends AppCompatActivity {
         Login.mAuth.signOut();
         LoginManager.getInstance().logOut();
         updateUI();
+        return true;
+    }
+
+    public boolean search_word(MenuItem item){
+        fab.hide();
         return true;
     }
 
@@ -165,6 +181,15 @@ public class HomePageActivity extends AppCompatActivity {
         FirebaseUser currentUser = Login.mAuth.getCurrentUser();
         if (currentUser == null){
             updateUI();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        } else {
+            super.onBackPressed();
         }
     }
 }

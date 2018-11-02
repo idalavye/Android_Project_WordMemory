@@ -8,17 +8,17 @@
     tools:context=".activities.HomePageActivity">
 
     <com.google.android.material.tabs.TabLayout
-        app:tabRippleColor="@android:color/black"
-        app:tabSelectedTextColor="@android:color/white"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:tabTextColor="@android:color/darker_gray"
         android:backgroundTint="@color/design_default_color_primary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabRippleColor="@android:color/black"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@android:color/darker_gray" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
@@ -38,41 +38,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="25sp"
             android:text="Yeni Kelime Ekle:"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/darker_gray"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:textColorHint="@android:color/holo_blue_dark"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            android:textColorHint="@android:color/holo_blue_dark">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:hint="Kelime" />
+                android:hint="Kelime"
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:textColorHint="@android:color/holo_blue_dark"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            android:textColorHint="@android:color/holo_blue_dark">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:hint="Kelimenin Anlamı"/>
+                android:hint="Kelimenin Anlamı"
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -82,12 +82,12 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Ekle"
             android:textSize="17sp"
             app:backgroundTint="@android:color/holo_red_light"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Ekle"
-            app:icon="@drawable/ic_add"/>
+            app:icon="@drawable/ic_add" />
 
 
     </LinearLayout>
@@ -109,8 +109,16 @@
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
 
+        app:navigationIcon="@drawable/ic_menu">
 
-        app:navigationIcon="@drawable/ic_menu"></com.google.android.material.bottomappbar.BottomAppBar>
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Arama">
+
+        </com.miguelcatalan.materialsearchview.MaterialSearchView>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

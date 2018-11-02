@@ -37,6 +37,7 @@
 
         <!--Row 1-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/find_correct_translate"
             app:cardBackgroundColor="@android:color/white"
             android:layout_width="0dp"
             android:layout_height="0dp"

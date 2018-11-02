@@ -114,7 +114,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "asdfasf", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Edit button clicked", Toast.LENGTH_SHORT).show();
             }
         });
 

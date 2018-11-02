@@ -75,12 +75,15 @@ public class FacebookLogin {
                     @Override
                     public void onCancel() {
                         Log.d("FACELOG", "facebook:onCancel");
+                        loginButton.setEnabled(true);
                         // ...
                     }
 
                     @Override
                     public void onError(FacebookException error) {
                         Log.d("FACELOG", "facebook:onError", error);
+                        Toast.makeText(activity, "Giriş Yapılamadı. Lütfen İnternet bağlantınızı kontrol ediniz.", Toast.LENGTH_LONG).show();
+                        loginButton.setEnabled(true);
                         // ...
                     }
                 });

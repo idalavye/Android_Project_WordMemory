@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#29B5B6"
+    tools:context=".activities.FindCorrectTranslateExerciseActiviy">
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/find_ct_pb"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rcBackgroundColor="#C3CAD0"
+        app:rcBackgroundPadding="5dp"
+        app:rcMax="100"
+        app:rcProgress="75"
+        app:rcProgressColor="#DBCE08"
+        app:rcRadius="12dp"
+        app:rcReverse="false"
+        app:rcSecondaryProgress="90" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintTop_toBottomOf="@+id/find_ct_pb">
+
+        <TextView
+            android:id="@+id/find_ct_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="32sp" />
+
+    </LinearLayout>
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:columnCount="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:rowCount="4">
+
+        <Button
+            android:id="@+id/find_ct_btn1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:onClick="choosingAnswer"
+            android:layout_marginEnd="8dp"
+            android:tag="0"
+            android:layout_marginBottom="8dp"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/find_ct_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:tag="1"
+            android:onClick="choosingAnswer"
+            android:layout_marginBottom="8dp"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/find_ct_btn3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:onClick="choosingAnswer"
+            android:tag="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Button" />
+
+
+        <Button
+            android:id="@+id/find_ct_btn4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="choosingAnswer"
+            android:tag="3"
+            android:layout_marginBottom="8dp"
+            android:text="Button" />
+    </androidx.gridlayout.widget.GridLayout>
+
+
+
+
+
+
+
+    <ImageView
+        android:id="@+id/find_correct_translate_close_page_iw"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/find_ct_pb"
+        app:srcCompat="@drawable/ic_close_black_24dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
