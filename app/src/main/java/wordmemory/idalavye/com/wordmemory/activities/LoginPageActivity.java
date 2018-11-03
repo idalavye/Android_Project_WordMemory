@@ -15,16 +15,12 @@ import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class LoginPageActivity extends AppCompatActivity {
 
-    private Button facebook_loginButton;
-    private Button google_loginButton;
-    private Button email_loginButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        init();
+        Button facebook_loginButton = findViewById(R.id.login_with_facebook);
 
         FacebookLogin.facebook_login(facebook_loginButton, LoginPageActivity.this);
     }
@@ -55,11 +51,4 @@ public class LoginPageActivity extends AppCompatActivity {
         startActivity(accountIntent);
         finish();
     }
-
-    private void init() {
-        facebook_loginButton = findViewById(R.id.login_with_facebook);
-        google_loginButton = findViewById(R.id.connect_with_google);
-        email_loginButton = findViewById(R.id.login_with_email);
-    }
-
 }

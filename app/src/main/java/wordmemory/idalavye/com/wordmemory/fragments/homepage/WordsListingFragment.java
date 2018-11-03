@@ -5,17 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.adapters.ExpandableListViewAdapter;
-import wordmemory.idalavye.com.wordmemory.adapters.WordsListViewAdapter;
-import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Common;
 
 public class WordsListingFragment extends Fragment {
@@ -36,7 +31,7 @@ public class WordsListingFragment extends Fragment {
         listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
+                if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition) {
                     listView.collapseGroup(lastExpandedPosition);
                 }
 
@@ -48,7 +43,7 @@ public class WordsListingFragment extends Fragment {
     }
 
     private void init(View view) {
-        this.listView = view.findViewById(R.id.words_listView);
+        listView = view.findViewById(R.id.words_listView);
         adapter = new ExpandableListViewAdapter(getActivity(), Common.getArrayList());
     }
 
