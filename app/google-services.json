@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "499626978715",
+    "firebase_url": "https://wordmemory-25b2b.firebaseio.com",
+    "project_id": "wordmemory-25b2b",
+    "storage_bucket": "wordmemory-25b2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499626978715:android:0ecdbc855e35bf69",
+        "android_client_info": {
+          "package_name": "wordmemory.idalavye.com.wordmemory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499626978715-um6bqcto6uemna0gfbob9c7q9qj248ir.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "wordmemory.idalavye.com.wordmemory",
+            "certificate_hash": "8903bc6f700a357fbaf27c30f8f7af11ed0d5a98"
+          }
+        },
+        {
+          "client_id": "499626978715-baqehuq46qhjaurvvq2s03v180aepism.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWTwpAjIvSjguWCHHEO-GVBeIr4KlaId8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499626978715-baqehuq46qhjaurvvq2s03v180aepism.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
