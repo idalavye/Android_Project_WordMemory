@@ -75,6 +75,8 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
             listView = inflater.inflate(R.layout.custom_listview_expandable_for_wordlist, parent, false)
 
             viewHolder = AnimationViewHolder(AnimationUtils.loadAnimation(context, android.R.anim.fade_in))
+
+            listView.tag = viewHolder
         } else
             viewHolder = listView.tag as AnimationViewHolder
 
