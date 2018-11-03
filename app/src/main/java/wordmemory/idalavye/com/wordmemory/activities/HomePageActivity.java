@@ -139,14 +139,14 @@ public class HomePageActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean exit_app() {
+    public boolean exitApp(MenuItem item) {
         Login.mAuth.signOut();
         LoginManager.getInstance().logOut();
         updateUI();
         return true;
     }
 
-    public boolean search_word() {
+    public boolean searchWord(MenuItem item) {
         fab.hide();
         return true;
     }
