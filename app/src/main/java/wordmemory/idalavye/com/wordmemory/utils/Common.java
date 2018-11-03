@@ -1,5 +1,8 @@
 package wordmemory.idalavye.com.wordmemory.utils;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 import java.util.ArrayList;
 
 import wordmemory.idalavye.com.wordmemory.R;
