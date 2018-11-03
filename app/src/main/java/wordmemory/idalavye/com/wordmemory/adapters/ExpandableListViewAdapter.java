@@ -1,8 +1,6 @@
 package wordmemory.idalavye.com.wordmemory.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +16,6 @@ import com.github.lzyzsd.circleprogress.ArcProgress;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 
@@ -114,6 +110,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO Delete this test toast
                 Toast.makeText(v.getContext(), "Edit button clicked", Toast.LENGTH_SHORT).show();
             }
         });

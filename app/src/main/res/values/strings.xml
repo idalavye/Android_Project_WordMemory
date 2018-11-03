@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">WordMemory</string>
-    <string name="facebook_app_id">730261727367208</string>
-    <string name="fb_login_protocol_scheme">fb730261727367208</string>
+    <string name="facebook_app_id" translatable="false">730261727367208</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb730261727367208</string>
+    <string name="all_words_were_studied">You have studied all the words. Congratulations!</string>
+    <string name="right_answer">Right answer</string>
+    <string name="my_words">My words</string>
+    <string name="my_exercises">My exercises</string>
+    <string name="logged_in">You have successfully logged in.</string>
 
 </resources>

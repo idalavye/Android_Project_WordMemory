@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WordMemory</string>
+    <string name="all_words_were_studied">Tüm kelimeleri çalıştınız. Tebrikler!</string>
+    <string name="right_answer">Doğru cevap</string>
+    <string name="my_words">Kelimelerim</string>
+    <string name="my_exercises">Alıştırmalarım</string>
+    <string name="logged_in">Başarıyla giriş yaptınız.</string>
+
+</resources>

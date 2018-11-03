@@ -1,11 +1,5 @@
 package wordmemory.idalavye.com.wordmemory.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import wordmemory.idalavye.com.wordmemory.R;
-import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
-import wordmemory.idalavye.com.wordmemory.utils.Common;
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +10,12 @@ import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+
+import androidx.appcompat.app.AppCompatActivity;
+import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.Common;
 
 public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
@@ -66,7 +64,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
     public void choosingAnswer(View view) {
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
-            Toast.makeText(getApplicationContext(), "Doğru Cevap", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), String.valueOf(R.string.right_answer), Toast.LENGTH_SHORT).show();
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             newQuestion();
@@ -101,14 +99,14 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
             btn3.setText(answers.get(2));
             btn4.setText(answers.get(3));
 
-        }else{
+        } else {
 
             btn1.setEnabled(false);
             btn2.setEnabled(false);
             btn3.setEnabled(false);
             btn4.setEnabled(false);
 
-            word.setText("Tüm Kelimelerinizi Çalıştınız. \n Tebrikler.:)");
+            word.setText(String.valueOf(R.string.all_words_were_studied));
         }
     }
 }

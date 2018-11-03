@@ -1,6 +1,5 @@
 package wordmemory.idalavye.com.wordmemory.activities;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,10 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
@@ -51,8 +47,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         init();
 
-        tabLayout.addTab(tabLayout.newTab().setText("Kelimelerim"));
-        tabLayout.addTab(tabLayout.newTab().setText("Alıştırmalar"));
+        tabLayout.addTab(tabLayout.newTab().setText(String.valueOf(R.string.my_words)));
+        tabLayout.addTab(tabLayout.newTab().setText(String.valueOf(R.string.my_exercises)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
