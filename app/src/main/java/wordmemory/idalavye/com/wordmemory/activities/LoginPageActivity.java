@@ -45,7 +45,7 @@ public class LoginPageActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        Toast.makeText(LoginPageActivity.this, String.valueOf(R.string.logged_in), Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginPageActivity.this, getString(R.string.logged_in), Toast.LENGTH_SHORT).show();
 
         Intent accountIntent = new Intent(getApplicationContext(), HomePageActivity.class);
         startActivity(accountIntent);

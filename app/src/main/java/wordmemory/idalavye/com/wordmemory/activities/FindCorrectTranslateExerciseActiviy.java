@@ -64,7 +64,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
     public void choosingAnswer(View view) {
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
-            Toast.makeText(getApplicationContext(), String.valueOf(R.string.right_answer), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.right_answer), Toast.LENGTH_SHORT).show();
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             newQuestion();
@@ -106,7 +106,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
             btn3.setEnabled(false);
             btn4.setEnabled(false);
 
-            word.setText(String.valueOf(R.string.all_words_were_studied));
+            word.setText(getString(R.string.all_words_were_studied));
         }
     }
 }

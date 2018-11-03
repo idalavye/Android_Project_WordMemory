@@ -44,8 +44,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         init();
 
-        tabLayout.addTab(tabLayout.newTab().setText(String.valueOf(R.string.my_words)));
-        tabLayout.addTab(tabLayout.newTab().setText(String.valueOf(R.string.my_exercises)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_words)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_exercises)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
