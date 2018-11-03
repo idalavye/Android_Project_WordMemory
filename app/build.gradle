@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -40,5 +43,3 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.5'
 }
-
-apply plugin: 'com.google.gms.google-services'
