@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -37,8 +36,6 @@ public class HomePageActivity extends AppCompatActivity {
     private LinearLayout addNewWordLayout;
     private MaterialSearchView searchView;
     private boolean fbModeCenter = true;
-    private boolean searchViewOpen = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,7 @@ public class HomePageActivity extends AppCompatActivity {
         final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -69,7 +66,8 @@ public class HomePageActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });
+        };
+        tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
         final Animation animationSlideInLeft = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.slide_in_left);
         final Animation animationForNewWordPage = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
@@ -113,7 +111,7 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 BottomNavigationDrawerFragment drawerFragment = BottomNavigationDrawerFragment.getInstance();
-                drawerFragment.show(getSupportFragmentManager(),"Custom Button Sheet");
+                drawerFragment.show(getSupportFragmentManager(), "Custom Button Sheet");
             }
         });
 
@@ -138,35 +136,23 @@ public class HomePageActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.m_search);
         searchView.setMenuItem(item);
 
-
-
-//        MenuItem item = menu.findItem(R.id.m_search);
-//        searchView.setMenuItem(item);
-//        searchView.setHint("Arama");
-//        searchView.setHintTextColor(R.color.com_facebook_blue);
-
         return true;
     }
 
-
-    private void getMessage(String message) {
-        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    public boolean exit_app(MenuItem menuItem){
+    public boolean exit_app() {
         Login.mAuth.signOut();
         LoginManager.getInstance().logOut();
         updateUI();
         return true;
     }
 
-    public boolean search_word(MenuItem item){
+    public boolean search_word() {
         fab.hide();
         return true;
     }
 
     private void updateUI() {
-        Intent accountIntent = new Intent(getApplicationContext(),LoginPageActivity.class);
+        Intent accountIntent = new Intent(getApplicationContext(), LoginPageActivity.class);
         startActivity(accountIntent);
         finish();
     }
@@ -175,7 +161,7 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = Login.mAuth.getCurrentUser();
-        if (currentUser == null){
+        if (currentUser == null) {
             updateUI();
         }
     }
