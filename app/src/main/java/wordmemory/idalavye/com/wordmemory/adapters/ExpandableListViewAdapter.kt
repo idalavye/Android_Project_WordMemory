@@ -94,7 +94,7 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         return wordList.size
     }
 
-    // These data classes are used to cache image components.
+    // These data classes are used to cache view components.
     private data class GroupViewHolder(
             val wordTextView: TextView,
             val wordMeanTextView: TextView,
