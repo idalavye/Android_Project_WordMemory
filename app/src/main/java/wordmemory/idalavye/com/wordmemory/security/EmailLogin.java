@@ -28,4 +28,13 @@ public class EmailLogin {
         });
     }
 
+    public static void email_btnRegister(final View btnRegister, final Activity activity) {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //firebase email login
+            }
+        });
+    }
+
 }
