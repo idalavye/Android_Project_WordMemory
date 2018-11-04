@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="colorPrimary">#008577</color>
-  <color name="colorPrimaryDark">#00574B</color>
+  <color name="colorPrimaryDark">#6200EE</color>
   <color name="colorAccent">#D81B60</color>
   <color name="correctAnswer">#08F09A</color>
   <color name="questionColor">#F5A60B</color>
   <color name="wrongAnswer">#E80F29</color>
+  <color name="exerciseBackgroundColor">#29B5B6</color>
+  <color name="loginPageBackgroundColor">#E9F7EF</color>
 </resources>

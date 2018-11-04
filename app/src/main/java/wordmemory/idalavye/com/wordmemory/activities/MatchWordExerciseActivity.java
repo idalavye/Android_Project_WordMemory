@@ -1,6 +1,7 @@
 package wordmemory.idalavye.com.wordmemory.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
 
 import android.os.Bundle;
@@ -16,6 +17,7 @@ public class MatchWordExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_word_exercise);
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
 
         init();
 
