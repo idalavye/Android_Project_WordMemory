@@ -42,6 +42,7 @@
         </activity>
         <activity android:name=".activities.FindCorrectTranslateExerciseActiviy" />
         <activity android:name=".activities.FindCorrectWorldMeanExerciseActivity" />
+        <activity android:name=".activities.RegisterForEmailPageActivity"></activity>
     </application>
 
 </manifest>
