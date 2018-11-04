@@ -18,6 +18,13 @@ public class Common {
         list.add(new WordListItemModel("private", "gizli", "10/28/2018", R.drawable.foto,40));
         list.add(new WordListItemModel("public", "genel", "10/28/2018", R.drawable.foto,17));
         list.add(new WordListItemModel("word", "kelime", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("settings", "ayarlar", "10/28/2018", R.drawable.foto,45));
+        list.add(new WordListItemModel("application", "uygulama", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("store", "mağaza", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("user", "kullanıcı", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("sunday", "pazar", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("data", "veri", "10/28/2018", R.drawable.foto,99));
+        list.add(new WordListItemModel("start", "başla", "10/28/2018", R.drawable.foto,99));
        return list;
     }
 }

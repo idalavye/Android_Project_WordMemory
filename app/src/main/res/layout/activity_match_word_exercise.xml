@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#29B5B6"
+    tools:context=".activities.MatchWordExerciseActivity">
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/match_word_pb"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rcBackgroundColor="#C3CAD0"
+        app:rcBackgroundPadding="5dp"
+        app:rcMax="100"
+        app:rcProgress="75"
+        app:rcProgressColor="#DBCE08"
+        app:rcRadius="12dp"
+        app:rcReverse="false"
+        app:rcSecondaryProgress="90" />
+
+    <ImageView
+        android:id="@+id/match_word_close_iw"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/match_word_pb"
+        app:srcCompat="@drawable/ic_close_black_24dp" />
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="465dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/find_correct_translate_close_page_cwm">
+
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:rowCount="8"
+            app:columnCount="1"
+            android:layout_margin="8dp">
+
+            <Button
+                android:id="@+id/match_word_btn1_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn2_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn3_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn4_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn5_left"
+                android:layout_width="match_parent"
+                android:onClick="matchWordClickLeftButtons"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn6_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn7_left"
+                android:layout_width="match_parent"
+                android:onClick="matchWordClickLeftButtons"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn8_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
+                android:text="Button" />
+
+        </androidx.gridlayout.widget.GridLayout>
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:rowCount="8"
+            app:columnCount="1"
+            android:layout_margin="8dp">
+
+            <Button
+                android:id="@+id/match_word_btn1_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn2_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn3_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn4_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn5_right"
+                android:layout_width="match_parent"
+                android:onClick="matchWordClickRightButtons"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn6_right"
+                android:layout_width="match_parent"
+                android:onClick="matchWordClickRightButtons"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn7_right"
+                android:layout_width="match_parent"
+                android:onClick="matchWordClickRightButtons"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/match_word_btn8_right"
+                android:layout_width="match_parent"
+                android:onClick="matchWordClickRightButtons"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+        </androidx.gridlayout.widget.GridLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
