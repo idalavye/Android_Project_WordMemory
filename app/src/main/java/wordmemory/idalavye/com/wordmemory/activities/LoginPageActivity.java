@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.security.EmailLogin;
 import wordmemory.idalavye.com.wordmemory.security.FacebookLogin;
 import wordmemory.idalavye.com.wordmemory.utils.Login;
 
@@ -21,8 +22,10 @@ public class LoginPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         Button facebook_loginButton = findViewById(R.id.login_with_facebook);
+        Button email_loginButton = findViewById(R.id.login_with_email);
 
         FacebookLogin.facebook_login(facebook_loginButton, LoginPageActivity.this);
+        EmailLogin.email_login(email_loginButton,LoginPageActivity.this);
     }
 
     @Override
