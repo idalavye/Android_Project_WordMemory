@@ -18,6 +18,7 @@ import java.util.Random;
 import androidx.appcompat.app.AppCompatActivity;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.Animations;
 import wordmemory.idalavye.com.wordmemory.utils.Common;
 
 public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
@@ -71,10 +72,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     public void choosingAnswer(View view){
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
-            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),android.R.anim.fade_in);
-            animation.setDuration(1500);
-
-            find_ct_word_layout.startAnimation(animation);
+            find_ct_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(),1500));
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             newQuestion();

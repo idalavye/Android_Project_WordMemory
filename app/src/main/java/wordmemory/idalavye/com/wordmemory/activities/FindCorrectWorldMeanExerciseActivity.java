@@ -18,6 +18,7 @@ import java.util.Random;
 import androidx.appcompat.app.AppCompatActivity;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.Animations;
 import wordmemory.idalavye.com.wordmemory.utils.Common;
 
 public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_correct_world_mean_exercise);
-        
+
         init();
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -68,17 +69,14 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
         find_cwm_word_layout = findViewById(R.id.find_cwm_word_layout);
     }
 
-    public void choosingAnswerCWM(View view){
+    public void choosingAnswerCWM(View view) {
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
-            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),android.R.anim.fade_in);
-            animation.setDuration(1500);
-
-            find_cwm_word_layout.startAnimation(animation);
+            find_cwm_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             newQuestion();
-        }else{
+        } else {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.wrongAnswer));
             view.setEnabled(false);
         }
@@ -99,7 +97,6 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
             ourWord = random.nextInt(questions.size());
             correct_answer_location = random.nextInt(4);
             answers.clear();
-
             word.setText(questions.get(ourWord).getWord_mean());
             for (int i = 0; i < 4; i++) {
                 if (i == correct_answer_location) {
@@ -117,14 +114,11 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
             btn2.setText(answers.get(1));
             btn3.setText(answers.get(2));
             btn4.setText(answers.get(3));
-
         } else {
-
             btn1.setEnabled(false);
             btn2.setEnabled(false);
             btn3.setEnabled(false);
             btn4.setEnabled(false);
-
             word.setText(getString(R.string.all_words_were_studied));
         }
     }
