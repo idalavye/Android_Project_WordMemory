@@ -40,7 +40,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.FindCorrectTranslateExerciseActiviy"></activity>
+        <activity android:name=".activities.FindCorrectTranslateExerciseActiviy" />
+        <activity android:name=".activities.FindCorrectWorldMeanExerciseActivity" />
+        <activity android:name=".activities.RegisterForEmailPageActivity" />
     </application>
 
 </manifest>

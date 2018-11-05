@@ -143,7 +143,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         MenuItem item = menu.findItem(R.id.m_search);
         searchView.setMenuItem(item);
-
         return true;
     }
 

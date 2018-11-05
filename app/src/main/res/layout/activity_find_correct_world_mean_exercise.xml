@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="#29B5B6"
-    tools:context=".activities.FindCorrectTranslateExerciseActiviy">
+    android:layout_height="match_parent"
+    tools:context=".activities.FindCorrectWorldMeanExerciseActivity">
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/find_ct_pb"
+        android:id="@+id/find_cwm_pb"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_margin="8dp"
@@ -25,17 +25,17 @@
 
 
     <LinearLayout
-        android:id="@+id/find_ct_word_layout"
+        android:id="@+id/find_cwm_word_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/answers_layout"
-        app:layout_constraintTop_toBottomOf="@+id/find_ct_pb">
+        app:layout_constraintBottom_toTopOf="@+id/answers_layout_cwm"
+        app:layout_constraintTop_toBottomOf="@+id/find_cwm_pb">
 
         <TextView
-            android:id="@+id/find_ct_word"
+            android:id="@+id/find_cwm_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -46,7 +46,7 @@
     </LinearLayout>
 
     <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/answers_layout"
+        android:id="@+id/answers_layout_cwm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -55,32 +55,32 @@
         app:rowCount="4">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/find_ct_btn1"
+            android:id="@+id/find_cwm_btn1"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
-            android:onClick="choosingAnswer"
+            android:onClick="choosingAnswerCWM"
             android:layout_marginEnd="8dp"
             android:tag="0"
             android:layout_marginBottom="8dp"
             android:text="Button" />
 
         <Button
-            android:id="@+id/find_ct_btn2"
+            android:id="@+id/find_cwm_btn2"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:tag="1"
-            android:onClick="choosingAnswer"
+            android:onClick="choosingAnswerCWM"
             android:layout_marginBottom="8dp"
             android:text="Button" />
 
         <Button
-            android:id="@+id/find_ct_btn3"
+            android:id="@+id/find_cwm_btn3"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:onClick="choosingAnswer"
+            android:onClick="choosingAnswerCWM"
             android:tag="2"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
@@ -89,12 +89,12 @@
 
 
         <Button
-            android:id="@+id/find_ct_btn4"
+            android:id="@+id/find_cwm_btn4"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:onClick="choosingAnswer"
+            android:onClick="choosingAnswerCWM"
             android:tag="3"
             android:layout_marginBottom="8dp"
             android:text="Button" />
@@ -102,14 +102,13 @@
 
 
     <ImageView
-        android:id="@+id/find_correct_translate_close_page_iw"
+        android:id="@+id/find_correct_translate_close_page_cwm"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/find_ct_pb"
+        app:layout_constraintTop_toBottomOf="@+id/find_cwm_pb"
         app:srcCompat="@drawable/ic_close_black_24dp" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
