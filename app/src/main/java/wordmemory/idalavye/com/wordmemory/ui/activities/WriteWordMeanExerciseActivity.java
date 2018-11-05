@@ -33,6 +33,8 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
     private String correctWord;
     private String ourWriteWord = "";
     private int location;
+    private String deneme;
+    private int our_word_p = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_write_word_mean_exercise);
 
         init();
+        events();
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,13 +56,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
         newQuestion();
     }
 
-    private void newQuestion() {
-        Random random = new Random();
-        location = random.nextInt(list.size());
-
-        questionWord = list.get(location).getWord();
-        correctWord = list.get(location).getMeaning();
-
+    private void events() {
         input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,13 +66,13 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ourWriteWord = input.getText().toString();
-                if (ourWriteWord.equalsIgnoreCase(correctWord)){
-                    if (list.size()>0) {
+                if (ourWriteWord.equalsIgnoreCase(correctWord)) {
+                    if (list.size() > 0) {
                         newQuestion();
                         progressBar.setProgress(progressBar.getProgress() + 1);
                         input.setText("");
                         list.remove(location);
-                    }else{
+                    } else {
                         input.setEnabled(false);
                         input.setText(":)");
                         hintButton.setEnabled(false);
@@ -89,6 +86,45 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
 
             }
         });
+
+        hintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deneme = "";
+                boolean check = true;
+                for (int i = 0; i < ourWriteWord.length(); i++) {
+                    if ((ourWriteWord.charAt(i) == correctWord.charAt(i))) {
+                        deneme += correctWord.charAt(i);
+                        check = true;
+                    } else {
+                        our_word_p = i;
+                        check = false;
+                        deneme += correctWord.charAt(i);
+                        input.setText(deneme);
+                        if (correctWord.length() > input.getText().length())
+                            input.setSelection(input.getText().length());
+                        break;
+                    }
+                }
+
+                if (check && (correctWord.length() > deneme.length())){
+                    deneme+=correctWord.charAt(our_word_p);
+                    input.setText(deneme);
+                    if (correctWord.length() > input.getText().length()) {
+                        input.setSelection(input.getText().length());
+                        our_word_p++;
+                    }
+                }
+            }
+        });
+    }
+
+    private void newQuestion() {
+        our_word_p = 0;
+        Random random = new Random();
+        location = random.nextInt(list.size());
+        questionWord = list.get(location).getWord();
+        correctWord = list.get(location).getMeaning();
 
         word.setText(questionWord);
     }
