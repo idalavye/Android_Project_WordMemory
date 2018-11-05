@@ -2,6 +2,7 @@ package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -21,15 +23,15 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
-import wordmemory.idalavye.com.wordmemory.ui.adapters.HomePagePagerAdapter;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
+import wordmemory.idalavye.com.wordmemory.ui.adapters.HomePagePagerAdapter;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.common.BottomNavigationDrawerFragment;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ExercisesFragment;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.WordsListingFragment;
 import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class HomePageActivity extends AppCompatActivity {
-
+    private static String TAG = HomePageActivity.class.getName();
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private BottomAppBar bar;
@@ -37,7 +39,7 @@ public class HomePageActivity extends AppCompatActivity {
     private LinearLayout addNewWordLayout;
     private MaterialSearchView searchView;
     private boolean fbModeCenter = true;
-    private WordsListingFragment wordsListingFragment;
+    private HomePagePagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +78,20 @@ public class HomePageActivity extends AppCompatActivity {
         WordListItemController.INSTANCE.addListenerForWordItemDataChange(new WordListItemController.WordItemDataChangeListener() {
             @Override
             public void onWordItemDataChange() {
-                final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-                viewPager.setAdapter(adapter);
+                if (pagerAdapter == null) {
+                    pagerAdapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+                    viewPager.setAdapter(pagerAdapter);
+                }
 
-                wordsListingFragment = new WordsListingFragment();
                 fab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ListView expandableListView = WordsListingFragment.getExpandableListView();
+                        if (expandableListView == null) {
+                            Log.e(TAG, "onClick: ", new NullPointerException());
+                            return;
+                        }
+
                         if (fbModeCenter) {
                             bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
                             fab.setImageResource(R.drawable.ic_reply);
@@ -90,7 +99,7 @@ public class HomePageActivity extends AppCompatActivity {
 
 
                             tabLayout.setVisibility(View.GONE);
-                            wordsListingFragment.getListView().setVisibility(View.GONE);
+                            expandableListView.setVisibility(View.GONE);
                             ExercisesFragment.exercise_fragment.setVisibility(View.GONE);
                             addNewWordLayout.startAnimation(animationForNewWordPage);
                             addNewWordLayout.setVisibility(View.VISIBLE);
@@ -103,8 +112,8 @@ public class HomePageActivity extends AppCompatActivity {
 
 
                             tabLayout.setVisibility(View.VISIBLE);
-                            wordsListingFragment.getListView().startAnimation(animationSlideInLeft);
-                            wordsListingFragment.getListView().setVisibility(View.VISIBLE);
+                            expandableListView.startAnimation(animationSlideInLeft);
+                            expandableListView.setVisibility(View.VISIBLE);
                             ExercisesFragment.exercise_fragment.startAnimation(animationSlideInLeft);
                             ExercisesFragment.exercise_fragment.setVisibility(View.VISIBLE);
                             addNewWordLayout.setVisibility(View.GONE);

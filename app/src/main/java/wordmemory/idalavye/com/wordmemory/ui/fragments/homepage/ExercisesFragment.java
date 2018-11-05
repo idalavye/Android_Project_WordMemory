@@ -14,11 +14,10 @@ import androidx.fragment.app.Fragment;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectTranslateExerciseActiviy;
 import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectWorldMeanExerciseActivity;
-import wordmemory.idalavye.com.wordmemory.ui.activities.MatchWordExerciseActivity;
 import wordmemory.idalavye.com.wordmemory.ui.activities.WriteWordMeanExerciseActivity;
 
 public class ExercisesFragment extends Fragment {
-
+    // TODO Move this out of the static field
     public static LinearLayout exercise_fragment;
     private CardView find_correct_translate;
     private CardView find_correct_word_mean;
