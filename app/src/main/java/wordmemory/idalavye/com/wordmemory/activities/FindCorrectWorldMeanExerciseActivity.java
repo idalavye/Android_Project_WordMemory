@@ -2,8 +2,6 @@ package wordmemory.idalavye.com.wordmemory.activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,9 +16,9 @@ import java.util.Random;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
-import wordmemory.idalavye.com.wordmemory.utils.Common;
 
 public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
 
@@ -65,7 +63,7 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
         btn4 = findViewById(R.id.find_cwm_btn4);
         word = findViewById(R.id.find_cwm_word);
         progressBar = findViewById(R.id.find_cwm_pb);
-        list = Common.getArrayList();
+        list = WordListItemController.INSTANCE.getWords();
         questions = new ArrayList<>(list);
         find_cwm_word_layout = findViewById(R.id.find_cwm_word_layout);
     }
@@ -98,7 +96,7 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
             ourWord = random.nextInt(questions.size());
             correct_answer_location = random.nextInt(4);
             answers.clear();
-            word.setText(questions.get(ourWord).getWord_mean());
+            word.setText(questions.get(ourWord).getMeaning());
             for (int i = 0; i < 4; i++) {
                 if (i == correct_answer_location) {
                     answers.add(questions.get(ourWord).getWord());

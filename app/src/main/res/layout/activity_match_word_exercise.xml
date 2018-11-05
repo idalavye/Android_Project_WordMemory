@@ -34,27 +34,25 @@
         app:srcCompat="@drawable/ic_close_black_24dp" />
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="465dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:weightSum="2"
         android:orientation="horizontal"
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/find_correct_translate_close_page_cwm">
+        app:layout_constraintTop_toBottomOf="@+id/match_word_close_iw">
 
 
         <androidx.gridlayout.widget.GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:rowCount="8"
+            android:paddingRight="2dp"
             app:columnCount="1"
-            android:layout_margin="8dp">
+            app:rowCount="8">
 
             <Button
                 android:id="@+id/match_word_btn1_left"
@@ -87,8 +85,8 @@
             <Button
                 android:id="@+id/match_word_btn5_left"
                 android:layout_width="match_parent"
-                android:onClick="matchWordClickLeftButtons"
                 android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
                 android:text="Button" />
 
             <Button
@@ -101,8 +99,8 @@
             <Button
                 android:id="@+id/match_word_btn7_left"
                 android:layout_width="match_parent"
-                android:onClick="matchWordClickLeftButtons"
                 android:layout_height="wrap_content"
+                android:onClick="matchWordClickLeftButtons"
                 android:text="Button" />
 
             <Button
@@ -118,9 +116,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:rowCount="8"
+            android:paddingLeft="2dp"
             app:columnCount="1"
-            android:layout_margin="8dp">
+            app:rowCount="8">
 
             <Button
                 android:id="@+id/match_word_btn1_right"
@@ -153,29 +151,29 @@
             <Button
                 android:id="@+id/match_word_btn5_right"
                 android:layout_width="match_parent"
-                android:onClick="matchWordClickRightButtons"
                 android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
                 android:text="Button" />
 
             <Button
                 android:id="@+id/match_word_btn6_right"
                 android:layout_width="match_parent"
-                android:onClick="matchWordClickRightButtons"
                 android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
                 android:text="Button" />
 
             <Button
                 android:id="@+id/match_word_btn7_right"
                 android:layout_width="match_parent"
-                android:onClick="matchWordClickRightButtons"
                 android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
                 android:text="Button" />
 
             <Button
                 android:id="@+id/match_word_btn8_right"
                 android:layout_width="match_parent"
-                android:onClick="matchWordClickRightButtons"
                 android:layout_height="wrap_content"
+                android:onClick="matchWordClickRightButtons"
                 android:text="Button" />
         </androidx.gridlayout.widget.GridLayout>
 

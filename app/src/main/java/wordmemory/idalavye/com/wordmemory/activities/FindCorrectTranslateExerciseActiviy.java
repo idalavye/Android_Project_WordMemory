@@ -2,8 +2,6 @@ package wordmemory.idalavye.com.wordmemory.activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,7 +18,7 @@ import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
-import wordmemory.idalavye.com.wordmemory.utils.Common;
+import wordmemory.idalavye.com.wordmemory.utils.Animations;
 
 public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
