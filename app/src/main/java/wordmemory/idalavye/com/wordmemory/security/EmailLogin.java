@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import wordmemory.idalavye.com.wordmemory.activities.LoginPageActivity;
-import wordmemory.idalavye.com.wordmemory.activities.RegisterForEmailPageActivity;
+import wordmemory.idalavye.com.wordmemory.ui.activities.LoginPageActivity;
+import wordmemory.idalavye.com.wordmemory.ui.activities.RegisterForEmailPageActivity;
 
 public class EmailLogin {
     public static void email_login(final View loginButton, final Activity activity) {

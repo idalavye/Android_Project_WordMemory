@@ -11,14 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginPageActivity">
+        <activity android:name=".ui.activities.LoginPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.HomePageActivity" />
+        <activity android:name=".ui.activities.HomePageActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -40,10 +40,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.FindCorrectTranslateExerciseActiviy" />
-        <activity android:name=".activities.FindCorrectWorldMeanExerciseActivity" />
-        <activity android:name=".activities.RegisterForEmailPageActivity" />
-        <activity android:name=".activities.MatchWordExerciseActivity" />
+        <activity android:name=".ui.activities.FindCorrectTranslateExerciseActiviy" />
+        <activity android:name=".ui.activities.FindCorrectWorldMeanExerciseActivity" />
+        <activity android:name=".ui.activities.RegisterForEmailPageActivity" />
+        <activity android:name=".ui.activities.MatchWordExerciseActivity" />
     </application>
 
 </manifest>

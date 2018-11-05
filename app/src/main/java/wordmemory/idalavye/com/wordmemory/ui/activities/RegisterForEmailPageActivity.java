@@ -1,4 +1,4 @@
-package wordmemory.idalavye.com.wordmemory.activities;
+package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import wordmemory.idalavye.com.wordmemory.R;

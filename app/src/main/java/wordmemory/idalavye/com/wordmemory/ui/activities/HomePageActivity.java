@@ -1,4 +1,4 @@
-package wordmemory.idalavye.com.wordmemory.activities;
+package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,11 +21,11 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
-import wordmemory.idalavye.com.wordmemory.adapters.HomePagePagerAdapter;
+import wordmemory.idalavye.com.wordmemory.ui.adapters.HomePagePagerAdapter;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
-import wordmemory.idalavye.com.wordmemory.fragments.homepage.BottomNavigationDrawerFragment;
-import wordmemory.idalavye.com.wordmemory.fragments.homepage.ExercisesFragment;
-import wordmemory.idalavye.com.wordmemory.fragments.homepage.WordsListingFragment;
+import wordmemory.idalavye.com.wordmemory.ui.fragments.common.BottomNavigationDrawerFragment;
+import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ExercisesFragment;
+import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.WordsListingFragment;
 import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class HomePageActivity extends AppCompatActivity {

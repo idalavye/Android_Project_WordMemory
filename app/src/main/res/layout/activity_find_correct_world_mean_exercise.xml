@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#29B5B6"
     android:layout_height="match_parent"
-    tools:context=".activities.FindCorrectWorldMeanExerciseActivity">
+    tools:context=".ui.activities.FindCorrectWorldMeanExerciseActivity">
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
         android:id="@+id/find_cwm_pb"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#29B5B6"
-    tools:context=".activities.MatchWordExerciseActivity">
+    tools:context=".ui.activities.MatchWordExerciseActivity">
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
         android:id="@+id/match_word_pb"

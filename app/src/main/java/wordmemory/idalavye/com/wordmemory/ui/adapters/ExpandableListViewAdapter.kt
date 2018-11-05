@@ -1,4 +1,4 @@
-package wordmemory.idalavye.com.wordmemory.adapters
+package wordmemory.idalavye.com.wordmemory.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

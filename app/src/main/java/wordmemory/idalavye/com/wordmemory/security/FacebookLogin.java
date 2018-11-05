@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -19,13 +18,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
 import androidx.annotation.NonNull;
-import wordmemory.idalavye.com.wordmemory.activities.HomePageActivity;
-import wordmemory.idalavye.com.wordmemory.activities.LoginPageActivity;
+import wordmemory.idalavye.com.wordmemory.ui.activities.HomePageActivity;
 import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class FacebookLogin {

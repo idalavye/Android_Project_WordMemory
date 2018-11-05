@@ -1,4 +1,4 @@
-package wordmemory.idalavye.com.wordmemory.fragments.homepage;
+package wordmemory.idalavye.com.wordmemory.ui.fragments.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import wordmemory.idalavye.com.wordmemory.R;
-import wordmemory.idalavye.com.wordmemory.activities.FindCorrectTranslateExerciseActiviy;
-import wordmemory.idalavye.com.wordmemory.activities.FindCorrectWorldMeanExerciseActivity;
-import wordmemory.idalavye.com.wordmemory.activities.MatchWordExerciseActivity;
+import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectTranslateExerciseActiviy;
+import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectWorldMeanExerciseActivity;
+import wordmemory.idalavye.com.wordmemory.ui.activities.MatchWordExerciseActivity;
 
 public class ExercisesFragment extends Fragment {
 

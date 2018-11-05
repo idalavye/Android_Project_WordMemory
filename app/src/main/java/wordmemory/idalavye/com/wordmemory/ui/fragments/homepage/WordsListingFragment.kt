@@ -1,4 +1,4 @@
-package wordmemory.idalavye.com.wordmemory.fragments.homepage
+package wordmemory.idalavye.com.wordmemory.ui.fragments.homepage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import wordmemory.idalavye.com.wordmemory.R
-import wordmemory.idalavye.com.wordmemory.adapters.ExpandableListViewAdapter
+import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
 
 class WordsListingFragment : Fragment() {

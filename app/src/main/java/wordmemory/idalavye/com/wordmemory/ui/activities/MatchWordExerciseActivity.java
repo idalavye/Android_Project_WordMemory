@@ -1,4 +1,4 @@
-package wordmemory.idalavye.com.wordmemory.activities;
+package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -23,7 +23,7 @@ public class MatchWordExerciseActivity extends AppCompatActivity {
     private Button rigt_btn1, rigt_btn2, rigt_btn3, rigt_btn4, rigt_btn5, rigt_btn6, rigt_btn7, rigt_btn8;
 
     private ArrayList<WordListItemModel> wordList;
-   private ArrayList<String> words;
+    private ArrayList<String> words;
     private ArrayList<String> word_means;
 
 
@@ -51,7 +51,7 @@ public class MatchWordExerciseActivity extends AppCompatActivity {
     private void newQuestion() {
 //        Random rand = new Random();
 //
-//        ArrayList<MatchWordModel> matchWordModels = new ArrayList<>();
+//
 //
 //        for (int i = 0; i < 8; i++) {
 //            int r = rand.nextInt(wordList.size());
