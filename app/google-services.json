@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "499626978715-06bphr0dvvskha99bjqtg9g11unakccp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "wordmemory.idalavye.com.wordmemory",
+            "certificate_hash": "c804819a769c5ea803365b273a8a27b372ccc357"
+          }
+        },
+        {
           "client_id": "499626978715-baqehuq46qhjaurvvq2s03v180aepism.apps.googleusercontent.com",
           "client_type": 3
         }
