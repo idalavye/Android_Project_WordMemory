@@ -44,6 +44,9 @@
         <activity android:name=".ui.activities.FindCorrectWorldMeanExerciseActivity" />
         <activity android:name=".ui.activities.RegisterForEmailPageActivity" />
         <activity android:name=".ui.activities.MatchWordExerciseActivity" />
+        <activity android:name=".ui.activities.WriteWordMeanExerciseActivity"
+            android:windowSoftInputMode = "stateVisible" >
+        </activity>
     </application>
 
 </manifest>

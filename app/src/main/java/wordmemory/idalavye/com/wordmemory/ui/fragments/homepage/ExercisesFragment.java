@@ -15,6 +15,7 @@ import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectTranslateExerciseActiviy;
 import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectWorldMeanExerciseActivity;
 import wordmemory.idalavye.com.wordmemory.ui.activities.MatchWordExerciseActivity;
+import wordmemory.idalavye.com.wordmemory.ui.activities.WriteWordMeanExerciseActivity;
 
 public class ExercisesFragment extends Fragment {
 
@@ -22,6 +23,7 @@ public class ExercisesFragment extends Fragment {
     private CardView find_correct_translate;
     private CardView find_correct_word_mean;
     private CardView match_word_exercise;
+    private CardView write_word_mean_exercise;
 
     @Nullable
     @Override
@@ -32,11 +34,12 @@ public class ExercisesFragment extends Fragment {
         find_correct_translate = view.findViewById(R.id.find_correct_translate);
         find_correct_word_mean = view.findViewById(R.id.find_correct_word_mean);
         match_word_exercise = view.findViewById(R.id.match_word_exercise);
+        write_word_mean_exercise = view.findViewById(R.id.write_word_mean_exercise);
 
         find_correct_translate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(),FindCorrectTranslateExerciseActiviy.class);
+                Intent intent = new Intent(view.getContext(), FindCorrectTranslateExerciseActiviy.class);
                 startActivity(intent);
             }
         });
@@ -44,7 +47,7 @@ public class ExercisesFragment extends Fragment {
         find_correct_word_mean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(),FindCorrectWorldMeanExerciseActivity.class);
+                Intent intent = new Intent(view.getContext(), FindCorrectWorldMeanExerciseActivity.class);
                 startActivity(intent);
             }
         });
@@ -52,7 +55,15 @@ public class ExercisesFragment extends Fragment {
         match_word_exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(),MatchWordExerciseActivity.class);
+//                Intent intent = new Intent(view.getContext(),MatchWordExerciseActivity.class);
+//                startActivity(intent);
+            }
+        });
+
+        write_word_mean_exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), WriteWordMeanExerciseActivity.class);
                 startActivity(intent);
             }
         });

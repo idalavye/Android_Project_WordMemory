@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
+import wordmemory.idalavye.com.wordmemory.database.DatabaseRef;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MatchWordExerciseActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class MatchWordExerciseActivity extends AppCompatActivity {
     private ArrayList<WordListItemModel> wordList;
     private ArrayList<String> words;
     private ArrayList<String> word_means;
+    private boolean[][] correctAnswers;
 
 
     @Override
@@ -50,13 +55,18 @@ public class MatchWordExerciseActivity extends AppCompatActivity {
 
     private void newQuestion() {
 //        Random rand = new Random();
-//
-//
-//
 //        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                correctAnswers[i][j] = false;
+//            }
+//        }
+//
+//        for (int j = 0; j < 8; j++) {
+//            word_means.add("Boş");
+//        }
+//
+//        for (int i = 0;i<8;i++){
 //            int r = rand.nextInt(wordList.size());
-//            int r1 = rand.nextInt(wordList.size());
-//            int r2 = rand.nextInt(wordList.size());
 //
 //        }
 //
@@ -110,13 +120,6 @@ public class MatchWordExerciseActivity extends AppCompatActivity {
         words = new ArrayList<>();
         word_means = new ArrayList<>();
 
-//        for (int i = 0; i < wordList.size(); i++) {
-//            words.add(wordList.get(i).getWord());
-//        }
-//
-//        for (int i = 0; i < wordList.size(); i++) {
-//            word_means.add(wordList.get(i).getWord_mean());
-//        }
     }
 
 }
