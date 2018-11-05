@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.adapters.HomePagePagerAdapter;
+import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.BottomNavigationDrawerFragment;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.ExercisesFragment;
 import wordmemory.idalavye.com.wordmemory.fragments.homepage.WordsListingFragment;
@@ -36,6 +37,7 @@ public class HomePageActivity extends AppCompatActivity {
     private LinearLayout addNewWordLayout;
     private MaterialSearchView searchView;
     private boolean fbModeCenter = true;
+    private WordsListingFragment wordsListingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +50,6 @@ public class HomePageActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_exercises)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
@@ -73,38 +73,47 @@ public class HomePageActivity extends AppCompatActivity {
         final Animation animationForNewWordPage = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
         animationForNewWordPage.setDuration(2000);
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        WordListItemController.INSTANCE.addListenerForWordItemDataChange(new WordListItemController.WordItemDataChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (fbModeCenter) {
-                    bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
-                    fab.setImageResource(R.drawable.ic_reply);
-                    fbModeCenter = false;
+            public void onWordItemDataChange() {
+                final HomePagePagerAdapter adapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+                viewPager.setAdapter(adapter);
+
+                wordsListingFragment = new WordsListingFragment();
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (fbModeCenter) {
+                            bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
+                            fab.setImageResource(R.drawable.ic_reply);
+                            fbModeCenter = false;
 
 
-                    tabLayout.setVisibility(View.GONE);
-                    WordsListingFragment.listView.setVisibility(View.GONE);
-                    ExercisesFragment.exercise_fragment.setVisibility(View.GONE);
-                    addNewWordLayout.startAnimation(animationForNewWordPage);
-                    addNewWordLayout.setVisibility(View.VISIBLE);
+                            tabLayout.setVisibility(View.GONE);
+                            wordsListingFragment.getListView().setVisibility(View.GONE);
+                            ExercisesFragment.exercise_fragment.setVisibility(View.GONE);
+                            addNewWordLayout.startAnimation(animationForNewWordPage);
+                            addNewWordLayout.setVisibility(View.VISIBLE);
 
-                } else {
-                    addNewWordLayout.clearAnimation();
-                    bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
-                    fab.setImageResource(R.drawable.ic_add);
-                    fbModeCenter = true;
+                        } else {
+                            addNewWordLayout.clearAnimation();
+                            bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+                            fab.setImageResource(R.drawable.ic_add);
+                            fbModeCenter = true;
 
 
-                    tabLayout.setVisibility(View.VISIBLE);
-                    WordsListingFragment.listView.startAnimation(animationSlideInLeft);
-                    WordsListingFragment.listView.setVisibility(View.VISIBLE);
-                    ExercisesFragment.exercise_fragment.startAnimation(animationSlideInLeft);
-                    ExercisesFragment.exercise_fragment.setVisibility(View.VISIBLE);
-                    addNewWordLayout.setVisibility(View.GONE);
-                }
+                            tabLayout.setVisibility(View.VISIBLE);
+                            wordsListingFragment.getListView().startAnimation(animationSlideInLeft);
+                            wordsListingFragment.getListView().setVisibility(View.VISIBLE);
+                            ExercisesFragment.exercise_fragment.startAnimation(animationSlideInLeft);
+                            ExercisesFragment.exercise_fragment.setVisibility(View.VISIBLE);
+                            addNewWordLayout.setVisibility(View.GONE);
+                        }
+                    }
+                });
             }
         });
+        WordListItemController.INSTANCE.pullWordItems();
 
         bar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +123,6 @@ public class HomePageActivity extends AppCompatActivity {
                 drawerFragment.show(getSupportFragmentManager(), "Custom Button Sheet");
             }
         });
-
     }
 
     private void init() {

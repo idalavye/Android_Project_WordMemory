@@ -9,8 +9,9 @@ import wordmemory.idalavye.com.wordmemory.models.WordListItemModel
 object WordListItemController {
     private var wordsMutable: MutableList<WordListItemModel>? = null
     val words get() = wordsMutable?.toList() as ArrayList?
+    private val listeners: MutableList<WordItemDataChangeListener> = mutableListOf()
 
-    fun listWordItems() {
+    fun pullWordItems() {
         wordsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 throw p0.toException()
@@ -21,7 +22,19 @@ object WordListItemController {
                 p0.children.mapNotNullTo(words) { it.getValue<WordListItemModel>(WordListItemModel::class.java) }
 
                 this@WordListItemController.wordsMutable = words
+
+                for (listener in listeners) {
+                    listener.onWordItemDataChange()
+                }
             }
         })
+    }
+
+    fun addListenerForWordItemDataChange(listener: WordItemDataChangeListener) {
+        listeners.add(listener)
+    }
+
+    interface WordItemDataChangeListener {
+        fun onWordItemDataChange()
     }
 }
