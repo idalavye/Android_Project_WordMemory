@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import wordmemory.idalavye.com.wordmemory.R
-import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
+import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter
 
 class WordsListingFragment : Fragment() {
     var listView: ExpandableListView? = null
