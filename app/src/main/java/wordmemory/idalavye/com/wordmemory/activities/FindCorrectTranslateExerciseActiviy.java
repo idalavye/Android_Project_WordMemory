@@ -14,8 +14,8 @@ import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
-import wordmemory.idalavye.com.wordmemory.utils.Common;
 
 public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
@@ -58,7 +58,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         btn4 = findViewById(R.id.find_ct_btn4);
         word = findViewById(R.id.find_ct_word);
         progressBar = findViewById(R.id.find_ct_pb);
-        list = Common.getArrayList();
+        list = WordListItemController.INSTANCE.getWords();
         questions = new ArrayList<>(list);
     }
 
@@ -84,14 +84,14 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
             for (int i = 0; i < 4; i++) {
                 if (i == correct_answer_location) {
-                    answers.add(questions.get(ourWord).getWord_mean());
+                    answers.add(questions.get(ourWord).getMeaning());
                 } else {
                     int wrongAnswer = random.nextInt(list.size());
-                    while (answers.contains(list.get(wrongAnswer).getWord_mean()) ||
-                            questions.get(ourWord).getWord_mean().contains(list.get(wrongAnswer).getWord_mean())) {
+                    while (answers.contains(list.get(wrongAnswer).getMeaning()) ||
+                            questions.get(ourWord).getMeaning().contains(list.get(wrongAnswer).getMeaning())) {
                         wrongAnswer = random.nextInt(list.size());
                     }
-                    answers.add(list.get(wrongAnswer).getWord_mean());
+                    answers.add(list.get(wrongAnswer).getMeaning());
                 }
             }
             btn1.setText(answers.get(0));
