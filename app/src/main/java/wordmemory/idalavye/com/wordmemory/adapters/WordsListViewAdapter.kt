@@ -39,10 +39,10 @@ class WordsListViewAdapter(activity: Activity, private val wordList: MutableList
 
         val wordListViewHolder: WordListViewHolder = viewHolder.wordListViewHolder
         wordListViewHolder.wordTextView.text = wordList[position].word
-        wordListViewHolder.wordMeanTextView.text = wordList[position].word_mean
-        wordListViewHolder.dateTextView.text = wordList[position].date
-        wordListViewHolder.wordImage.setImageDrawable(ContextCompat.getDrawable(context, wordList[position].img))
-        wordListViewHolder.progress.progress = wordList[position].word_progress
+        wordListViewHolder.wordMeanTextView.text = wordList[position].meaning
+        wordListViewHolder.wordImage.setImageDrawable(ContextCompat.getDrawable(context, wordList[position].image))
+        // TODO Implement the progress logic
+        wordListViewHolder.progress.progress = 50
 
         val animationViewHolder: AnimationViewHolder = viewHolder.animationViewHolder
         listView!!.startAnimation(animationViewHolder.animation)
