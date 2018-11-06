@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectTranslateExerciseActiviy;
 import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectWorldMeanExerciseActivity;
+import wordmemory.idalavye.com.wordmemory.ui.activities.WriteWordExerciseActivity;
 import wordmemory.idalavye.com.wordmemory.ui.activities.WriteWordMeanExerciseActivity;
 
 public class ExercisesFragment extends Fragment {
@@ -23,6 +24,7 @@ public class ExercisesFragment extends Fragment {
     private CardView find_correct_word_mean;
     private CardView match_word_exercise;
     private CardView write_word_mean_exercise;
+    private CardView write_word_exercise;
 
     @Nullable
     @Override
@@ -34,6 +36,7 @@ public class ExercisesFragment extends Fragment {
         find_correct_word_mean = view.findViewById(R.id.find_correct_word_mean);
         match_word_exercise = view.findViewById(R.id.match_word_exercise);
         write_word_mean_exercise = view.findViewById(R.id.write_word_mean_exercise);
+        write_word_exercise = view.findViewById(R.id.write_word_exercise);
 
         find_correct_translate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +66,14 @@ public class ExercisesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(view.getContext(), WriteWordMeanExerciseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        write_word_exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), WriteWordExerciseActivity.class);
                 startActivity(intent);
             }
         });

@@ -9,7 +9,6 @@ import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class WriteWordMeanExerciseActivity extends AppCompatActivity {
+public class WriteWordExerciseActivity extends AppCompatActivity {
 
     private RoundCornerProgressBar progressBar;
     private ImageView close;
@@ -40,12 +39,11 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_write_word_mean_exercise);
+        setContentView(R.layout.activity_write_word_exercise);
         getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
 
         init();
-        events();
-
+        event();
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +52,22 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
         });
         progressBar.setMax(list.size());
         progressBar.setProgress(0);
-
+        
         newQuestion();
     }
 
-    private void events() {
+    private void newQuestion() {
+        our_word_p = 0;
+        Random random = new Random();
+        location = random.nextInt(list.size());
+        questionWord = list.get(location).getMeaning();
+        correctWord = list.get(location).getWord();
+
+        word.setText(questionWord);
+    }
+
+    private void event() {
+
         input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -119,24 +128,15 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    private void newQuestion() {
-        our_word_p = 0;
-        Random random = new Random();
-        location = random.nextInt(list.size());
-        questionWord = list.get(location).getWord();
-        correctWord = list.get(location).getMeaning();
-
-        word.setText(questionWord);
     }
 
     private void init() {
-        close = findViewById(R.id.write_word_mean_close_iw);
-        progressBar = findViewById(R.id.write_word_mean_pb);
-        word = findViewById(R.id.write_word_mean_tw);
-        input = findViewById(R.id.write_word_mean_et);
+        close = findViewById(R.id.write_word_close_iw);
+        progressBar = findViewById(R.id.write_word_pb);
+        word = findViewById(R.id.write_word_tw);
+        input = findViewById(R.id.write_word_et);
         list = WordListItemController.INSTANCE.getWords();
-        hintButton = findViewById(R.id.write_word_mean_hint_button);
+        hintButton = findViewById(R.id.write_word_hint_button);
     }
 }

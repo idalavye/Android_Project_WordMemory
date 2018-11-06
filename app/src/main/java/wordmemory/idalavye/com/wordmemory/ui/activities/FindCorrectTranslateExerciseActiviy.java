@@ -39,6 +39,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_correct_translate_exercise_activiy);
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
 
         init();
 
@@ -48,7 +49,6 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
                 finish();
             }
         });
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
         progressBar.setMax(list.size());
         progressBar.setProgress(0);
 
