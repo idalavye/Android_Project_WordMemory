@@ -101,19 +101,19 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
                         check = false;
                         deneme += correctWord.charAt(i);
                         input.setText(deneme);
-                        if (correctWord.length() > input.getText().length())
+                        if (correctWord.length() > deneme.length())
                             input.setSelection(input.getText().length());
                         break;
                     }
                 }
 
-                if (check && (correctWord.length() > deneme.length())){
-                    deneme+=correctWord.charAt(our_word_p);
-                    input.setText(deneme);
-                    if (correctWord.length() > input.getText().length()) {
-                        input.setSelection(input.getText().length());
+                if (check && (correctWord.length() > deneme.length())) {
+                    deneme += correctWord.charAt(our_word_p);
+                    if (correctWord.length() > deneme.length()) {
                         our_word_p++;
                     }
+                    input.setText(deneme);
+                    input.setSelection(input.getText().length());
                 }
             }
         });
