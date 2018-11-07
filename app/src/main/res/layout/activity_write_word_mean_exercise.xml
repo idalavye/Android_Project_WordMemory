@@ -24,7 +24,7 @@
         app:rcSecondaryProgress="90" />
 
     <LinearLayout
-        android:id="@+id/find_ct_word_layout"
+        android:id="@+id/write_word_mean_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="8dp"
@@ -72,7 +72,7 @@
         app:backgroundTint="@android:color/holo_red_light"
         app:icon="@drawable/ic_info_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/find_ct_word_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/write_word_mean_layout" />
     <ImageView
         android:id="@+id/write_word_mean_close_iw"
         android:layout_width="45dp"

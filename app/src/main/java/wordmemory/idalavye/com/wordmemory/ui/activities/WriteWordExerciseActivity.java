@@ -5,12 +5,14 @@ import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.Animations;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -27,13 +29,14 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
     private TextView word;
     private TextInputEditText input;
     private MaterialButton hintButton;
+    private LinearLayout layout;
 
     private ArrayList<WordListItemModel> list;
     private String questionWord;
     private String correctWord;
     private String ourWriteWord = "";
     private int location;
-    private String deneme;
+    private String checkWord;
     private int our_word_p = 0;
 
     @Override
@@ -57,6 +60,7 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
+        layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         our_word_p = 0;
         Random random = new Random();
         location = random.nextInt(list.size());
@@ -101,29 +105,29 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
         hintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deneme = "";
+                checkWord = "";
                 boolean check = true;
                 for (int i = 0; i < ourWriteWord.length(); i++) {
                     if ((ourWriteWord.charAt(i) == correctWord.charAt(i))) {
-                        deneme += correctWord.charAt(i);
+                        checkWord += correctWord.charAt(i);
                         check = true;
                     } else {
                         our_word_p = i;
                         check = false;
-                        deneme += correctWord.charAt(i);
-                        input.setText(deneme);
-                        if (correctWord.length() > deneme.length())
+                        checkWord += correctWord.charAt(i);
+                        input.setText(checkWord);
+                        if (correctWord.length() > checkWord.length())
                             input.setSelection(input.getText().length());
                         break;
                     }
                 }
 
-                if (check && (correctWord.length() > deneme.length())) {
-                    deneme += correctWord.charAt(our_word_p);
-                    if (correctWord.length() > deneme.length()) {
+                if (check && (correctWord.length() > checkWord.length())) {
+                    checkWord += correctWord.charAt(our_word_p);
+                    if (correctWord.length() > checkWord.length()) {
                         our_word_p++;
                     }
-                    input.setText(deneme);
+                    input.setText(checkWord);
                     input.setSelection(input.getText().length());
                 }
             }
@@ -138,5 +142,6 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
         input = findViewById(R.id.write_word_et);
         list = WordListItemController.INSTANCE.getWords();
         hintButton = findViewById(R.id.write_word_hint_button);
+        layout = findViewById(R.id.write_word_layout);
     }
 }
