@@ -11,4 +11,10 @@ public class Animations {
         animation.setDuration(duration);
         return animation;
     }
+
+    public static Animation createSlideInLeft(Context context,int duration){
+        Animation animation = AnimationUtils.loadAnimation(context,android.R.anim.slide_in_left);
+        animation.setDuration(duration);
+        return animation;
+    }
 }

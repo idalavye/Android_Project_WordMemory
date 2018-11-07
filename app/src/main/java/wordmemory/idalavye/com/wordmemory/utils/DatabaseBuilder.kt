@@ -17,6 +17,7 @@ object DatabaseBuilder {
     fun addWordItems(databaseReference: DatabaseReference, wordItem: WordListItemModel) {
         val key = databaseReference.push().key
         wordItem.uuid = key
+        wordItem.image = 2131165330
         databaseReference.child(key!!).setValue(wordItem)
     }
 }
