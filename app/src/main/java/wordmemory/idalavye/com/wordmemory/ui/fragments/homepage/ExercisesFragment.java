@@ -36,7 +36,6 @@ public class ExercisesFragment extends Fragment {
 
         find_correct_translate = view.findViewById(R.id.find_correct_translate);
         find_correct_word_mean = view.findViewById(R.id.find_correct_word_mean);
-        match_word_exercise = view.findViewById(R.id.match_word_exercise);
         write_word_mean_exercise = view.findViewById(R.id.write_word_mean_exercise);
         write_word_exercise = view.findViewById(R.id.write_word_exercise);
         write_word_with_voice = view.findViewById(R.id.write_word_with_voice);
@@ -54,14 +53,6 @@ public class ExercisesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(view.getContext(), FindCorrectWorldMeanExerciseActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        match_word_exercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(view.getContext(),MatchWordExerciseActivity.class);
-//                startActivity(intent);
             }
         });
 
