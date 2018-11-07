@@ -226,6 +226,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/write_word_with_voice"
             app:cardBackgroundColor="@android:color/white"
             android:layout_width="0dp"
             android:layout_height="0dp"
