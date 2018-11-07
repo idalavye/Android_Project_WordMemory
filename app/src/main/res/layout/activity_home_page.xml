@@ -53,6 +53,7 @@
             android:textColorHint="@android:color/holo_blue_dark">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_new_word_word_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kelime"
@@ -69,6 +70,7 @@
             android:textColorHint="@android:color/holo_blue_dark">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_new_word_word_mean_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kelimenin Anlamı"

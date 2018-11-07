@@ -14,11 +14,9 @@ object DatabaseBuilder {
      * @param databaseReference Parent database reference of the [wordItems]
      * @param wordItems The set to add to the [databaseReference]
      */
-    fun addWordItems(databaseReference: DatabaseReference, wordItems: List<WordListItemModel>) {
-        for (word in wordItems) {
-            val key = databaseReference.push().key
-            word.uuid = key
-            databaseReference.child(key!!).setValue(word)
-        }
+    fun addWordItems(databaseReference: DatabaseReference, wordItem: WordListItemModel) {
+        val key = databaseReference.push().key
+        wordItem.uuid = key
+        databaseReference.child(key!!).setValue(wordItem)
     }
 }

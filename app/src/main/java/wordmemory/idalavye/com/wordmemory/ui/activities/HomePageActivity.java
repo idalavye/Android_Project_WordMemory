@@ -14,20 +14,27 @@ import android.widget.ListView;
 
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
+import wordmemory.idalavye.com.wordmemory.database.DatabaseRef;
+import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.ui.adapters.HomePagePagerAdapter;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.common.BottomNavigationDrawerFragment;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ExercisesFragment;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.WordsListingFragment;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 import wordmemory.idalavye.com.wordmemory.utils.Login;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -40,6 +47,10 @@ public class HomePageActivity extends AppCompatActivity {
     private MaterialSearchView searchView;
     private boolean fbModeCenter = true;
     private HomePagePagerAdapter pagerAdapter;
+    private MaterialButton add_new_word_button;
+    private TextInputEditText word, wordMean;
+
+    private ArrayList<WordListItemModel> list ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +58,11 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         init();
+        events();
 
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_words)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_exercises)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
@@ -143,6 +154,10 @@ public class HomePageActivity extends AppCompatActivity {
         this.addNewWordLayout = findViewById(R.id.add_new_word);
         Login.mAuth = FirebaseAuth.getInstance();
         searchView = findViewById(R.id.search_word);
+        add_new_word_button = findViewById(R.id.add_new_word_button);
+        word = findViewById(R.id.add_new_word_word_et);
+        wordMean = findViewById(R.id.add_new_word_word_mean_et);
+        list = new ArrayList<>();
     }
 
     @Override
@@ -187,5 +202,17 @@ public class HomePageActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void events() {
+        add_new_word_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WordListItemModel item = new WordListItemModel();
+                item.setWord(word.getText().toString());
+                item.setMeaning(wordMean.getText().toString());
+                DatabaseBuilder.INSTANCE.addWordItems(DatabaseRef.INSTANCE.getWordsRef(),item);
+            }
+        });
     }
 }
