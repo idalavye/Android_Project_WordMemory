@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <ExpandableListView
         android:id="@+id/words_listView"
         android:layout_marginTop="50dp"
@@ -12,4 +17,5 @@
         android:layoutAnimation="@anim/layout_fall_down"
         android:scrollbars="none" />
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

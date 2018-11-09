@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import wordmemory.idalavye.com.wordmemory.R
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
 import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter
@@ -40,6 +41,8 @@ class WordsListingFragment : Fragment() {
         val adapter = ExpandableListViewAdapter(activity, words)
 
         val expandableListView: ExpandableListView = view.findViewById(R.id.words_listView)
+        val swipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.pullToRefresh)
+
         expandableListView.isNestedScrollingEnabled = true
         expandableListView.setAdapter(adapter)
         expandableListView.setOnGroupExpandListener { groupPosition ->

@@ -18,6 +18,7 @@ object DatabaseBuilder {
         val key = databaseReference.push().key
         wordItem.uuid = key
         wordItem.image = 2131165330
+        wordItem._createdAt = Login.getUserId()
         databaseReference.child(key!!).setValue(wordItem)
     }
 }

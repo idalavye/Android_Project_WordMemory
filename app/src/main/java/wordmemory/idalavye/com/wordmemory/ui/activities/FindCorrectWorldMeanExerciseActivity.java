@@ -71,7 +71,6 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     public void choosingAnswerCWM(View view) {
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
-            find_cwm_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             newQuestion();
@@ -82,6 +81,7 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
+        find_cwm_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         btn1.setEnabled(true);
         btn2.setEnabled(true);
         btn3.setEnabled(true);

@@ -4,4 +4,5 @@ data class WordListItemModel(
         var word: String? = null,
         var meaning: String? = null,
         var image: Int = -1,
-        var uuid: String? = null)
+        var uuid: String? = null,
+        var _createdAt: String? = null)
