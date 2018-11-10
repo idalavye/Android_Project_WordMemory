@@ -8,8 +8,7 @@ import wordmemory.idalavye.com.wordmemory.models.WordListItemModel
 import wordmemory.idalavye.com.wordmemory.utils.Login
 
 object WordListItemController {
-    private var wordsMutable: MutableList<WordListItemModel>? = null
-    val words get() = wordsMutable as ArrayList?
+    val words: ArrayList<WordListItemModel> = arrayListOf()
     private val listeners: MutableList<WordItemDataChangeListener> = mutableListOf()
 
     fun pullWordItems() {
@@ -19,17 +18,15 @@ object WordListItemController {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                val words: MutableList<WordListItemModel> = mutableListOf()
-                var userWords: MutableList<WordListItemModel> = mutableListOf()
-                p0.children.mapNotNullTo(words) { it.getValue<WordListItemModel>(WordListItemModel::class.java) }
+                val result: MutableList<WordListItemModel> = mutableListOf()
+                p0.children.mapNotNullTo(result) { it.getValue<WordListItemModel>(WordListItemModel::class.java) }
 
-                for (word in words){
-                    if(word._createdAt.equals(Login.getUserId())){
-                        userWords.add(word)
+                for (word in result) {
+                    if (word._createdAt.equals(Login.getUserId()) && !words.contains(word)) {
+                        words.add(word)
                     }
                 }
 
-                this@WordListItemController.wordsMutable = userWords
                 for (listener in listeners) {
                     listener.onWordItemDataChange()
                 }

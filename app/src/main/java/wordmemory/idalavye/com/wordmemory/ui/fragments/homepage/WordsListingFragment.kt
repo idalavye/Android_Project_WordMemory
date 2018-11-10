@@ -38,7 +38,7 @@ class WordsListingFragment : Fragment() {
             Log.e(TAG, "activity: ", NullPointerException())
             return view
         }
-        val adapter = ExpandableListViewAdapter(activity, words)
+        val adapter = ExpandableListViewAdapter(activity, WordListItemController.words)
 
         val expandableListView: ExpandableListView = view.findViewById(R.id.words_listView)
         val swipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.pullToRefresh)

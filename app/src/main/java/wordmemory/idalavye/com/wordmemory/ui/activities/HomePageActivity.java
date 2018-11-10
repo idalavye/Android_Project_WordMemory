@@ -7,10 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -30,6 +28,7 @@ import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.database.DatabaseRef;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter;
 import wordmemory.idalavye.com.wordmemory.ui.adapters.HomePagePagerAdapter;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.common.BottomNavigationDrawerFragment;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ExercisesFragment;
@@ -51,7 +50,7 @@ public class HomePageActivity extends AppCompatActivity {
     private HomePagePagerAdapter pagerAdapter;
     private MaterialButton add_new_word_button;
     private TextInputEditText word, wordMean;
-    private ListView expandableListView;
+    private ExpandableListView expandableListView;
 
     private ArrayList<WordListItemModel> list;
     private ArrayList<String> words;
@@ -95,21 +94,23 @@ public class HomePageActivity extends AppCompatActivity {
                     viewPager.setAdapter(pagerAdapter);
                 }
                 expandableListView = WordsListingFragment.getExpandableListView();
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (expandableListView == null) {
-                            Log.e(TAG, "onClick: ", new NullPointerException());
-                            return;
-                        }
+                ExpandableListViewAdapter adapter = (ExpandableListViewAdapter) expandableListView.getExpandableListAdapter();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandableListView == null) {
+                    Log.e(TAG, "onClick: ", new NullPointerException());
+                    return;
+                }
 
-                        if (fbModeCenter) {
-                            showNewWordLayout();
-                        } else {
-                            hideAddNewWordLayout();
-                        }
-                    }
-                });
+                if (fbModeCenter) {
+                    showNewWordLayout();
+                } else {
+                    hideAddNewWordLayout();
+                }
             }
         });
         WordListItemController.INSTANCE.pullWordItems();
@@ -194,6 +195,7 @@ public class HomePageActivity extends AppCompatActivity {
                 word.setText("");
 
                 hideAddNewWordLayout();
+                WordListItemController.INSTANCE.pullWordItems();
             }
         });
     }
