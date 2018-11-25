@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -28,7 +29,7 @@ public class BottomNavigationDrawerFragment extends BottomSheetDialogFragment {
     private FirebaseAuth firebaseAuth;
 
 
-    public static BottomNavigationDrawerFragment getInstance(){
+    public static BottomNavigationDrawerFragment getInstance() {
         return new BottomNavigationDrawerFragment();
     }
 
@@ -47,15 +48,17 @@ public class BottomNavigationDrawerFragment extends BottomSheetDialogFragment {
         username.setText(currentUser.getDisplayName());
         user_email.setText(currentUser.getEmail());
 
-       ImageDownloader imageDownloader = new ImageDownloader();
-        try {
-            Bitmap bitmap = imageDownloader.execute(currentUser.getPhotoUrl().toString()).get();
-            user_image.setImageBitmap(bitmap);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Picasso.get().load(currentUser.getPhotoUrl().toString()).into(user_image);
+
+//       ImageDownloader imageDownloader = new ImageDownloader();
+//        try {
+//            Bitmap bitmap = imageDownloader.execute(currentUser.getPhotoUrl().toString()).get();
+//            user_image.setImageBitmap(bitmap);
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return view;
     }
@@ -80,7 +83,6 @@ public class BottomNavigationDrawerFragment extends BottomSheetDialogFragment {
             }
         }
     }
-
 
 
 }
