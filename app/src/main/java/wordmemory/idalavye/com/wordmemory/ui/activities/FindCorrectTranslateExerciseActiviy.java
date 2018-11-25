@@ -1,11 +1,13 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.google.android.material.button.MaterialButton;
@@ -15,10 +17,12 @@ import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
+import wordmemory.idalavye.com.wordmemory.utils.CommonTimer;
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
@@ -28,6 +32,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     private MaterialButton btn1;
     private TextView word;
     private RoundCornerProgressBar progressBar;
+    private RingProgressBar ringProgressBar;
     private int correct_answer_location;
     private int ourWord;
     private LinearLayout find_ct_word_layout;
@@ -35,6 +40,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     private ArrayList<String> answers = new ArrayList<>();
     private ArrayList<WordListItemModel> list;
     private ArrayList<WordListItemModel> questions;
+    CommonTimer commonTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,13 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         progressBar.setMax(list.size());
         progressBar.setProgress(0);
 
+        ringProgressBar.setOnProgressListener(new RingProgressBar.OnProgressListener() {
+            @Override
+            public void progressToComplete() {
+                newQuestion();
+            }
+        });
+
         newQuestion();
     }
 
@@ -67,6 +80,8 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         list = WordListItemController.INSTANCE.getWords();
         questions = new ArrayList<>(list);
         find_ct_word_layout = findViewById(R.id.find_ct_word_layout);
+        ringProgressBar = findViewById(R.id.find_ct_ringProgress);
+        commonTimer = new CommonTimer();
     }
 
     public void choosingAnswer(View view) {
@@ -76,6 +91,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
             DatabaseBuilder.INSTANCE.updateWordItem(questions.get(ourWord), "word_progress");
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
+            commonTimer.cancelTimer();
             newQuestion();
         } else {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.wrongAnswer));
@@ -84,6 +100,8 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     }
 
     public void newQuestion() {
+
+
         find_ct_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         btn1.setEnabled(true);
         btn2.setEnabled(true);
@@ -95,6 +113,9 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         btn4.setBackgroundTintList(getResources().getColorStateList(R.color.questionColor));
 
         if (questions.size() > 0) {
+            ringProgressBar.setProgress(0);
+            commonTimer.startTimer(ringProgressBar, ringProgressBar.getMax() * 1000 + 1000, 1000);
+
             Random random = new Random();
             ourWord = random.nextInt(questions.size());
             correct_answer_location = random.nextInt(4);

@@ -43,4 +43,5 @@ dependencies {
     implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'
 }

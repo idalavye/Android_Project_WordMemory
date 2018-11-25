@@ -111,5 +111,18 @@
         app:layout_constraintTop_toBottomOf="@+id/find_ct_pb"
         app:srcCompat="@drawable/ic_close_black_24dp" />
 
+    <io.netopen.hotbitmapgg.library.view.RingProgressBar
+        android:id="@+id/find_ct_ringProgress"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:ringColor="@android:color/black"
+        app:ringProgressColor="@android:color/black"
+        app:style="FILL"
+        app:max="10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/find_ct_pb" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
