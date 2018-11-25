@@ -1,12 +1,16 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 
@@ -52,8 +56,6 @@ public class HomePageActivity extends AppCompatActivity {
     private TextInputEditText word, wordMean;
     private ExpandableListView expandableListView;
 
-    private ArrayList<WordListItemModel> list;
-    private ArrayList<String> words;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +137,6 @@ public class HomePageActivity extends AppCompatActivity {
         add_new_word_button = findViewById(R.id.add_new_word_button);
         word = findViewById(R.id.add_new_word_word_et);
         wordMean = findViewById(R.id.add_new_word_word_mean_et);
-        list = WordListItemController.INSTANCE.getWords();
     }
 
     @Override
@@ -194,10 +195,14 @@ public class HomePageActivity extends AppCompatActivity {
                 wordMean.setText("");
                 word.setText("");
 
+                InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
                 hideAddNewWordLayout();
                 WordListItemController.INSTANCE.pullWordItems();
             }
         });
+
     }
 
     private void hideAddNewWordLayout() {
@@ -206,6 +211,7 @@ public class HomePageActivity extends AppCompatActivity {
         fab.setImageResource(R.drawable.ic_add);
         fbModeCenter = true;
         tabLayout.setVisibility(View.VISIBLE);
+        expandableListView = WordsListingFragment.getExpandableListView();
         expandableListView.startAnimation(Animations.createSlideInLeft(getApplicationContext(), 500));
         expandableListView.setVisibility(View.VISIBLE);
         ExercisesFragment.exercise_fragment.startAnimation(Animations.createSlideInLeft(getApplicationContext(), 500));

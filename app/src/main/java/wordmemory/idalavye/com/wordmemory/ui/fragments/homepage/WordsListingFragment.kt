@@ -23,6 +23,7 @@ class WordsListingFragment : Fragment() {
         @JvmStatic
         var expandableListView: ExpandableListView? = null
             private set
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -41,7 +42,6 @@ class WordsListingFragment : Fragment() {
         val adapter = ExpandableListViewAdapter(activity, WordListItemController.words)
 
         val expandableListView: ExpandableListView = view.findViewById(R.id.words_listView)
-        val swipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.pullToRefresh)
 
         expandableListView.isNestedScrollingEnabled = true
         expandableListView.setAdapter(adapter)
