@@ -19,6 +19,7 @@ import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_correct_world_mean_exercise);
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.exerciseBackgroundColor));
         init();
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +72,8 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     public void choosingAnswerCWM(View view) {
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
+            questions.get(ourWord).setWord_progress(questions.get(ourWord).getWord_progress() + 1);
+            DatabaseBuilder.INSTANCE.updateWordItem(questions.get(ourWord), "word_progress");
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             newQuestion();
@@ -120,6 +123,12 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
             btn4.setEnabled(false);
             word.setText(getString(R.string.all_words_were_studied));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WordListItemController.INSTANCE.pullWordItems();
     }
 
 }

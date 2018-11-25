@@ -19,6 +19,7 @@ import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_correct_translate_exercise_activiy);
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.exerciseBackgroundColor));
 
         init();
 
@@ -68,20 +69,22 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         find_ct_word_layout = findViewById(R.id.find_ct_word_layout);
     }
 
-    public void choosingAnswer(View view){
+    public void choosingAnswer(View view) {
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
+            questions.get(ourWord).setWord_progress(questions.get(ourWord).getWord_progress() + 1);
+            DatabaseBuilder.INSTANCE.updateWordItem(questions.get(ourWord), "word_progress");
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             newQuestion();
-        }else{
+        } else {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.wrongAnswer));
             view.setEnabled(false);
         }
     }
 
     public void newQuestion() {
-        find_ct_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(),1500));
+        find_ct_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         btn1.setEnabled(true);
         btn2.setEnabled(true);
         btn3.setEnabled(true);
@@ -124,5 +127,11 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
 
             word.setText(getString(R.string.all_words_were_studied));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WordListItemController.INSTANCE.pullWordItems();
     }
 }

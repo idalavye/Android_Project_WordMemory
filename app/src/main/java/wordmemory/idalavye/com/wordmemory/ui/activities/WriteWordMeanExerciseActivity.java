@@ -6,6 +6,7 @@ import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -76,6 +77,8 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
                         newQuestion();
                         progressBar.setProgress(progressBar.getProgress() + 1);
                         input.setText("");
+                        list.get(location).setWord_progress(list.get(location).getWord_progress() + 1);
+                        DatabaseBuilder.INSTANCE.updateWordItem(list.get(location), "word_progress");
                         list.remove(location);
                     } else {
                         input.setEnabled(false);
@@ -143,5 +146,11 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
         list = WordListItemController.INSTANCE.getWords();
         hintButton = findViewById(R.id.write_word_mean_hint_button);
         layout = findViewById(R.id.write_word_mean_layout);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WordListItemController.INSTANCE.pullWordItems();
     }
 }

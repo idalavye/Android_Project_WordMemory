@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -46,13 +47,13 @@ public class WriteWordWithVoiceExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_word_with_voice_exercise);
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.exerciseBackgroundColor));
 
         init();
         events();
         progressBar.setMax(list.size());
         progressBar.setProgress(0);
-        
+
         newQuestion();
     }
 
@@ -92,10 +93,10 @@ public class WriteWordWithVoiceExerciseActivity extends AppCompatActivity {
                     if (result == TextToSpeech.LANG_MISSING_DATA ||
                             result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "Language not supported");
-                    }else{
+                    } else {
                         //button senEnable true
                     }
-                }else{
+                } else {
                     Log.e("TTS", "initialization failed");
                 }
             }
@@ -122,6 +123,8 @@ public class WriteWordWithVoiceExerciseActivity extends AppCompatActivity {
                         newQuestion();
                         progressBar.setProgress(progressBar.getProgress() + 1);
                         input.setText("");
+                        list.get(location).setWord_progress(list.get(location).getWord_progress() + 1);
+                        DatabaseBuilder.INSTANCE.updateWordItem(list.get(location), "word_progress");
                         list.remove(location);
                     } else {
                         input.setEnabled(false);
@@ -169,17 +172,17 @@ public class WriteWordWithVoiceExerciseActivity extends AppCompatActivity {
         });
     }
 
-    private void speak(){
-        mTTS.speak(questionWord,TextToSpeech.QUEUE_FLUSH,null);
+    private void speak() {
+        mTTS.speak(questionWord, TextToSpeech.QUEUE_FLUSH, null);
     }
 
     @Override
     protected void onDestroy() {
-        if (mTTS != null){
+        if (mTTS != null) {
             mTTS.stop();
             mTTS.shutdown();
         }
-
+        WordListItemController.INSTANCE.pullWordItems();
         super.onDestroy();
     }
 }
