@@ -4,8 +4,9 @@
     <string name="fb_login_protocol_scheme" translatable="false">fb730261727367208</string>
     <string name="all_words_were_studied">You have studied all the words. Congratulations!</string>
     <string name="right_answer">Right answer</string>
-    <string name="my_words">My words</string>
-    <string name="my_exercises">My exercises</string>
+    <string name="my_words">Words</string>
+    <string name="my_exercises">Exercises</string>
+    <string name="my_statistics">Statistics</string>
     <string name="logged_in">You have successfully logged in.</string>
 
 </resources>

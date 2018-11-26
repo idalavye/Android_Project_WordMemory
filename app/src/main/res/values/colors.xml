@@ -8,4 +8,5 @@
   <color name="wrongAnswer">#E80F29</color>
   <color name="exerciseBackgroundColor">#29B5B6</color>
   <color name="loginPageBackgroundColor">#E9F7EF</color>
+  <color name="statisticsNumberColor">#13E8ED</color>
 </resources>

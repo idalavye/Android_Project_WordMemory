@@ -67,6 +67,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_words)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_exercises)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_statistics)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
