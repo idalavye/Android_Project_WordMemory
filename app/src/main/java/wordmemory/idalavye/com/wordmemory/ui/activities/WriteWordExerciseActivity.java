@@ -3,6 +3,7 @@ package wordmemory.idalavye.com.wordmemory.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
@@ -39,6 +40,8 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
     private int location;
     private String checkWord;
     private int our_word_p = 0;
+    private int repeatedWord;
+    private int correctRepeatedWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
+        repeatedWord++;
         layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         our_word_p = 0;
         Random random = new Random();
@@ -84,12 +88,13 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
                 ourWriteWord = input.getText().toString();
                 if (ourWriteWord.equalsIgnoreCase(correctWord)) {
                     if (list.size() > 0) {
-                        newQuestion();
+                        correctRepeatedWord++;
                         progressBar.setProgress(progressBar.getProgress() + 1);
-                        input.setText("");
                         list.get(location).setWord_progress(list.get(location).getWord_progress() + 1);
                         DatabaseBuilder.INSTANCE.updateWordItem(list.get(location), "word_progress");
                         list.remove(location);
+                        newQuestion();
+                        input.setText("");
                     } else {
                         input.setEnabled(false);
                         input.setText(":)");
@@ -146,11 +151,15 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
         list = WordListItemController.INSTANCE.getWords();
         hintButton = findViewById(R.id.write_word_hint_button);
         layout = findViewById(R.id.write_word_layout);
+        repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();
+        correctRepeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalCorrectRepeated();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
+        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalRepeated",repeatedWord);
+        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalCorrectRepeated",correctRepeatedWord);
     }
 }

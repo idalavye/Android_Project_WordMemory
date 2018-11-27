@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
@@ -41,6 +42,8 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     private ArrayList<WordListItemModel> list;
     private ArrayList<WordListItemModel> questions;
     CommonTimer commonTimer;
+    private int repeatedWord;
+    private int correctRepeatedWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +85,14 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         find_ct_word_layout = findViewById(R.id.find_ct_word_layout);
         ringProgressBar = findViewById(R.id.find_ct_ringProgress);
         commonTimer = new CommonTimer();
+        repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();
+        correctRepeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalCorrectRepeated();
     }
 
     public void choosingAnswer(View view) {
+        repeatedWord++;
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
+            correctRepeatedWord++;
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
             questions.get(ourWord).setWord_progress(questions.get(ourWord).getWord_progress() + 1);
             DatabaseBuilder.INSTANCE.updateWordItem(questions.get(ourWord), "word_progress");
@@ -100,7 +107,6 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     }
 
     public void newQuestion() {
-
 
         find_ct_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         btn1.setEnabled(true);
@@ -154,5 +160,7 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
+        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalRepeated",repeatedWord);
+        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalCorrectRepeated",correctRepeatedWord);
     }
 }

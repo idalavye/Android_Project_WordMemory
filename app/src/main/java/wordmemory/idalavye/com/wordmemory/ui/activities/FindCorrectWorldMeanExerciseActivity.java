@@ -16,6 +16,7 @@ import java.util.Random;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
@@ -35,6 +36,8 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     private ArrayList<String> answers = new ArrayList<>();
     private ArrayList<WordListItemModel> list;
     private ArrayList<WordListItemModel> questions;
+    private int repeatedWord;
+    private int correctRepeatedWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +70,14 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
         list = WordListItemController.INSTANCE.getWords();
         questions = new ArrayList<>(list);
         find_cwm_word_layout = findViewById(R.id.find_cwm_word_layout);
+        repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();
+        correctRepeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalCorrectRepeated();
     }
 
     public void choosingAnswerCWM(View view) {
+        repeatedWord++;
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
+            correctRepeatedWord++;
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
             questions.get(ourWord).setWord_progress(questions.get(ourWord).getWord_progress() + 1);
             DatabaseBuilder.INSTANCE.updateWordItem(questions.get(ourWord), "word_progress");
@@ -129,6 +136,8 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
+        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalRepeated",repeatedWord);
+        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalCorrectRepeated",correctRepeatedWord);
     }
 
 }
