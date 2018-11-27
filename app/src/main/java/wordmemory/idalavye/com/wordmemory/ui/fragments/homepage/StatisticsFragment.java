@@ -20,8 +20,6 @@ import com.db.chart.model.LineSet;
 import com.db.chart.renderer.AxisRenderer;
 import com.db.chart.tooltip.Tooltip;
 import com.db.chart.util.Tools;
-import com.db.chart.view.BarChartView;
-import com.db.chart.view.ChartView;
 import com.db.chart.view.LineChartView;
 
 import androidx.annotation.NonNull;
@@ -35,8 +33,8 @@ public class StatisticsFragment extends Fragment {
     private Context mContext;
     private final String[] mLabels = {"Jan", "Fev", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
 
-    private final float[][] mValues = {{3.5f, 4.7f, 4.3f, 8f, 6.5f, 9.9f, 7f, 8.3f, 7.0f},
-            {4.5f, 2.5f, 2.5f, 9f, 4.5f, 9.5f, 5f, 8.3f, 1.8f}};
+    private final float[][] mValues = {{3.5f, 4.7f, 4.3f, 8f, 6.5f, 2f, 7f, 8.3f, 7.0f},
+            {4.5f, 2.5f, 2.5f, 12f, 4.5f, 9.5f, 5f, 10f, 1.8f}};
 
     private Tooltip mTip;
 

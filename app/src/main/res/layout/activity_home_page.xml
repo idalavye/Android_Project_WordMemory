@@ -9,6 +9,7 @@
 
 
     <LinearLayout
+        android:id="@+id/homepage_content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -32,7 +33,10 @@
             android:layout_height="match_parent"
             android:layout_below="@id/tab_layout" />
 
+
+
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/add_new_word"

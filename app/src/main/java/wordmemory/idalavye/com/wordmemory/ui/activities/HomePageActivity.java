@@ -55,6 +55,7 @@ public class HomePageActivity extends AppCompatActivity {
     private MaterialButton add_new_word_button;
     private TextInputEditText word, wordMean;
     private ExpandableListView expandableListView;
+    private LinearLayout homepage_content_layout;
 
 
     @Override
@@ -108,7 +109,6 @@ public class HomePageActivity extends AppCompatActivity {
                     Log.e(TAG, "onClick: ", new NullPointerException());
                     return;
                 }
-
                 if (fbModeCenter) {
                     showNewWordLayout();
                 } else {
@@ -138,6 +138,7 @@ public class HomePageActivity extends AppCompatActivity {
         add_new_word_button = findViewById(R.id.add_new_word_button);
         word = findViewById(R.id.add_new_word_word_et);
         wordMean = findViewById(R.id.add_new_word_word_mean_et);
+        homepage_content_layout = findViewById(R.id.homepage_content_layout);
     }
 
     @Override
@@ -211,12 +212,9 @@ public class HomePageActivity extends AppCompatActivity {
         bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
         fab.setImageResource(R.drawable.ic_add);
         fbModeCenter = true;
-        tabLayout.setVisibility(View.VISIBLE);
-        expandableListView = WordsListingFragment.getExpandableListView();
-        expandableListView.startAnimation(Animations.createSlideInLeft(getApplicationContext(), 500));
-        expandableListView.setVisibility(View.VISIBLE);
-        ExercisesFragment.exercise_fragment.startAnimation(Animations.createSlideInLeft(getApplicationContext(), 500));
-        ExercisesFragment.exercise_fragment.setVisibility(View.VISIBLE);
+
+        homepage_content_layout.startAnimation(Animations.createSlideInLeft(getApplicationContext(), 500));
+        homepage_content_layout.setVisibility(View.VISIBLE);
         addNewWordLayout.setVisibility(View.GONE);
     }
 
@@ -224,9 +222,8 @@ public class HomePageActivity extends AppCompatActivity {
         bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
         fab.setImageResource(R.drawable.ic_reply);
         fbModeCenter = false;
-        tabLayout.setVisibility(View.GONE);
-        expandableListView.setVisibility(View.GONE);
-        ExercisesFragment.exercise_fragment.setVisibility(View.GONE);
+
+        homepage_content_layout.setVisibility(View.GONE);
         addNewWordLayout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 2000));
         addNewWordLayout.setVisibility(View.VISIBLE);
     }
