@@ -22,13 +22,19 @@ import com.db.chart.tooltip.Tooltip;
 import com.db.chart.util.Tools;
 import com.db.chart.view.LineChartView;
 
+import java.util.Date;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
+import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
+import wordmemory.idalavye.com.wordmemory.models.StatisticModel;
 
 public class StatisticsFragment extends Fragment {
 
+    private TextView f_statistics_totalWord, f_statistics_totalLearnedWord, f_statistics_totalRepeated, f_statistics_totalCorrectRepeated;
     private LineChartView mChart;
     private Context mContext;
     private final String[] mLabels = {"Jan", "Fev", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
@@ -43,13 +49,17 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        mContext = view.getContext();
-        mChart = view.findViewById(R.id.chart);
+        init(view);
+
+        StatisticModel model = StatisticController.INSTANCE.getStatisticsForCurrentUser();
+        float ratio = ((float) model.getTotalCorrectRepeated() / (float) model.getTotalRepeated())*100f;
+        f_statistics_totalWord.setText(String.valueOf(model.getTotalWord()));
+        f_statistics_totalLearnedWord.setText(String.valueOf(model.getTotalLearnedWord()));
+        f_statistics_totalRepeated.setText(String.valueOf(model.getTotalRepeated()));
+        f_statistics_totalCorrectRepeated.setText(String.valueOf(model.getTotalCorrectRepeated()) + "(" + ratio + "%)");
 
         // Tooltip
         mTip = new Tooltip(mContext, R.layout.linechart_three_tooltip, R.id.value);
-
-
         mTip.setVerticalAlignment(Tooltip.Alignment.BOTTOM_TOP);
         mTip.setDimensions((int) Tools.fromDpToPx(58), (int) Tools.fromDpToPx(25));
 
@@ -104,5 +114,16 @@ public class StatisticsFragment extends Fragment {
         return view;
     }
 
+    public void init(View view) {
+        mContext = view.getContext();
+        mChart = view.findViewById(R.id.chart);
+        f_statistics_totalWord = view.findViewById(R.id.f_statistics_totalWord);
+        f_statistics_totalLearnedWord = view.findViewById(R.id.f_statistics_totalLearnedWord);
+        f_statistics_totalRepeated = view.findViewById(R.id.f_statistics_totalRepeated);
+        f_statistics_totalCorrectRepeated = view.findViewById(R.id.f_statistics_totalCorrectRepeated);
+    }
 
+    public void setXLabel(){
+        Date date = new Date();
+    }
 }

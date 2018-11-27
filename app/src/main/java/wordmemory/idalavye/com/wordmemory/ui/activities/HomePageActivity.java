@@ -22,6 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -29,8 +30,10 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.database.DatabaseRef;
+import wordmemory.idalavye.com.wordmemory.models.StatisticModel;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter;
 import wordmemory.idalavye.com.wordmemory.ui.adapters.HomePagePagerAdapter;
@@ -95,6 +98,7 @@ public class HomePageActivity extends AppCompatActivity {
             public void onWordItemDataChange() {
                 if (pagerAdapter == null) {
                     pagerAdapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+                    StatisticController.INSTANCE.getUserStatistics();
                     viewPager.setAdapter(pagerAdapter);
                 }
                 expandableListView = WordsListingFragment.getExpandableListView();
@@ -102,6 +106,8 @@ public class HomePageActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +205,6 @@ public class HomePageActivity extends AppCompatActivity {
 
                 InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
                 hideAddNewWordLayout();
                 WordListItemController.INSTANCE.pullWordItems();
             }
