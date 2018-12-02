@@ -47,7 +47,6 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
 
         viewHolder.wordTextView.text = wordList[groupPosition].word
         viewHolder.wordMeanTextView.text = wordList[groupPosition].meaning
-        viewHolder.wordImage.setImageDrawable(ContextCompat.getDrawable(context, wordList[groupPosition].image))
         viewHolder.progress.progress = wordList[groupPosition].word_progress
 
         return listView!!
