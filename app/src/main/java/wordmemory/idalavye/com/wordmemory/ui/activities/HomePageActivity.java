@@ -42,6 +42,7 @@ import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter;
 import wordmemory.idalavye.com.wordmemory.ui.adapters.HomePagePagerAdapter;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.common.BottomNavigationDrawerFragment;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ExercisesFragment;
+import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.StatisticsFragment;
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.WordsListingFragment;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
@@ -102,7 +103,6 @@ public class HomePageActivity extends AppCompatActivity {
             public void onWordItemDataChange() {
                 if (pagerAdapter == null) {
                     pagerAdapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-                    StatisticController.INSTANCE.getUserStatistics();
                     viewPager.setAdapter(pagerAdapter);
                     spin_layout_homepage.setVisibility(View.GONE);
                 }

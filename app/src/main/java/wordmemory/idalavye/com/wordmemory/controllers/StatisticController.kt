@@ -1,9 +1,8 @@
 package wordmemory.idalavye.com.wordmemory.controllers
 
-import android.util.Log
+import android.view.View
 import com.google.firebase.database.*
 import wordmemory.idalavye.com.wordmemory.database.DatabaseRef
-import wordmemory.idalavye.com.wordmemory.database.DatabaseRef.statisticsRef
 import wordmemory.idalavye.com.wordmemory.models.StatisticModel
 import wordmemory.idalavye.com.wordmemory.utils.Login
 
@@ -15,7 +14,11 @@ object StatisticController {
     private val statisticsList: MutableList<StatisticModel> = mutableListOf()
     var statisticsForCurrentUser: StatisticModel = StatisticModel("0", "0", 0, 0, 0, 0)
 
+    private val listeners: MutableList<StatisticsDataChangeListener> = mutableListOf()
+    var loading:Boolean? = null
+
     fun getUserStatistics() {
+        loading = true
         val statisticListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var check: Boolean? = true
@@ -31,12 +34,17 @@ object StatisticController {
                             statisticsForCurrentUser = statistics
                         }
                     }
+
+                    loading = false
+                    for (listener in listeners) {
+                        listener.onStatisticsItemDataChange()
+                    }
                 }
 
                 if (check == true) {
                     //Kullanıcı yeni üye olmuşsa onun için yeni bir document oluşturuyoruz.
                     addStatisticForUser(statisticsForCurrentUser!!)
-                }else{
+                } else {
                     updateStatisticsForCurrentUser(statisticsForCurrentUser!!)
                 }
             }
@@ -46,6 +54,7 @@ object StatisticController {
             }
 
             fun addStatisticForUser(statistic: StatisticModel) {
+
                 val key = statisticsRef.push().key
                 statistic.uuid = key
                 statistic._userId = Login.getUserId()
@@ -56,7 +65,8 @@ object StatisticController {
                 statisticsRef.child(key!!).setValue(statistic)
             }
 
-            fun updateStatisticsForCurrentUser(statistic:StatisticModel){
+            fun updateStatisticsForCurrentUser(statistic: StatisticModel) {
+                loading = true
                 statistic.totalWord = WordListItemController.words.size
                 statistic.totalLearnedWord = WordListItemController.words.filter { s -> s.word_progress == 100 }.size
 
@@ -66,7 +76,18 @@ object StatisticController {
         statisticsRef!!.addValueEventListener(statisticListener)
     }
 
-    fun updateStatisticsAfterExercise(type: String, value: Int) {
-        firebaseData.child(STATISTICS).child(statisticsForCurrentUser.uuid!!).child(type).setValue(value)
+    fun updateStatisticsWithRepeatedAndCorrectRepeated(value1: Int, value2: Int) {
+        statisticsForCurrentUser.totalRepeated = value1
+        statisticsForCurrentUser.totalCorrectRepeated = value2
+        loading = true
+        firebaseData.child(STATISTICS).child(statisticsForCurrentUser.uuid!!).setValue(statisticsForCurrentUser)
+    }
+
+    fun addListenerForStatisticItemDataChange(listener: StatisticsDataChangeListener) {
+        listeners.add(listener)
+    }
+
+    interface StatisticsDataChangeListener {
+        fun onStatisticsItemDataChange()
     }
 }

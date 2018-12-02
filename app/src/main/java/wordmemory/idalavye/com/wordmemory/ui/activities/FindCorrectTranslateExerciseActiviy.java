@@ -160,7 +160,6 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
-        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalRepeated",repeatedWord);
-        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalCorrectRepeated",correctRepeatedWord);
+        StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord,correctRepeatedWord);
     }
 }

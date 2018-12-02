@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.db.chart.animation.Animation;
@@ -21,6 +23,8 @@ import com.db.chart.renderer.AxisRenderer;
 import com.db.chart.tooltip.Tooltip;
 import com.db.chart.util.Tools;
 import com.db.chart.view.LineChartView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import java.util.Date;
 
@@ -36,6 +40,7 @@ public class StatisticsFragment extends Fragment {
 
     private TextView f_statistics_totalWord, f_statistics_totalLearnedWord, f_statistics_totalRepeated, f_statistics_totalCorrectRepeated;
     private LineChartView mChart;
+    private LinearLayout spin_layout_statistics, statistics_layout;
     private Context mContext;
     private final String[] mLabels = {"Jan", "Fev", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
 
@@ -43,6 +48,7 @@ public class StatisticsFragment extends Fragment {
             {4.5f, 2.5f, 2.5f, 12f, 4.5f, 9.5f, 5f, 10f, 1.8f}};
 
     private Tooltip mTip;
+    Paint gridPaint;
 
     @Nullable
     @Override
@@ -51,13 +57,7 @@ public class StatisticsFragment extends Fragment {
 
         init(view);
 
-        StatisticModel model = StatisticController.INSTANCE.getStatisticsForCurrentUser();
-        float ratio = ((float) model.getTotalCorrectRepeated() / (float) model.getTotalRepeated())*100f;
-        f_statistics_totalWord.setText(String.valueOf(model.getTotalWord()));
-        f_statistics_totalLearnedWord.setText(String.valueOf(model.getTotalLearnedWord()));
-        f_statistics_totalRepeated.setText(String.valueOf(model.getTotalRepeated()));
-        f_statistics_totalCorrectRepeated.setText(String.valueOf(model.getTotalCorrectRepeated()) + "(" + ratio + "%)");
-
+        mChart.clearAnimation();
         // Tooltip
         mTip = new Tooltip(mContext, R.layout.linechart_three_tooltip, R.id.value);
         mTip.setVerticalAlignment(Tooltip.Alignment.BOTTOM_TOP);
@@ -98,7 +98,7 @@ public class StatisticsFragment extends Fragment {
                 .setThickness(4);
         mChart.addData(dataset);
 
-        Paint gridPaint = new Paint();
+        gridPaint = new Paint();
         gridPaint.setColor(Color.parseColor("#ffffff"));
         gridPaint.setStyle(Paint.Style.STROKE);
         gridPaint.setAntiAlias(true);
@@ -107,12 +107,38 @@ public class StatisticsFragment extends Fragment {
         mChart.setAxisBorderValues(0, 20)
                 .setYLabels(AxisRenderer.LabelPosition.NONE)
                 .setTooltips(mTip)
-                .setGrid(10, 0, gridPaint)
-                .show(new Animation().setInterpolator(new BounceInterpolator())
-                        .fromAlpha(0));
+                .setGrid(10, 0, gridPaint);
 
+
+        statistics_layout.setVisibility(View.GONE);
+        spin_layout_statistics.setVisibility(View.VISIBLE);
+
+        StatisticController.INSTANCE.addListenerForStatisticItemDataChange(new StatisticController.StatisticsDataChangeListener() {
+            @Override
+            public void onStatisticsItemDataChange() {
+
+                if (!StatisticController.INSTANCE.getLoading()) {
+
+                    statistics_layout.setVisibility(View.VISIBLE);
+                    spin_layout_statistics.setVisibility(View.GONE);
+
+                    StatisticModel model = StatisticController.INSTANCE.getStatisticsForCurrentUser();
+                    float ratio = ((float) model.getTotalCorrectRepeated() / (float) model.getTotalRepeated()) * 100f;
+                    f_statistics_totalWord.setText(String.valueOf(model.getTotalWord()));
+                    f_statistics_totalLearnedWord.setText(String.valueOf(model.getTotalLearnedWord()));
+                    f_statistics_totalRepeated.setText(String.valueOf(model.getTotalRepeated()));
+                    f_statistics_totalCorrectRepeated.setText(String.valueOf(model.getTotalCorrectRepeated()) + "(" + ratio + "%)");
+
+                    mChart.show(new Animation().setInterpolator(new BounceInterpolator())
+                            .fromAlpha(0));
+                }
+            }
+        });
+
+        StatisticController.INSTANCE.getUserStatistics();
         return view;
     }
+
 
     public void init(View view) {
         mContext = view.getContext();
@@ -121,9 +147,18 @@ public class StatisticsFragment extends Fragment {
         f_statistics_totalLearnedWord = view.findViewById(R.id.f_statistics_totalLearnedWord);
         f_statistics_totalRepeated = view.findViewById(R.id.f_statistics_totalRepeated);
         f_statistics_totalCorrectRepeated = view.findViewById(R.id.f_statistics_totalCorrectRepeated);
+        spin_layout_statistics = view.findViewById(R.id.spin_layout_statistics);
+        statistics_layout = view.findViewById(R.id.statistics_layout);
+
+        spin_layout_statistics.setVisibility(View.VISIBLE);
+        statistics_layout.setVisibility(View.GONE);
+
+        ProgressBar progressBar = view.findViewById(R.id.spin_kit_for_statistics);
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
     }
 
-    public void setXLabel(){
+    public void setXLabel() {
         Date date = new Date();
     }
 }

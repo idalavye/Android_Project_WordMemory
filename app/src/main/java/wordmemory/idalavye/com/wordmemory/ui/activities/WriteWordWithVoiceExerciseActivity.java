@@ -190,8 +190,7 @@ public class WriteWordWithVoiceExerciseActivity extends AppCompatActivity {
             mTTS.shutdown();
         }
         WordListItemController.INSTANCE.pullWordItems();
-        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalRepeated",repeatedWord);
-        StatisticController.INSTANCE.updateStatisticsAfterExercise("totalCorrectRepeated",correctRepeatedWord);
+        StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord,correctRepeatedWord);
         super.onDestroy();
     }
 }
