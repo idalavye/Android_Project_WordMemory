@@ -36,6 +36,8 @@ object StatisticController {
                 if (check == true) {
                     //Kullanıcı yeni üye olmuşsa onun için yeni bir document oluşturuyoruz.
                     addStatisticForUser(statisticsForCurrentUser!!)
+                }else{
+                    updateStatisticsForCurrentUser(statisticsForCurrentUser!!)
                 }
             }
 
@@ -52,6 +54,13 @@ object StatisticController {
                 statistic.totalRepeated = 0
                 statistic.totalCorrectRepeated = 0
                 statisticsRef.child(key!!).setValue(statistic)
+            }
+
+            fun updateStatisticsForCurrentUser(statistic:StatisticModel){
+                statistic.totalWord = WordListItemController.words.size
+                statistic.totalLearnedWord = WordListItemController.words.filter { s -> s.word_progress == 100 }.size
+
+                firebaseData.child(STATISTICS).child(statisticsForCurrentUser.uuid!!).setValue(statistic)
             }
         }
         statisticsRef!!.addValueEventListener(statisticListener)
