@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activities.LoginPageActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.activities.HomePageActivity" />
 
@@ -51,11 +55,7 @@
             android:name=".ui.activities.WriteWordWithVoiceExerciseActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity android:name=".ui.activities.WordCategoryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

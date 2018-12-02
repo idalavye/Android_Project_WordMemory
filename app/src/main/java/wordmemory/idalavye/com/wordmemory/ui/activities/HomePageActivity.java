@@ -13,8 +13,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.facebook.login.LoginManager;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,7 +61,8 @@ public class HomePageActivity extends AppCompatActivity {
     private MaterialButton add_new_word_button;
     private TextInputEditText word, wordMean;
     private ExpandableListView expandableListView;
-    private LinearLayout homepage_content_layout;
+    private LinearLayout homepage_content_layout,spin_layout_homepage;
+
 
 
     @Override
@@ -100,13 +104,13 @@ public class HomePageActivity extends AppCompatActivity {
                     pagerAdapter = new HomePagePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
                     StatisticController.INSTANCE.getUserStatistics();
                     viewPager.setAdapter(pagerAdapter);
+                    spin_layout_homepage.setVisibility(View.GONE);
                 }
                 expandableListView = WordsListingFragment.getExpandableListView();
                 ExpandableListViewAdapter adapter = (ExpandableListViewAdapter) expandableListView.getExpandableListAdapter();
                 adapter.notifyDataSetChanged();
             }
         });
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +149,7 @@ public class HomePageActivity extends AppCompatActivity {
         word = findViewById(R.id.add_new_word_word_et);
         wordMean = findViewById(R.id.add_new_word_word_mean_et);
         homepage_content_layout = findViewById(R.id.homepage_content_layout);
+        spin_layout_homepage = findViewById(R.id.spin_layout_homepage);
     }
 
     @Override
@@ -210,6 +215,10 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+
+        ProgressBar progressBar = findViewById(R.id.spin_kit);
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
     }
 
     private void hideAddNewWordLayout() {
