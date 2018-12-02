@@ -46,4 +46,5 @@ dependencies {
     implementation 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.diogobernardino:williamchart:2.5.0'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
