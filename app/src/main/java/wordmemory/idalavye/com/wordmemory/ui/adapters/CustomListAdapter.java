@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.models.Cards;
 
 public class CustomListAdapter extends ArrayAdapter<Cards> {
     private static final String TAG = "CustomListAdapter";
