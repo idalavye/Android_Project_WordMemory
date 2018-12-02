@@ -47,10 +47,13 @@
         <activity
             android:name=".ui.activities.WriteWordMeanExerciseActivity"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".ui.activities.WriteWordExerciseActivity"
-            android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".ui.activities.WriteWordWithVoiceExerciseActivity"
-            android:windowSoftInputMode="stateVisible"></activity>
+        <activity
+            android:name=".ui.activities.WriteWordExerciseActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".ui.activities.WriteWordWithVoiceExerciseActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".ui.activities.WordCategoryActivity"></activity>
     </application>
 
 </manifest>
