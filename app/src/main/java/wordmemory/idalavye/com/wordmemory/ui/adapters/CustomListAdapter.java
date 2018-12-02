@@ -1,7 +1,6 @@
 package wordmemory.idalavye.com.wordmemory.ui.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import wordmemory.idalavye.com.wordmemory.R;
 
 public class CustomListAdapter extends ArrayAdapter<Cards> {
