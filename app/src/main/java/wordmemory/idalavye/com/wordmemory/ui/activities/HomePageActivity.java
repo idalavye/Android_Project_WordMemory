@@ -1,19 +1,22 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 import com.github.ybq.android.spinkit.sprite.Sprite;
@@ -23,10 +26,14 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -60,10 +67,13 @@ public class HomePageActivity extends AppCompatActivity {
     private boolean fbModeCenter = true;
     private HomePagePagerAdapter pagerAdapter;
     private MaterialButton add_new_word_button;
-    private TextInputEditText word, wordMean;
+    private TextInputEditText word;
+    private TextView wordMean;
     private ExpandableListView expandableListView;
-    private LinearLayout homepage_content_layout,spin_layout_homepage;
+    private LinearLayout homepage_content_layout, spin_layout_homepage;
 
+
+    Thread thread;
 
 
     @Override
@@ -147,7 +157,7 @@ public class HomePageActivity extends AppCompatActivity {
         searchView = findViewById(R.id.search_word);
         add_new_word_button = findViewById(R.id.add_new_word_button);
         word = findViewById(R.id.add_new_word_word_et);
-        wordMean = findViewById(R.id.add_new_word_word_mean_et);
+        wordMean = findViewById(R.id.word_mean_tw);
         homepage_content_layout = findViewById(R.id.homepage_content_layout);
         spin_layout_homepage = findViewById(R.id.spin_layout_homepage);
     }
@@ -197,13 +207,64 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void events() {
+
+        word.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                final String word1 = word.getText().toString();
+
+                try {
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Translate translate = TranslateOptions
+                                            .newBuilder().setApiKey("AIzaSyCtTUTemBtKKpdBS7rUmjjKlgTx9xDfgvY")
+                                            .build().getService();
+
+                                    Translation translation = translate.translate(
+                                            word1,
+                                            Translate.TranslateOption.sourceLanguage("en"),
+                                            Translate.TranslateOption.targetLanguage("tr")
+                                    );
+
+                                    System.out.println("Text : " + word1);
+                                    System.out.println("Translation : " + translation.getTranslatedText());
+                                    wordMean.setText(translation.getTranslatedText());
+                                }
+                            });
+                            thread.start();
+                        }
+                    },500);
+
+                } catch (Exception e) {
+                    System.out.println("**********************" + e.getMessage());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         add_new_word_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WordListItemModel item = new WordListItemModel();
-                item.setWord(word.getText().toString());
+                final String word1 = word.getText().toString();
+                item.setWord(word1);
                 item.setMeaning(wordMean.getText().toString());
                 DatabaseBuilder.INSTANCE.addWordItems(DatabaseRef.INSTANCE.getWordsRef(), item);
+
 
                 wordMean.setText("");
                 word.setText("");
@@ -214,7 +275,6 @@ public class HomePageActivity extends AppCompatActivity {
                 WordListItemController.INSTANCE.pullWordItems();
             }
         });
-
 
         ProgressBar progressBar = findViewById(R.id.spin_kit);
         Sprite doubleBounce = new DoubleBounce();
@@ -233,12 +293,18 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void showNewWordLayout() {
+
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(
+                InputMethodManager.SHOW_FORCED, 0);
+
         bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
         fab.setImageResource(R.drawable.ic_reply);
         fbModeCenter = false;
 
         homepage_content_layout.setVisibility(View.GONE);
-        addNewWordLayout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 2000));
+        addNewWordLayout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1000));
         addNewWordLayout.setVisibility(View.VISIBLE);
     }
 }

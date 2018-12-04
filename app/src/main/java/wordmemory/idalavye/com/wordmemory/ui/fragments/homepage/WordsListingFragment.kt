@@ -46,10 +46,12 @@ class WordsListingFragment : Fragment() {
         expandableListView.isNestedScrollingEnabled = true
         expandableListView.setAdapter(adapter)
         expandableListView.setOnGroupExpandListener { groupPosition ->
-            if (expandableListView.isGroupExpanded(lastExpandedGroupPosition))
+            lastExpandedGroupPosition = if (expandableListView.isGroupExpanded(lastExpandedGroupPosition)) {
                 expandableListView.collapseGroup(lastExpandedGroupPosition)
-
-            lastExpandedGroupPosition = groupPosition
+                groupPosition
+            } else {
+                -1
+            }
         }
 
         WordsListingFragment.expandableListView = expandableListView
