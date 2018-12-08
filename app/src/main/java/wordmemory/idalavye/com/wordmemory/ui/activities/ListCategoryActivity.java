@@ -113,7 +113,7 @@ public class ListCategoryActivity extends AppCompatActivity {
         String userID = mAuth.getCurrentUser().getUid();
         switch (item.getItemId()) {
             case R.id.edit:
-                Intent intent = new Intent(getApplicationContext(),CreateCategory.class);
+                Intent intent = new Intent(getApplicationContext(),CreateCategoryActivity.class);
                 intent.putExtra("key","edit");
                 intent.putExtra("id",itemUid);
                 intent.putExtra("title",categoryTitleFromFB.get(selectpos));
