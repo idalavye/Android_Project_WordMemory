@@ -5,14 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.models.CategoryClass;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -96,6 +101,54 @@ public class ListCategoryActivity extends AppCompatActivity {
         if (v.getId()==R.id.lstview) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.context_menu, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        long selectid = menuinfo.id; //_id from database in this case
+        final int selectpos = menuinfo.position; //position in the adapter
+        String itemUid = categoryUidFromFB.get(selectpos);
+        String userID = mAuth.getCurrentUser().getUid();
+        switch (item.getItemId()) {
+            case R.id.edit:
+                Intent intent = new Intent(getApplicationContext(),CreateCategory.class);
+                intent.putExtra("key","edit");
+                intent.putExtra("id",itemUid);
+                intent.putExtra("title",categoryTitleFromFB.get(selectpos));
+                intent.putExtra("image",categoryImageFromFB.get(selectpos));
+                intent.putExtra("position",selectpos);
+                startActivity(intent);
+
+
+                return true;
+            case R.id.delete:
+                DatabaseReference dR = FirebaseDatabase.getInstance().getReference("records").child(userID).child(itemUid);
+                dR.removeValue();
+
+                StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(categoryImageFromFB.get(selectpos));
+                photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // File deleted successfully
+                        Log.d(TAG, "onSuccess: deleted file");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Uh-oh, an error occurred!
+                        Log.d(TAG, "onFailure: did not delete file");
+                    }
+                });
+
+                clearListViewArrays();
+                adapter.notifyDataSetChanged();
+
+                Toast.makeText(this, "item deleted", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
