@@ -65,7 +65,7 @@ public class ListCategoryActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         // Adapter
-        adapter = new CategoryClass(categoryUidFromFB,categoryTitleFromFB,categoryImageFromFB,this);
+        //adapter = new CategoryClass(categoryUidFromFB,categoryTitleFromFB,categoryImageFromFB,this);
         lstview.setAdapter(adapter);
         Log.i(TAG, "onCreate: "+ "okey");
         getDataFromFirebase();

@@ -35,6 +35,7 @@ import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.CategoryClass;
 import wordmemory.idalavye.com.wordmemory.ui.activities.CreateCategoryActivity;
 import wordmemory.idalavye.com.wordmemory.ui.activities.FindCorrectTranslateExerciseActiviy;
+import wordmemory.idalavye.com.wordmemory.ui.activities.HomePageActivity;
 import wordmemory.idalavye.com.wordmemory.ui.activities.ListCategoryActivity;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -71,7 +72,7 @@ public class ListCategoryFragment extends Fragment {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         // Adapter
-        adapter = new CategoryClass(categoryUidFromFB,categoryTitleFromFB,categoryImageFromFB,this);
+        adapter = new CategoryClass(categoryUidFromFB,categoryTitleFromFB,categoryImageFromFB,getActivity());
         lstview.setAdapter(adapter);
         Log.i(TAG, "onCreate: "+ "okey");
         getDataFromFirebase();
@@ -170,5 +171,10 @@ public class ListCategoryFragment extends Fragment {
         categoryUidFromFB.clear();
         categoryTitleFromFB.clear();
         categoryImageFromFB.clear();
+    }
+
+    public  void test(View view){
+        Intent intent = new Intent(getApplicationContext(),CreateCategoryActivity.class);
+        startActivity(intent);
     }
 }

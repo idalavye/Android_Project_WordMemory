@@ -23,7 +23,7 @@ public class CategoryClass extends ArrayAdapter<String> {
     public static ArrayList<String> categoryImage;
     public static Activity context;
 
-    public CategoryClass(ArrayList<String> categoryUid, ArrayList<String> categoryTitle, ArrayList<String> categoryImage, ListCategoryFragment context) {
+    public CategoryClass(ArrayList<String> categoryUid, ArrayList<String> categoryTitle, ArrayList<String> categoryImage, Activity context) {
         super(context,R.layout.custom_view,categoryTitle);
         this.categoryUid = categoryUid;
         this.categoryTitle = categoryTitle;
