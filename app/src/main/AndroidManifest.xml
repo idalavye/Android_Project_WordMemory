@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.LoginPageActivity"></activity>
+        <activity android:name=".ui.activities.LoginPageActivity" />
         <activity android:name=".ui.activities.HomePageActivity" />
 
         <meta-data
@@ -55,7 +55,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.CreateCategoryActivity"></activity>
+        <activity android:name=".ui.activities.CreateCategoryActivity" />
+        <activity android:name=".ui.activities.ListCategoryActivity"></activity>
     </application>
 
 </manifest>
