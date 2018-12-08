@@ -9,6 +9,7 @@ import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -181,5 +182,8 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
         StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord, correctRepeatedWord);
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 }

@@ -35,6 +35,10 @@ object DatabaseBuilder {
         firebaseData.child(WORDS).child(wordItem.uuid!!).child(updateProperty).setValue(wordItem.word_progress)
     }
 
+    fun updateWordItem(wordItem: WordListItemModel) {
+        firebaseData.child(WORDS).child(wordItem.uuid!!).setValue(wordItem)
+    }
+
     fun removeWordItem(wordItem: WordListItemModel) {
         firebaseData.child(WORDS).child(wordItem.uuid!!).removeValue()
         WordListItemController.words.remove(wordItem)

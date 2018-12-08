@@ -1,20 +1,21 @@
 package wordmemory.idalavye.com.wordmemory.ui.adapters
 
+import android.app.Dialog
 import android.content.Context
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.BaseExpandableListAdapter
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import wordmemory.idalavye.com.wordmemory.R
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
 import wordmemory.idalavye.com.wordmemory.data.AnimationViewHolder
 import wordmemory.idalavye.com.wordmemory.data.ExpandItemsViewHolder
 import wordmemory.idalavye.com.wordmemory.data.WordListViewHolder
+import wordmemory.idalavye.com.wordmemory.database.DatabaseRef
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder
 
@@ -97,16 +98,37 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
 
         expandHolder.edit.setOnClickListener {
             Log.d("ERROR", "**************************Bujdasfds")
+            var dialogs = Dialog(it.context)
+            dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialogs.setCancelable(false)
+            dialogs.setContentView(R.layout.dialog_edit_word_item)
+
+            val cancelBtn = dialogs.findViewById(R.id.dialog_edit_word_close) as MaterialButton
+            var yesBtn = dialogs.findViewById(R.id.dialog_edit_word_apply) as MaterialButton
+            val wordEdit = dialogs.findViewById(R.id.dialog_edit_word_et) as TextInputEditText
+            val wordMeanEdit = dialogs.findViewById(R.id.dialog_edit_word_mean_et) as TextInputEditText
+
+            wordEdit.setText(wordList[groupPosition].word)
+            wordMeanEdit.setText(wordList[groupPosition].meaning)
+            cancelBtn.setOnClickListener { dialogs.dismiss() }
+            yesBtn.setOnClickListener {
+                wordList[groupPosition].word = wordEdit.text.toString()
+                wordList[groupPosition].meaning = wordMeanEdit.text.toString()
+                DatabaseBuilder.updateWordItem(wordList[groupPosition])
+                WordListItemController.pullWordItems()
+                dialogs.dismiss()
+            }
+            dialogs.show()
         }
 
         expandHolder.delete.setOnClickListener {
             DatabaseBuilder.removeWordItem(wordList[groupPosition])
             WordListItemController.pullWordItems()
-            createSnackBar(it,"Kelime Silindi")
+            createSnackBar(it, "Kelime Silindi")
         }
 
         expandHolder.reset.setOnClickListener {
-            createSnackBar(it,"Kelime İlerlemesi Sıfırlandı")
+            createSnackBar(it, "Kelime İlerlemesi Sıfırlandı")
             DatabaseBuilder.resetProgressWordItem(wordList[groupPosition])
             WordListItemController.pullWordItems()
         }
@@ -125,7 +147,7 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         return wordList.size
     }
 
-    fun createSnackBar(view:View,text:String){
+    fun createSnackBar(view: View, text: String) {
         val marginSide = 0
         val marginBottom = 100
         val snack = Snackbar.make(view, text, Snackbar.LENGTH_LONG).setAction("Geri Al") {

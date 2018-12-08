@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:text="Kelime Düzenle" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_edit_word_et_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:outlineSpotShadowColor="#668DD7"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:textAlignment="center"
+            android:id="@+id/dialog_edit_word_et"
+            android:layout_width="match_parent"
+            android:hint="Kelime"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_edit_word_mean_et_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:textAlignment="center"
+            android:hint="Kelime Anlamı"
+            android:id="@+id/dialog_edit_word_mean_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:weightSum="2">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dialog_edit_word_close"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            app:icon="@drawable/ic_reply"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Geri Gön"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dialog_edit_word_apply"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_check"
+            android:backgroundTint="#2EA617"
+            android:layout_margin="2dp"
+            android:text="Güncelle"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
