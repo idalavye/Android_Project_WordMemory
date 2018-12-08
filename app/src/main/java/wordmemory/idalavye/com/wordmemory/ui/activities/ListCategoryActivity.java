@@ -7,6 +7,9 @@ import wordmemory.idalavye.com.wordmemory.models.CategoryClass;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -85,6 +88,15 @@ public class ListCategoryActivity extends AppCompatActivity {
                 Toast.makeText(ListCategoryActivity.this, "Hata Oluştu", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId()==R.id.lstview) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.context_menu, menu);
+        }
     }
 
     private void clearListViewArrays(){
