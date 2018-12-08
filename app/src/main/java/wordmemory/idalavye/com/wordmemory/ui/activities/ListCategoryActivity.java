@@ -48,7 +48,7 @@ public class ListCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_category);
-
+        Log.i(TAG, "onCreate: " + "gecti");
         // Get UI elements
         lstview = findViewById(R.id.lstview);
 
@@ -67,13 +67,14 @@ public class ListCategoryActivity extends AppCompatActivity {
         // Adapter
         //adapter = new CategoryClass(categoryUidFromFB,categoryTitleFromFB,categoryImageFromFB,this);
         lstview.setAdapter(adapter);
-        Log.i(TAG, "onCreate: "+ "okey");
+        Log.i(TAG, "onCreate: "+ "tamam");
         getDataFromFirebase();
 
 
 
         //Register context menu to listview
         registerForContextMenu(lstview);
+        Log.i(TAG, "onCreate: "+ "tamamA");
     }
 
     public  void getDataFromFirebase(){

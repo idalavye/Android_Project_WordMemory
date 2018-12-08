@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,46 +7,33 @@
     tools:layout_editor_absoluteY="81dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/userEmailTextViewCustomView"
-        android:layout_width="327dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="16dp"
-        android:text="UserEmail"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewCustomView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
 
-    <ImageView
-        android:id="@+id/imageViewCustomView"
-        android:layout_width="323dp"
-        android:layout_height="282dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="24dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/commentTextViewCustomView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userEmailTextViewCustomView"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/commentTextViewCustomView"
-        android:layout_width="331dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="117dp"
-        android:text="CommentText"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCustomView" />
-</android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageViewCustomView"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/userEmailTextViewCustomView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:text="TextView"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

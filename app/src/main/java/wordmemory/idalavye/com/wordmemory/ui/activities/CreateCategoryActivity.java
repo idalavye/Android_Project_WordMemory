@@ -120,7 +120,8 @@ public class CreateCategoryActivity extends AppCompatActivity {
                             CategoryClass.categoryTitle.remove(selectpos);
                             CategoryClass.categoryTitle.add(selectpos,"title");
 
-                            Intent intent = new Intent(getApplicationContext(),ListCategoryActivity.class);
+                            Intent intent = new Intent(getApplicationContext(),HomePageActivity.class);
+                            intent.putExtra("page","4");
                             startActivity(intent);
                         }
                     });
@@ -156,7 +157,9 @@ public class CreateCategoryActivity extends AppCompatActivity {
                             String uuidStr = uuid.toString();
                             myRef.child("records").child(userID).child(uuidStr).child("Title").setValue(title);
                             myRef.child("records").child(userID).child(uuidStr).child("ImageUrl").setValue(downloadURL);
-                            Intent intent = new Intent(getApplicationContext(),ListCategoryActivity.class);
+
+                            Intent intent = new Intent(getApplicationContext(),HomePageActivity.class);
+                            intent.putExtra("page","4");
                             startActivity(intent);
                         }
                     });

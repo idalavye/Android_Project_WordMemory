@@ -91,7 +91,7 @@ public class ListCategoryFragment extends Fragment {
 
         //Register context menu to listview
         registerForContextMenu(lstview);
-
+        Log.i(TAG, "onCreate: "+ "okeyA");
         return view;
     }
 
@@ -124,8 +124,8 @@ public class ListCategoryFragment extends Fragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId()==R.id.lstview) {
-            //MenuInflater inflater = getMenuInflater();
-            //inflater.inflate(R.menu.context_menu, menu);
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.context_menu, menu);
         }
     }
 
