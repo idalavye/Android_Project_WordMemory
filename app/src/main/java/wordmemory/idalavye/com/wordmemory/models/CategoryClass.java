@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ListCategoryFragment;
 
 public class CategoryClass extends ArrayAdapter<String> {
     public static ArrayList<String> categoryUid;
@@ -22,7 +23,7 @@ public class CategoryClass extends ArrayAdapter<String> {
     public static ArrayList<String> categoryImage;
     public static Activity context;
 
-    public CategoryClass(ArrayList<String> categoryUid,ArrayList<String> categoryTitle,ArrayList<String> categoryImage, Activity context) {
+    public CategoryClass(ArrayList<String> categoryUid, ArrayList<String> categoryTitle, ArrayList<String> categoryImage, ListCategoryFragment context) {
         super(context,R.layout.custom_view,categoryTitle);
         this.categoryUid = categoryUid;
         this.categoryTitle = categoryTitle;

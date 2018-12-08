@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ExercisesFragment
+import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.ListCategoryFragment
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.StatisticsFragment
 import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.WordsListingFragment
 
@@ -13,6 +14,7 @@ class HomePagePagerAdapter(fragmentManager: FragmentManager, private val numOfTa
             0 -> WordsListingFragment()
             1 -> ExercisesFragment()
             2 -> StatisticsFragment()
+            3->  ListCategoryFragment()
             else -> null
         }
     }
