@@ -2,21 +2,20 @@ package wordmemory.idalavye.com.wordmemory.ui.adapters
 
 import android.content.Context
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.BaseExpandableListAdapter
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
 import wordmemory.idalavye.com.wordmemory.R
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
 import wordmemory.idalavye.com.wordmemory.data.AnimationViewHolder
 import wordmemory.idalavye.com.wordmemory.data.ExpandItemsViewHolder
 import wordmemory.idalavye.com.wordmemory.data.WordListViewHolder
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel
-import wordmemory.idalavye.com.wordmemory.ui.fragments.homepage.WordsListingFragment
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder
 
 class ExpandableListViewAdapter(private val context: Context, private val wordList: List<WordListItemModel>) : BaseExpandableListAdapter() {
@@ -97,15 +96,17 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         )
 
         expandHolder.edit.setOnClickListener {
-            Log.d("ERROR","**************************Bujdasfds")
+            Log.d("ERROR", "**************************Bujdasfds")
         }
 
         expandHolder.delete.setOnClickListener {
             DatabaseBuilder.removeWordItem(wordList[groupPosition])
             WordListItemController.pullWordItems()
+            createSnackBar(it,"Kelime Silindi")
         }
 
         expandHolder.reset.setOnClickListener {
+            createSnackBar(it,"Kelime İlerlemesi Sıfırlandı")
             DatabaseBuilder.resetProgressWordItem(wordList[groupPosition])
             WordListItemController.pullWordItems()
         }
@@ -122,5 +123,24 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
 
     override fun getGroupCount(): Int {
         return wordList.size
+    }
+
+    fun createSnackBar(view:View,text:String){
+        val marginSide = 0
+        val marginBottom = 100
+        val snack = Snackbar.make(view, text, Snackbar.LENGTH_LONG).setAction("Geri Al") {
+            //Geri alma işlemi
+        }
+        val snackbarView = snack.view
+        val params = snackbarView.layoutParams as CoordinatorLayout.LayoutParams
+        params.setMargins(
+                params.leftMargin + marginSide,
+                params.topMargin,
+                params.rightMargin + marginSide,
+                params.bottomMargin + marginBottom
+        )
+
+        snackbarView.layoutParams = params
+        snack.show()
     }
 }
