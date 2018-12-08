@@ -69,6 +69,11 @@ public class ListCategoryActivity extends AppCompatActivity {
         lstview.setAdapter(adapter);
         Log.i(TAG, "onCreate: "+ "okey");
         getDataFromFirebase();
+
+
+
+        //Register context menu to listview
+        registerForContextMenu(lstview);
     }
 
     public  void getDataFromFirebase(){

@@ -50,13 +50,15 @@
             android:name=".ui.activities.WriteWordWithVoiceExerciseActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity android:name=".ui.activities.WordCategoryActivity">
+
+        </activity>
+        <activity android:name=".ui.activities.CreateCategoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.CreateCategoryActivity" />
         <activity android:name=".ui.activities.ListCategoryActivity"></activity>
     </application>
 
