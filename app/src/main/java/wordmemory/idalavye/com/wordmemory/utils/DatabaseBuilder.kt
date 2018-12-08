@@ -48,4 +48,8 @@ object DatabaseBuilder {
         firebaseData.child(WORDS).child(wordItem.uuid!!).child("word_progress").setValue(0)
         WordListItemController.words.find { w -> w.uuid == wordItem.uuid }!!.word_progress = 0
     }
+
+    fun findWord(word:String) : Boolean{
+        return WordListItemController.words.find { w -> w.word == word } != null
+    }
 }
