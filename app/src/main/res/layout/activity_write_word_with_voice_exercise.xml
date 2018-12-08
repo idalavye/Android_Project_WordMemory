@@ -55,17 +55,18 @@
         app:layout_constraintTop_toBottomOf="@+id/write_word_with_voice_play_button">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:id="@+id/write_word_with_voice_et_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textAlignment="center"
                 android:id="@+id/write_word_with_voice_et"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Duyduğun Kelimeyi Yazmaya Çalış" />
+                android:layout_height="match_parent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

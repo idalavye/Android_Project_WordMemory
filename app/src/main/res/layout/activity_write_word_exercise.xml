@@ -42,7 +42,8 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:id="@+id/write_word_et_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -53,7 +54,7 @@
                 android:id="@+id/write_word_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Doğru Kelimeyi Yazmaya Çalış" />
+                android:textAlignment="center"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

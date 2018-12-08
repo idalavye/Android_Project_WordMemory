@@ -1,6 +1,7 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -83,7 +84,13 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
             DatabaseBuilder.INSTANCE.updateWordItem(questions.get(ourWord), "word_progress");
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
-            newQuestion();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    newQuestion();
+                }
+            },1500);
         } else {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.wrongAnswer));
             view.setEnabled(false);

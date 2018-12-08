@@ -9,10 +9,13 @@ import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,6 +34,7 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
     private ImageView close;
     private TextView word;
     private TextInputEditText input;
+    private TextInputLayout inputLayout;
     private MaterialButton hintButton;
     private LinearLayout layout;
 
@@ -64,6 +69,14 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(
+                InputMethodManager.SHOW_FORCED, 0);
+
+        inputLayout.setBoxBackgroundColor(getResources().getColor(R.color.writeWordLayoutBackground));
+        input.setText("");
+        input.setEnabled(true);
         repeatedWord++;
         layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         our_word_p = 0;
@@ -93,8 +106,15 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
                         list.get(location).setWord_progress(list.get(location).getWord_progress() + 1);
                         DatabaseBuilder.INSTANCE.updateWordItem(list.get(location), "word_progress");
                         list.remove(location);
-                        newQuestion();
-                        input.setText("");
+                        inputLayout.setBoxBackgroundColor(getResources().getColor(R.color.correctAnswer));
+                        input.setEnabled(false);
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                newQuestion();
+                            }
+                        }, 1500);
                     } else {
                         input.setEnabled(false);
                         input.setText(":)");
@@ -153,12 +173,13 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
         layout = findViewById(R.id.write_word_layout);
         repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();
         correctRepeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalCorrectRepeated();
+        inputLayout = findViewById(R.id.write_word_et_layout);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
-        StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord,correctRepeatedWord);
+        StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord, correctRepeatedWord);
     }
 }

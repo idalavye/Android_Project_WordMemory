@@ -2,6 +2,7 @@ package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -99,7 +100,14 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
             commonTimer.cancelTimer();
-            newQuestion();
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    newQuestion();
+                }
+            },1500);
         } else {
             view.setBackgroundTintList(getResources().getColorStateList(R.color.wrongAnswer));
             view.setEnabled(false);

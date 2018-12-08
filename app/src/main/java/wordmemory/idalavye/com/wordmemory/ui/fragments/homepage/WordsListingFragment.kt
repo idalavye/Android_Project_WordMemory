@@ -1,5 +1,6 @@
 package wordmemory.idalavye.com.wordmemory.ui.fragments.homepage
 
+import android.database.DataSetObserver
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +14,7 @@ import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
 import wordmemory.idalavye.com.wordmemory.ui.adapters.ExpandableListViewAdapter
 
 class WordsListingFragment : Fragment() {
-    private var lastExpandedGroupPosition: Int = -1
+
 
     companion object {
         @JvmStatic
@@ -23,6 +24,9 @@ class WordsListingFragment : Fragment() {
         @JvmStatic
         var expandableListView: ExpandableListView? = null
             private set
+
+        @JvmStatic
+        var lastExpandedGroupPosition: Int = -1
 
     }
 
@@ -54,6 +58,7 @@ class WordsListingFragment : Fragment() {
             }
         }
 
+        expandableListView.setChildDivider(resources.getDrawable(android.R.color.transparent))
         WordsListingFragment.expandableListView = expandableListView
         return view
     }

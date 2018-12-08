@@ -2,6 +2,7 @@ package wordmemory.idalavye.com.wordmemory.data
 
 import android.view.animation.Animation
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.github.lzyzsd.circleprogress.ArcProgress
 
@@ -17,4 +18,11 @@ data class WordListViewHolder(
 
 data class AnimationViewHolder(
         val animation: Animation
+)
+
+data class ExpandItemsViewHolder(
+        val edit: LinearLayout,
+        val delete: LinearLayout,
+        val reset: LinearLayout,
+        val detail: LinearLayout
 )

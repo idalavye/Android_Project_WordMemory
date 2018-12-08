@@ -2,6 +2,7 @@ package wordmemory.idalavye.com.wordmemory.utils
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel
 import java.util.*
 
@@ -30,7 +31,18 @@ object DatabaseBuilder {
         databaseReference.child(key!!).setValue(wordItem)
     }
 
-    fun updateWordItem(wordItem: WordListItemModel,updateProperty:String){
+    fun updateWordItem(wordItem: WordListItemModel, updateProperty: String) {
         firebaseData.child(WORDS).child(wordItem.uuid!!).child(updateProperty).setValue(wordItem.word_progress)
+    }
+
+    fun removeWordItem(wordItem: WordListItemModel) {
+        firebaseData.child(WORDS).child(wordItem.uuid!!).removeValue()
+        WordListItemController.words.remove(wordItem)
+    }
+
+    fun resetProgressWordItem(wordItem: WordListItemModel) {
+        firebaseData.child(WORDS).child(wordItem.uuid!!).child("word_progress").setValue(0)
+
+        WordListItemController.words.find { w -> w.uuid == wordItem.uuid }!!.word_progress = 0
     }
 }

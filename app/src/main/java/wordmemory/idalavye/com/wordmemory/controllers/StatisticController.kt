@@ -54,7 +54,6 @@ object StatisticController {
             }
 
             fun addStatisticForUser(statistic: StatisticModel) {
-
                 val key = statisticsRef.push().key
                 statistic.uuid = key
                 statistic._userId = Login.getUserId()
@@ -69,7 +68,6 @@ object StatisticController {
                 loading = true
                 statistic.totalWord = WordListItemController.words.size
                 statistic.totalLearnedWord = WordListItemController.words.filter { s -> s.word_progress == 100 }.size
-
                 firebaseData.child(STATISTICS).child(statisticsForCurrentUser.uuid!!).setValue(statistic)
             }
         }

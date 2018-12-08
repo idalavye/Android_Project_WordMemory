@@ -3,6 +3,7 @@ package wordmemory.idalavye.com.wordmemory.ui.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -31,11 +32,13 @@ import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -70,11 +73,7 @@ public class HomePageActivity extends AppCompatActivity {
     private TextInputEditText word;
     private TextView wordMean;
     private ExpandableListView expandableListView;
-    private LinearLayout homepage_content_layout, spin_layout_homepage;
-
-
-    Thread thread;
-
+    private LinearLayout homepage_content_layout, spin_layout_homepage, spin_layout_add_new_word;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +115,15 @@ public class HomePageActivity extends AppCompatActivity {
                     viewPager.setAdapter(pagerAdapter);
                     spin_layout_homepage.setVisibility(View.GONE);
                 }
-                expandableListView = WordsListingFragment.getExpandableListView();
-                ExpandableListViewAdapter adapter = (ExpandableListViewAdapter) expandableListView.getExpandableListAdapter();
-                adapter.notifyDataSetChanged();
+                runOnUiThread(()->{
+                    expandableListView = WordsListingFragment.getExpandableListView();
+                    ExpandableListViewAdapter adapter = (ExpandableListViewAdapter) expandableListView.getExpandableListAdapter();
+                    adapter.notifyDataSetChanged();
+                });
             }
         });
+
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +163,7 @@ public class HomePageActivity extends AppCompatActivity {
         wordMean = findViewById(R.id.word_mean_tw);
         homepage_content_layout = findViewById(R.id.homepage_content_layout);
         spin_layout_homepage = findViewById(R.id.spin_layout_homepage);
+        spin_layout_add_new_word = findViewById(R.id.spin_layout_add_new_word);
     }
 
     @Override
@@ -208,6 +212,50 @@ public class HomePageActivity extends AppCompatActivity {
 
     private void events() {
 
+        ProgressBar progressBar = findViewById(R.id.spin_kit);
+        ProgressBar progressBar1 = findViewById(R.id.spin_kit_add_new_word);
+        Sprite doubleBounce = new DoubleBounce();
+        Sprite doubleBounce2 = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
+        progressBar1.setIndeterminateDrawable(doubleBounce2);
+
+        RxTextView.textChanges(word).debounce(2, TimeUnit.SECONDS).subscribe(changedText -> {
+            if (!word.getText().toString().equals("")) {
+                try {
+                    final String word = changedText.toString();
+                    Translate translate = TranslateOptions
+                            .newBuilder().setApiKey("AIzaSyCtTUTemBtKKpdBS7rUmjjKlgTx9xDfgvY")
+                            .build().getService();
+
+                    Translation translation = translate.translate(
+                            word,
+                            Translate.TranslateOption.sourceLanguage("en"),
+                            Translate.TranslateOption.targetLanguage("tr")
+                    );
+
+                    System.out.println("Text : " + word);
+                    System.out.println("Translation : " + translation.getTranslatedText());
+
+                    runOnUiThread(() -> {
+                        wordMean.setText(translation.getTranslatedText());
+                        wordMean.setVisibility(View.VISIBLE);
+                        spin_layout_add_new_word.setVisibility(View.GONE);
+                    });
+
+                } catch (Exception e) {
+
+                    System.out.println("Thread error : " + e.getMessage());
+                }
+            } else {
+                runOnUiThread(() -> {
+                    wordMean.setText("Öğrenmek istediğin kelimeyi gir");
+                    wordMean.setVisibility(View.VISIBLE);
+                    spin_layout_add_new_word.setVisibility(View.GONE);
+                });
+            }
+        });
+
+
         word.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -216,38 +264,8 @@ public class HomePageActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final String word1 = word.getText().toString();
-
-                try {
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            thread = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Translate translate = TranslateOptions
-                                            .newBuilder().setApiKey("AIzaSyCtTUTemBtKKpdBS7rUmjjKlgTx9xDfgvY")
-                                            .build().getService();
-
-                                    Translation translation = translate.translate(
-                                            word1,
-                                            Translate.TranslateOption.sourceLanguage("en"),
-                                            Translate.TranslateOption.targetLanguage("tr")
-                                    );
-
-                                    System.out.println("Text : " + word1);
-                                    System.out.println("Translation : " + translation.getTranslatedText());
-                                    wordMean.setText(translation.getTranslatedText());
-                                }
-                            });
-                            thread.start();
-                        }
-                    },500);
-
-                } catch (Exception e) {
-                    System.out.println("**********************" + e.getMessage());
-                }
+                wordMean.setVisibility(View.GONE);
+                spin_layout_add_new_word.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -265,7 +283,6 @@ public class HomePageActivity extends AppCompatActivity {
                 item.setMeaning(wordMean.getText().toString());
                 DatabaseBuilder.INSTANCE.addWordItems(DatabaseRef.INSTANCE.getWordsRef(), item);
 
-
                 wordMean.setText("");
                 word.setText("");
 
@@ -275,10 +292,6 @@ public class HomePageActivity extends AppCompatActivity {
                 WordListItemController.INSTANCE.pullWordItems();
             }
         });
-
-        ProgressBar progressBar = findViewById(R.id.spin_kit);
-        Sprite doubleBounce = new DoubleBounce();
-        progressBar.setIndeterminateDrawable(doubleBounce);
     }
 
     private void hideAddNewWordLayout() {
