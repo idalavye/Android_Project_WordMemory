@@ -42,7 +42,6 @@ object DatabaseBuilder {
 
     fun resetProgressWordItem(wordItem: WordListItemModel) {
         firebaseData.child(WORDS).child(wordItem.uuid!!).child("word_progress").setValue(0)
-
         WordListItemController.words.find { w -> w.uuid == wordItem.uuid }!!.word_progress = 0
     }
 }
