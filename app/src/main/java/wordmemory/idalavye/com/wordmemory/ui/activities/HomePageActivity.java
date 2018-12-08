@@ -40,6 +40,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import wordmemory.idalavye.com.wordmemory.R;
@@ -74,6 +75,8 @@ public class HomePageActivity extends AppCompatActivity {
     private TextView wordMean;
     private ExpandableListView expandableListView;
     private LinearLayout homepage_content_layout, spin_layout_homepage, spin_layout_add_new_word;
+
+    private String lastWord = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,14 +126,13 @@ public class HomePageActivity extends AppCompatActivity {
                     viewPager.setAdapter(pagerAdapter);
                     spin_layout_homepage.setVisibility(View.GONE);
                 }
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
                     expandableListView = WordsListingFragment.getExpandableListView();
                     ExpandableListViewAdapter adapter = (ExpandableListViewAdapter) expandableListView.getExpandableListAdapter();
                     adapter.notifyDataSetChanged();
                 });
             }
         });
-
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -285,24 +287,39 @@ public class HomePageActivity extends AppCompatActivity {
         add_new_word_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WordListItemModel item = new WordListItemModel();
-                final String word1 = word.getText().toString();
-                item.setWord(word1);
-                item.setMeaning(wordMean.getText().toString());
-                DatabaseBuilder.INSTANCE.addWordItems(DatabaseRef.INSTANCE.getWordsRef(), item);
+                if (word.getText().toString().equals("")){
+                    createAlertDiolag("Lütfen bir kelime girin");
+                    return;
+                }
+                if (DatabaseBuilder.INSTANCE.findWord(word.getText().toString())){
+                    createAlertDiolag("Bu kelime daha önce eklenmiş");
+                    return;
+                }
+                if (!(wordMean.getText().toString().equals("") || wordMean.getText().toString().equals("Öğrenmek istediğin kelimeyi gir") || wordMean.getText().toString().equals(lastWord))) {
 
-                wordMean.setText("");
-                word.setText("");
+                    WordListItemModel item = new WordListItemModel();
+                    final String word1 = word.getText().toString();
+                    item.setWord(word1);
+                    item.setMeaning(wordMean.getText().toString());
+                    DatabaseBuilder.INSTANCE.addWordItems(DatabaseRef.INSTANCE.getWordsRef(), item);
+                    lastWord = wordMean.getText().toString();
 
-                InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                hideAddNewWordLayout();
-                WordListItemController.INSTANCE.pullWordItems();
+                    wordMean.setText("");
+                    word.setText("");
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    hideAddNewWordLayout();
+                    WordListItemController.INSTANCE.pullWordItems();
+                }else{
+                    createAlertDiolag("Kelimenin çevrilmesini bekleyiniz");
+                }
             }
         });
     }
 
     private void hideAddNewWordLayout() {
+        lastWord = "";
         addNewWordLayout.clearAnimation();
         bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
         fab.setImageResource(R.drawable.ic_add);
@@ -327,5 +344,16 @@ public class HomePageActivity extends AppCompatActivity {
         homepage_content_layout.setVisibility(View.GONE);
         addNewWordLayout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1000));
         addNewWordLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void createAlertDiolag(String warning) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Uyarı");
+
+        alertDialogBuilder.setMessage(warning)
+                .setCancelable(true);
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

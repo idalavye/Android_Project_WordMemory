@@ -2,6 +2,7 @@ package wordmemory.idalavye.com.wordmemory.ui.adapters
 
 import android.app.Dialog
 import android.content.Context
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -15,11 +16,13 @@ import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController
 import wordmemory.idalavye.com.wordmemory.data.AnimationViewHolder
 import wordmemory.idalavye.com.wordmemory.data.ExpandItemsViewHolder
 import wordmemory.idalavye.com.wordmemory.data.WordListViewHolder
-import wordmemory.idalavye.com.wordmemory.database.DatabaseRef
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder
+import java.util.*
 
 class ExpandableListViewAdapter(private val context: Context, private val wordList: List<WordListItemModel>) : BaseExpandableListAdapter() {
+    private var mTTS: TextToSpeech? = null
+
     override fun getGroup(groupPosition: Int): Any {
         return wordList[groupPosition]
     }
@@ -53,11 +56,25 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         } else
             viewHolder = views.tag as WordListViewHolder
 
+        mTTS = TextToSpeech(views!!.context, TextToSpeech.OnInitListener { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val result = mTTS!!.setLanguage(Locale.ENGLISH)
+
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported")
+                } else {
+                    //button senEnable true
+                }
+            } else {
+                Log.e("TTS", "initialization failed")
+            }
+        })
 
 
         viewHolder.wordTextView.text = wordList[groupPosition].word
         viewHolder.wordMeanTextView.text = wordList[groupPosition].meaning
         viewHolder.progress.progress = wordList[groupPosition].word_progress
+        viewHolder.wordImage.setOnClickListener{mTTS!!.speak(wordList[groupPosition].word, TextToSpeech.QUEUE_FLUSH, null)}
 
         return views!!
     }
@@ -165,4 +182,5 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         snackbarView.layoutParams = params
         snack.show()
     }
+
 }
