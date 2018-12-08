@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -58,6 +59,15 @@ public class ListCategoryFragment extends Fragment {
 
         // Get UI elements
         lstview = view.findViewById(R.id.lstview);
+
+        Button test = view.findViewById(R.id.button2);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),CreateCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Initialize ArrayLists
         categoryUidFromFB = new ArrayList<String>();
@@ -173,8 +183,5 @@ public class ListCategoryFragment extends Fragment {
         categoryImageFromFB.clear();
     }
 
-    public  void test(View view){
-        Intent intent = new Intent(getApplicationContext(),CreateCategoryActivity.class);
-        startActivity(intent);
-    }
+
 }
