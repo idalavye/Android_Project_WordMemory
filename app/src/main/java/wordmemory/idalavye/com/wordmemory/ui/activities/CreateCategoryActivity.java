@@ -6,6 +6,7 @@ import wordmemory.idalavye.com.wordmemory.R;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -36,7 +37,24 @@ public class CreateCategoryActivity extends AppCompatActivity {
         categoryImageView = findViewById(R.id.categoryImageView);
         categoryTitleText = findViewById(R.id.categoryTitleText);
 
+        //Database
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = firebaseDatabase.getReference();
+        //Auth
+        mAuth = FirebaseAuth.getInstance();
+        // Storage
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        Intent intent = getIntent();
+        String key = intent.getStringExtra("key");
+        if(key!= null && intent.getStringExtra("key").equals("edit")){
+            categoryTitleText.setText(intent.getStringExtra("title"));
+            Picasso.get().load(intent.getStringExtra("image")).into(categoryImageView);
+        }
 
+    }
 
+    public void catListele(View view){
+        Intent intent = new Intent(getApplicationContext(),ListCategory.class);
+        startActivity(intent);
     }
 }
