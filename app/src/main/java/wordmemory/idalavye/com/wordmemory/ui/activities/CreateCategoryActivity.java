@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.models.CategoryClass;
 
 import android.Manifest;
 import android.content.Intent;
@@ -70,7 +71,70 @@ public class CreateCategoryActivity extends AppCompatActivity {
     }
 
     public void upload(View view) {
+        /* UPDATE SELECTED CATEGORY*/
+        Intent intent = getIntent();
+        String key = intent.getStringExtra("key");
+        if(key!= null && intent.getStringExtra("key").equals("edit")){
+            final int selectpos = intent.getIntExtra("position",0);
+            String userID = mAuth.getCurrentUser().getUid();
 
+
+            StorageReference photoRefEdit = FirebaseStorage.getInstance().getReferenceFromUrl(CategoryClass.categoryImage.get(selectpos));
+            photoRefEdit.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+                    Log.d(TAG, "onFailure: did not delete file");
+                }
+            });
+
+            UUID uuid = UUID.randomUUID();
+            final String imageName = "images/" + uuid +".jpg";
+            StorageReference storageReference = mStorageRef.child(imageName);
+            storageReference.putFile(selectedImage).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    //download url
+                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String downloadURL = uri.toString();
+                            String userID = mAuth.getCurrentUser().getUid();
+                            String title = categoryTitleText.getText().toString();
+
+                            // Dbye kaydet
+                            String itemUid = CategoryClass.categoryUid.get(selectpos);
+                            DatabaseReference drEdit = FirebaseDatabase.getInstance().getReference("records").child(userID).child(itemUid);
+                            drEdit.child("ImageUrl").setValue(downloadURL);
+                            drEdit.child("Title").setValue(title);
+
+                            CategoryClass.categoryImage.remove(selectpos);
+                            CategoryClass.categoryImage.add(selectpos,"imgURL");
+                            CategoryClass.categoryTitle.remove(selectpos);
+                            CategoryClass.categoryTitle.add(selectpos,"title");
+
+                            Intent intent = new Intent(getApplicationContext(),ListCategoryActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }).addOnFailureListener(this, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(CreateCategoryActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
+
+
+        }else{
             /*CREATE A NEW CATEGORY*/
             UUID uuid = UUID.randomUUID();
             final String imageName = "images/" + uuid +".jpg";
@@ -92,7 +156,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
                             String uuidStr = uuid.toString();
                             myRef.child("records").child(userID).child(uuidStr).child("Title").setValue(title);
                             myRef.child("records").child(userID).child(uuidStr).child("ImageUrl").setValue(downloadURL);
-                            Intent intent = new Intent(getApplicationContext(),ListCategory.class);
+                            Intent intent = new Intent(getApplicationContext(),ListCategoryActivity.class);
                             startActivity(intent);
                         }
                     });
@@ -100,7 +164,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
             }).addOnFailureListener(this, new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CreateCategory.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateCategoryActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             });
