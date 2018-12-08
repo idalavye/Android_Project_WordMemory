@@ -63,9 +63,11 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
     implementation 'com.daasuu:BubbleLayout:1.2.0'
     implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    implementation ('com.google.cloud:google-cloud-translate:1.53.0'){
+    implementation('com.google.cloud:google-cloud-translate:1.53.0') {
         exclude group: 'org.apache.httpcomponents'
         exclude group: 'org.json', module: 'json'
     }
     annotationProcessor 'com.google.cloud:google-cloud-translate:1.53.0'
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
 }
