@@ -280,6 +280,10 @@ public class HomePageActivity extends AppCompatActivity {
         add_new_word_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (word.getText().toString().equals("")){
+                    createAlertDiolag("Lütfen bir kelime girin");
+                    return;
+                }
                 if (DatabaseBuilder.INSTANCE.findWord(word.getText().toString())){
                     createAlertDiolag("Bu kelime daha önce eklenmiş");
                     return;
@@ -308,6 +312,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void hideAddNewWordLayout() {
+        lastWord = "";
         addNewWordLayout.clearAnimation();
         bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
         fab.setImageResource(R.drawable.ic_add);
