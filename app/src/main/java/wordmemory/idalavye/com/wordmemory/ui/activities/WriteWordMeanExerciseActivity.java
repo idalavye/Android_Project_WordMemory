@@ -1,22 +1,11 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import wordmemory.idalavye.com.wordmemory.R;
-import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
-import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
-import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
-import wordmemory.idalavye.com.wordmemory.utils.Animations;
-import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -30,6 +19,15 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
+import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
+import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.Animations;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 public class WriteWordMeanExerciseActivity extends AppCompatActivity {
 
@@ -55,7 +53,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_word_mean_exercise);
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.exerciseBackgroundColor));
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.exerciseBackgroundColor));
 
         init();
         events();
@@ -82,8 +80,9 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ourWriteWord = input.getText().toString();
+                final int size = list.size();
                 if (ourWriteWord.equalsIgnoreCase(correctWord)) {
-                    if (list.size() > 0) {
+                    if (size > 0) {
                         correctRepeatedWord++;
                         progressBar.setProgress(progressBar.getProgress() + 1);
                         list.get(location).setWord_progress(list.get(location).getWord_progress() + 1);
@@ -91,18 +90,20 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
                         list.remove(location);
                         inputLayout.setBoxBackgroundColor(getResources().getColor(R.color.correctAnswer));
                         input.setEnabled(false);
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
+
+                        new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                newQuestion();
+                                if (size > 1)
+                                    newQuestion();
+                                else {
+                                    input.setEnabled(false);
+                                    input.setText(":)");
+                                    hintButton.setEnabled(false);
+                                    word.setText(getString(R.string.all_words_were_studied));
+                                }
                             }
                         }, 1500);
-                    } else {
-                        input.setEnabled(false);
-                        input.setText(":)");
-                        hintButton.setEnabled(false);
-                        word.setText(getString(R.string.all_words_were_studied));
                     }
                 }
             }
@@ -171,7 +172,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.write_word_mean_pb);
         word = findViewById(R.id.write_word_mean_tw);
         input = findViewById(R.id.write_word_mean_et);
-        list = WordListItemController.INSTANCE.getWords();
+        list = new ArrayList<>(WordListItemController.INSTANCE.getWords());
         hintButton = findViewById(R.id.write_word_mean_hint_button);
         layout = findViewById(R.id.write_word_mean_layout);
         repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();
@@ -183,7 +184,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
-        StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord,correctRepeatedWord);
+        StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord, correctRepeatedWord);
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
