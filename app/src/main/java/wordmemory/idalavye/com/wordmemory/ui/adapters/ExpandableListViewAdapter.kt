@@ -4,7 +4,10 @@ import android.app.Dialog
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AnimationUtils
 import android.widget.BaseExpandableListAdapter
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -36,15 +39,11 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
     }
 
     override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup?): View {
-        val viewHolder: WordListViewHolder
-
-        var views: View? = convertView
-
-        if (views == null) {
+        val views = convertView ?: let {
             val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            views = inflater.inflate(R.layout.custom_listview_for_wordlist, parent, false)
+            val views = inflater.inflate(R.layout.custom_listview_for_wordlist, parent, false)
 
-            viewHolder = WordListViewHolder(
+            views.tag = WordListViewHolder(
                     views.findViewById(R.id.learning_word),
                     views.findViewById(R.id.learning_word_mean),
                     views.findViewById(R.id.word_adding_date),
@@ -52,11 +51,12 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
                     views.findViewById(R.id.word_progress)
             )
 
-            views.tag = viewHolder
-        } else
-            viewHolder = views.tag as WordListViewHolder
+            views
+        }
 
-        mTTS = TextToSpeech(views!!.context, TextToSpeech.OnInitListener { status ->
+        val viewHolder = views.tag as WordListViewHolder
+
+        mTTS = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
             if (status == TextToSpeech.SUCCESS) {
                 val result = mTTS!!.setLanguage(Locale.ENGLISH)
 
@@ -74,9 +74,9 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         viewHolder.wordTextView.text = wordList[groupPosition].word
         viewHolder.wordMeanTextView.text = wordList[groupPosition].meaning
         viewHolder.progress.progress = wordList[groupPosition].word_progress
-        viewHolder.wordImage.setOnClickListener{mTTS!!.speak(wordList[groupPosition].word, TextToSpeech.QUEUE_FLUSH, null)}
+        viewHolder.wordImage.setOnClickListener { mTTS!!.speak(wordList[groupPosition].word, TextToSpeech.QUEUE_FLUSH, null) }
 
-        return views!!
+        return views
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
@@ -92,36 +92,35 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
     }
 
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
-        val viewHolder: AnimationViewHolder
-        var listView: View? = convertView
         val expandHolder: ExpandItemsViewHolder
 
-        if (listView == null) {
+        val views = convertView ?: let {
             val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            listView = inflater.inflate(R.layout.custom_listview_expandable_for_wordlist, parent, false)
+            val views = inflater.inflate(R.layout.custom_listview_expandable_for_wordlist, parent, false)
 
-            viewHolder = AnimationViewHolder(AnimationUtils.loadAnimation(context, android.R.anim.fade_in))
+            views.tag = AnimationViewHolder(AnimationUtils.loadAnimation(context, android.R.anim.fade_in))
 
-            listView.tag = viewHolder
-        } else
-            viewHolder = listView.tag as AnimationViewHolder
+            views
+        }
+
+        val viewHolder = views.tag as AnimationViewHolder
 
         expandHolder = ExpandItemsViewHolder(
-                listView!!.findViewById(R.id.expand_edit_layout),
-                listView!!.findViewById(R.id.expand_delete_layout),
-                listView!!.findViewById(R.id.expand_reset_layout),
-                listView!!.findViewById(R.id.expand_detail_layout)
+                views.findViewById(R.id.expand_edit_layout),
+                views.findViewById(R.id.expand_delete_layout),
+                views.findViewById(R.id.expand_reset_layout),
+                views.findViewById(R.id.expand_detail_layout)
         )
 
         expandHolder.edit.setOnClickListener {
             Log.d("ERROR", "**************************Bujdasfds")
-            var dialogs = Dialog(it.context)
+            val dialogs = Dialog(it.context)
             dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialogs.setCancelable(false)
             dialogs.setContentView(R.layout.dialog_edit_word_item)
 
             val cancelBtn = dialogs.findViewById(R.id.dialog_edit_word_close) as MaterialButton
-            var yesBtn = dialogs.findViewById(R.id.dialog_edit_word_apply) as MaterialButton
+            val yesBtn = dialogs.findViewById(R.id.dialog_edit_word_apply) as MaterialButton
             val wordEdit = dialogs.findViewById(R.id.dialog_edit_word_et) as TextInputEditText
             val wordMeanEdit = dialogs.findViewById(R.id.dialog_edit_word_mean_et) as TextInputEditText
 
@@ -151,9 +150,9 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         }
 
         viewHolder.animation.duration = 2000
-        listView!!.startAnimation(viewHolder.animation)
+        views.startAnimation(viewHolder.animation)
 
-        return listView
+        return views
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
@@ -164,7 +163,7 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
         return wordList.size
     }
 
-    fun createSnackBar(view: View, text: String) {
+    private fun createSnackBar(view: View, text: String) {
         val marginSide = 0
         val marginBottom = 100
         val snack = Snackbar.make(view, text, Snackbar.LENGTH_LONG).setAction("Geri Al") {
