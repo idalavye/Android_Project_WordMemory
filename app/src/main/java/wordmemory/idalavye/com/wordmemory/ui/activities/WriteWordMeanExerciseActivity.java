@@ -91,6 +91,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
                         inputLayout.setBoxBackgroundColor(getResources().getColor(R.color.correctAnswer));
                         input.setEnabled(false);
 
+                        final int delay = size > 1 ? 1500 : 200;
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -103,7 +104,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
                                     word.setText(getString(R.string.all_words_were_studied));
                                 }
                             }
-                        }, 1500);
+                        }, delay);
                     }
                 }
             }

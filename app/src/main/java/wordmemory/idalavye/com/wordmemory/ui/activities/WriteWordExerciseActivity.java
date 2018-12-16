@@ -1,14 +1,5 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import wordmemory.idalavye.com.wordmemory.R;
-import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
-import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
-import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
-import wordmemory.idalavye.com.wordmemory.utils.Animations;
-import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,6 +19,15 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
+import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
+import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
+import wordmemory.idalavye.com.wordmemory.utils.Animations;
+import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 public class WriteWordExerciseActivity extends AppCompatActivity {
 
@@ -100,8 +100,9 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ourWriteWord = input.getText().toString();
+                final int size = list.size();
                 if (ourWriteWord.equalsIgnoreCase(correctWord)) {
-                    if (list.size() > 0) {
+                    if (size > 0) {
                         correctRepeatedWord++;
                         progressBar.setProgress(progressBar.getProgress() + 1);
                         list.get(location).setWord_progress(list.get(location).getWord_progress() + 1);
@@ -109,18 +110,21 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
                         list.remove(location);
                         inputLayout.setBoxBackgroundColor(getResources().getColor(R.color.correctAnswer));
                         input.setEnabled(false);
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
+
+                        final int delay = size > 1 ? 1500 : 200;
+                        new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                newQuestion();
+                                if (size > 1)
+                                    newQuestion();
+                                else {
+                                    input.setEnabled(false);
+                                    input.setText(":)");
+                                    hintButton.setEnabled(false);
+                                    word.setText(getString(R.string.all_words_were_studied));
+                                }
                             }
-                        }, 1500);
-                    } else {
-                        input.setEnabled(false);
-                        input.setText(":)");
-                        hintButton.setEnabled(false);
-                        word.setText(getString(R.string.all_words_were_studied));
+                        }, delay);
                     }
                 }
             }
