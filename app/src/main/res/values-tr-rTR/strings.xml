@@ -7,4 +7,5 @@
     <string name="my_exercises">Alıştırmalar</string>
     <string name="logged_in">Başarıyla giriş yaptınız.</string>
     <string name="my_statistics">İstatistikler</string>
+    <string name="warning_no_category_image">Kategori eklemek için bir resim dosyası seçmelisiniz.</string>
 </resources>

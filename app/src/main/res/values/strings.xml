@@ -8,5 +8,6 @@
     <string name="my_exercises">Exercises</string>
     <string name="my_statistics">Statistics</string>
     <string name="logged_in">You have successfully logged in.</string>
+    <string name="warning_no_category_image">You must select an image file to add a category.</string>
 
 </resources>

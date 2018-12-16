@@ -1,12 +1,5 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import wordmemory.idalavye.com.wordmemory.R;
-import wordmemory.idalavye.com.wordmemory.models.CategoryClass;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,6 +26,13 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.UUID;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import wordmemory.idalavye.com.wordmemory.R;
+import wordmemory.idalavye.com.wordmemory.models.CategoryClass;
 
 public class CreateCategoryActivity extends AppCompatActivity {
     private static final String TAG = "CreateCategory";
@@ -63,7 +63,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         Intent intent = getIntent();
         String key = intent.getStringExtra("key");
-        if(key!= null && intent.getStringExtra("key").equals("edit")){
+        if (key != null && intent.getStringExtra("key").equals("edit")) {
             categoryTitleText.setText(intent.getStringExtra("title"));
             Picasso.get().load(intent.getStringExtra("image")).into(categoryImageView);
         }
@@ -74,8 +74,8 @@ public class CreateCategoryActivity extends AppCompatActivity {
         /* UPDATE SELECTED CATEGORY*/
         Intent intent = getIntent();
         String key = intent.getStringExtra("key");
-        if(key!= null && intent.getStringExtra("key").equals("edit")){
-            final int selectpos = intent.getIntExtra("position",0);
+        if (key != null && intent.getStringExtra("key").equals("edit")) {
+            final int selectpos = intent.getIntExtra("position", 0);
             String userID = mAuth.getCurrentUser().getUid();
 
 
@@ -95,7 +95,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
             });
 
             UUID uuid = UUID.randomUUID();
-            final String imageName = "images/" + uuid +".jpg";
+            final String imageName = "images/" + uuid + ".jpg";
             StorageReference storageReference = mStorageRef.child(imageName);
             storageReference.putFile(selectedImage).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -116,12 +116,12 @@ public class CreateCategoryActivity extends AppCompatActivity {
                             drEdit.child("Title").setValue(title);
 
                             CategoryClass.categoryImage.remove(selectpos);
-                            CategoryClass.categoryImage.add(selectpos,"imgURL");
+                            CategoryClass.categoryImage.add(selectpos, "imgURL");
                             CategoryClass.categoryTitle.remove(selectpos);
-                            CategoryClass.categoryTitle.add(selectpos,"title");
+                            CategoryClass.categoryTitle.add(selectpos, "title");
 
-                            Intent intent = new Intent(getApplicationContext(),HomePageActivity.class);
-                            intent.putExtra("page","4");
+                            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                            intent.putExtra("page", "4");
                             startActivity(intent);
                         }
                     });
@@ -135,10 +135,15 @@ public class CreateCategoryActivity extends AppCompatActivity {
             });
 
 
-        }else{
+        } else {
+            if (selectedImage == null) {
+                Toast.makeText(this, R.string.warning_no_category_image, Toast.LENGTH_LONG).show();
+                return;
+            }
+
             /*CREATE A NEW CATEGORY*/
             UUID uuid = UUID.randomUUID();
-            final String imageName = "images/" + uuid +".jpg";
+            final String imageName = "images/" + uuid + ".jpg";
             StorageReference storageReference = mStorageRef.child(imageName);
             storageReference.putFile(selectedImage).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -158,8 +163,8 @@ public class CreateCategoryActivity extends AppCompatActivity {
                             myRef.child("records").child(userID).child(uuidStr).child("Title").setValue(title);
                             myRef.child("records").child(userID).child(uuidStr).child("ImageUrl").setValue(downloadURL);
 
-                            Intent intent = new Intent(getApplicationContext(),HomePageActivity.class);
-                            intent.putExtra("page","4");
+                            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                            intent.putExtra("page", "4");
                             startActivity(intent);
                         }
                     });
@@ -175,19 +180,19 @@ public class CreateCategoryActivity extends AppCompatActivity {
 
     }
 
-    public void catListele(View view){
-        Intent intent = new Intent(getApplicationContext(),ListCategoryActivity.class);
+    public void catListele(View view) {
+        Intent intent = new Intent(getApplicationContext(), ListCategoryActivity.class);
         startActivity(intent);
     }
 
     public void selectImage(View view) {
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             // izin yok izin iste
-            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         } else {
             // izin var
-            Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent,2);
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, 2);
         }
     }
 
@@ -195,11 +200,11 @@ public class CreateCategoryActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == 1) {
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // izin var
-                Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent,2);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 2);
             }
         }
     }
@@ -208,11 +213,11 @@ public class CreateCategoryActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 2 && resultCode == RESULT_OK && data!=null) {
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             selectedImage = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImage);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 categoryImageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
