@@ -92,27 +92,29 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
     }
 
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
-        val expandHolder: ExpandItemsViewHolder
-
         val views = convertView ?: let {
             val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val views = inflater.inflate(R.layout.custom_listview_expandable_for_wordlist, parent, false)
 
             views.tag = AnimationViewHolder(AnimationUtils.loadAnimation(context, android.R.anim.fade_in))
+            views.tag = Pair(
+                    AnimationViewHolder(AnimationUtils.loadAnimation(context, android.R.anim.fade_in)),
+                    ExpandItemsViewHolder(
+                            views.findViewById(R.id.expand_edit_layout),
+                            views.findViewById(R.id.expand_delete_layout),
+                            views.findViewById(R.id.expand_reset_layout),
+                            views.findViewById(R.id.expand_detail_layout)
+                    )
+            )
 
             views
         }
 
-        val viewHolder = views.tag as AnimationViewHolder
+        val tagPair = views.tag as Pair<*, *>
+        val animationViewHolder = tagPair.first as AnimationViewHolder
+        val expandItemsViewHolder = tagPair.second as ExpandItemsViewHolder
 
-        expandHolder = ExpandItemsViewHolder(
-                views.findViewById(R.id.expand_edit_layout),
-                views.findViewById(R.id.expand_delete_layout),
-                views.findViewById(R.id.expand_reset_layout),
-                views.findViewById(R.id.expand_detail_layout)
-        )
-
-        expandHolder.edit.setOnClickListener {
+        expandItemsViewHolder.edit.setOnClickListener {
             Log.d("ERROR", "**************************Bujdasfds")
             val dialogs = Dialog(it.context)
             dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -137,20 +139,20 @@ class ExpandableListViewAdapter(private val context: Context, private val wordLi
             dialogs.show()
         }
 
-        expandHolder.delete.setOnClickListener {
+        expandItemsViewHolder.delete.setOnClickListener {
             DatabaseBuilder.removeWordItem(wordList[groupPosition])
             WordListItemController.pullWordItems()
             createSnackBar(it, "Kelime Silindi")
         }
 
-        expandHolder.reset.setOnClickListener {
+        expandItemsViewHolder.reset.setOnClickListener {
             createSnackBar(it, "Kelime İlerlemesi Sıfırlandı")
             DatabaseBuilder.resetProgressWordItem(wordList[groupPosition])
             WordListItemController.pullWordItems()
         }
 
-        viewHolder.animation.duration = 2000
-        views.startAnimation(viewHolder.animation)
+        animationViewHolder.animation.duration = 2000
+        views.startAnimation(animationViewHolder.animation)
 
         return views
     }
