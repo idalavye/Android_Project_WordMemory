@@ -173,7 +173,7 @@ public class WriteWordMeanExerciseActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.write_word_mean_pb);
         word = findViewById(R.id.write_word_mean_tw);
         input = findViewById(R.id.write_word_mean_et);
-        list = new ArrayList<>(WordListItemController.INSTANCE.getWords());
+        list = new ArrayList<>(WordListItemController.INSTANCE.getNotLearningWords());
         hintButton = findViewById(R.id.write_word_mean_hint_button);
         layout = findViewById(R.id.write_word_mean_layout);
         repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();

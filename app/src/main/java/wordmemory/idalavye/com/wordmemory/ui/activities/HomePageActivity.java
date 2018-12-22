@@ -86,12 +86,6 @@ public class HomePageActivity extends AppCompatActivity {
         init();
         events();
 
-        Intent intent = getIntent();
-        String page = intent.getStringExtra("page");
-        if(page != null && page.equals("4")){
-            viewPager.setCurrentItem(3);
-            Log.i(TAG, "onCreate: "+ "test");
-        }
 
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_words)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_exercises)));

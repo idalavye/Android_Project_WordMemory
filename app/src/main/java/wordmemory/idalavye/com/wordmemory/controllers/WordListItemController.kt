@@ -9,6 +9,7 @@ import wordmemory.idalavye.com.wordmemory.utils.Login
 
 object WordListItemController {
     val words: ArrayList<WordListItemModel> = arrayListOf()
+    val notLearningWords: ArrayList<WordListItemModel> = arrayListOf()
     private val listeners: MutableList<WordItemDataChangeListener> = mutableListOf()
 
     fun pullWordItems() {
@@ -24,6 +25,9 @@ object WordListItemController {
                 for (word in result) {
                     if (word._createdAt.equals(Login.getUserId()) && !words.contains(word)) {
                         words.add(word)
+                        if (word.word_progress < 100) {
+                            notLearningWords.add(word)
+                        }
                     }
                 }
 

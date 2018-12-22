@@ -26,6 +26,9 @@ import com.db.chart.view.LineChartView;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
@@ -34,6 +37,7 @@ import androidx.fragment.app.Fragment;
 import wordmemory.idalavye.com.wordmemory.R;
 import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
+import wordmemory.idalavye.com.wordmemory.models.DailyStatistics;
 import wordmemory.idalavye.com.wordmemory.models.StatisticModel;
 
 public class StatisticsFragment extends Fragment {
@@ -42,13 +46,14 @@ public class StatisticsFragment extends Fragment {
     private LineChartView mChart;
     private LinearLayout spin_layout_statistics, statistics_layout;
     private Context mContext;
-    private final String[] mLabels = {"Jan", "Fev", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
+    private final String[] mLabels = new String[9];
 
-    private final float[][] mValues = {{3.5f, 4.7f, 4.3f, 8f, 6.5f, 2f, 7f, 8.3f, 7.0f},
+    private final float[][] mValues = {new float[9],
             {4.5f, 2.5f, 2.5f, 12f, 4.5f, 9.5f, 5f, 10f, 1.8f}};
 
     private Tooltip mTip;
     Paint gridPaint;
+
 
     @Nullable
     @Override
@@ -56,6 +61,8 @@ public class StatisticsFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         init(view);
+        setXLabel();
+        YLabels();
 
         mChart.clearAnimation();
         // Tooltip
@@ -113,25 +120,22 @@ public class StatisticsFragment extends Fragment {
         statistics_layout.setVisibility(View.GONE);
         spin_layout_statistics.setVisibility(View.VISIBLE);
 
-        StatisticController.INSTANCE.addListenerForStatisticItemDataChange(new StatisticController.StatisticsDataChangeListener() {
-            @Override
-            public void onStatisticsItemDataChange() {
+        StatisticController.INSTANCE.addListenerForStatisticItemDataChange(() -> {
 
-                if (!StatisticController.INSTANCE.getLoading()) {
+            if (!StatisticController.INSTANCE.getLoading()) {
 
-                    statistics_layout.setVisibility(View.VISIBLE);
-                    spin_layout_statistics.setVisibility(View.GONE);
+                statistics_layout.setVisibility(View.VISIBLE);
+                spin_layout_statistics.setVisibility(View.GONE);
 
-                    StatisticModel model = StatisticController.INSTANCE.getStatisticsForCurrentUser();
-                    float ratio = ((float) model.getTotalCorrectRepeated() / (float) model.getTotalRepeated()) * 100f;
-                    f_statistics_totalWord.setText(String.valueOf(model.getTotalWord()));
-                    f_statistics_totalLearnedWord.setText(String.valueOf(model.getTotalLearnedWord()));
-                    f_statistics_totalRepeated.setText(String.valueOf(model.getTotalRepeated()));
-                    f_statistics_totalCorrectRepeated.setText(String.valueOf(model.getTotalCorrectRepeated()) + "(" + ratio + "%)");
+                StatisticModel model = StatisticController.INSTANCE.getStatisticsForCurrentUser();
+                float ratio = (float) model.getTotalCorrectRepeated() / (float) model.getTotalRepeated() * 100f;
+                f_statistics_totalWord.setText(String.valueOf(model.getTotalWord()));
+                f_statistics_totalLearnedWord.setText(String.valueOf(model.getTotalLearnedWord()));
+                f_statistics_totalRepeated.setText(String.valueOf(model.getTotalRepeated()));
+                f_statistics_totalCorrectRepeated.setText(String.valueOf(model.getTotalCorrectRepeated()) + "(" + String.format("%.2f", ratio) + "%)");
 
-                    mChart.show(new Animation().setInterpolator(new BounceInterpolator())
-                            .fromAlpha(0));
-                }
+                mChart.show(new Animation().setInterpolator(new BounceInterpolator())
+                        .fromAlpha(0));
             }
         });
 
@@ -159,6 +163,26 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void setXLabel() {
-        Date date = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, new Date().getDay() + 1);
+        System.out.println(c.toString());
+        DateFormat df = new SimpleDateFormat("dd/MM");
+        for (int i = 0; i < 9; i++) {
+            System.out.println(df.format(c.getTime()));
+            c.add(Calendar.DATE, -1);
+            mLabels[8 - i] = df.format(c.getTime());
+        }
+    }
+
+    public void YLabels() {
+        StatisticModel model = StatisticController.INSTANCE.getStatisticsForCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, new Date().getDay() + 1);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+        int i = 0;
+
     }
 }

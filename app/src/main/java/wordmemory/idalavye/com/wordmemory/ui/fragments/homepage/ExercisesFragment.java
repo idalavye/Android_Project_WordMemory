@@ -76,24 +76,36 @@ public class ExercisesFragment extends Fragment {
         write_word_mean_exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), WriteWordMeanExerciseActivity.class);
-                startActivity(intent);
+                if (list.size() > 0) {
+                    Intent intent = new Intent(view.getContext(), WriteWordMeanExerciseActivity.class);
+                    startActivity(intent);
+                }else{
+                    createAlertDiolag("Bu alıştırmayı yapmak için daha fazla kelime eklemelisiniz.", view.getContext());
+                }
             }
         });
 
         write_word_exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), WriteWordExerciseActivity.class);
-                startActivity(intent);
+                if (list.size() > 0) {
+                    Intent intent = new Intent(view.getContext(), WriteWordExerciseActivity.class);
+                    startActivity(intent);
+                }else{
+                    createAlertDiolag("Bu alıştırmayı yapmak için daha fazla kelime eklemelisiniz.", view.getContext());
+                }
             }
         });
 
         write_word_with_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), WriteWordWithVoiceExerciseActivity.class);
-                startActivity(intent);
+                if (list.size() > 0) {
+                    Intent intent = new Intent(view.getContext(), WriteWordWithVoiceExerciseActivity.class);
+                    startActivity(intent);
+                }else{
+                    createAlertDiolag("Bu alıştırmayı yapmak için daha fazla kelime eklemelisiniz.", view.getContext());
+                }
             }
         });
 

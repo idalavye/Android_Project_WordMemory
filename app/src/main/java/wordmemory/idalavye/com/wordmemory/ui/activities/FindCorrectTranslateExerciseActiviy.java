@@ -1,14 +1,12 @@
 package wordmemory.idalavye.com.wordmemory.ui.activities;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.google.android.material.button.MaterialButton;
@@ -24,7 +22,7 @@ import wordmemory.idalavye.com.wordmemory.controllers.StatisticController;
 import wordmemory.idalavye.com.wordmemory.controllers.WordListItemController;
 import wordmemory.idalavye.com.wordmemory.models.WordListItemModel;
 import wordmemory.idalavye.com.wordmemory.utils.Animations;
-import wordmemory.idalavye.com.wordmemory.utils.CommonTimer;
+import wordmemory.idalavye.com.wordmemory.utils.ExerciseCommon;
 import wordmemory.idalavye.com.wordmemory.utils.DatabaseBuilder;
 
 public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
@@ -42,9 +40,11 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     private ArrayList<String> answers = new ArrayList<>();
     private ArrayList<WordListItemModel> list;
     private ArrayList<WordListItemModel> questions;
-    CommonTimer commonTimer;
-    private int repeatedWord;
-    private int correctRepeatedWord;
+    ExerciseCommon commonTimer;
+    private int repeatedWord = 0;
+    private int correctRepeatedWord = 0;
+    private int count = 0;
+    private int countLearned = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,21 +81,21 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         btn4 = findViewById(R.id.find_ct_btn4);
         word = findViewById(R.id.find_ct_word);
         progressBar = findViewById(R.id.find_ct_pb);
-        list = WordListItemController.INSTANCE.getWords();
+        list = WordListItemController.INSTANCE.getNotLearningWords();
         questions = new ArrayList<>(list);
         find_ct_word_layout = findViewById(R.id.find_ct_word_layout);
         ringProgressBar = findViewById(R.id.find_ct_ringProgress);
-        commonTimer = new CommonTimer();
-        repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();
-        correctRepeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalCorrectRepeated();
+        commonTimer = new ExerciseCommon();
+        //count = StatisticController.INSTANCE.getStatisticsForCurrentUser().getDailyStatistics().get(ExerciseCommon.getDateNow()).getRepeatedCount();
     }
 
     public void choosingAnswer(View view) {
-        repeatedWord++;
+
         if (view.getTag().toString().equals(String.valueOf(correct_answer_location))) {
             correctRepeatedWord++;
             view.setBackgroundTintList(getResources().getColorStateList(R.color.correctAnswer));
             questions.get(ourWord).setWord_progress(questions.get(ourWord).getWord_progress() + 1);
+            if (questions.get(ourWord).getWord_progress() == 100) countLearned++;
             DatabaseBuilder.INSTANCE.updateWordItem(questions.get(ourWord), "word_progress");
             questions.remove(ourWord);
             progressBar.setProgress(progressBar.getProgress() + 1);
@@ -115,6 +115,8 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
     }
 
     public void newQuestion() {
+        count++;
+        repeatedWord++;
 
         find_ct_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         btn1.setEnabled(true);
@@ -169,5 +171,6 @@ public class FindCorrectTranslateExerciseActiviy extends AppCompatActivity {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
         StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord,correctRepeatedWord);
+//        StatisticController.INSTANCE.updateDailyActivity(count,countLearned);
     }
 }

@@ -173,7 +173,7 @@ public class WriteWordExerciseActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.write_word_pb);
         word = findViewById(R.id.write_word_tw);
         input = findViewById(R.id.write_word_et);
-        list = WordListItemController.INSTANCE.getWords();
+        list = WordListItemController.INSTANCE.getNotLearningWords();
         hintButton = findViewById(R.id.write_word_hint_button);
         layout = findViewById(R.id.write_word_layout);
         repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();

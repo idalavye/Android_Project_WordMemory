@@ -86,7 +86,7 @@ public class WriteWordWithVoiceExerciseActivity extends AppCompatActivity {
 
     private void init() {
         write_word_with_voice_play_button = findViewById(R.id.write_word_with_voice_play_button);
-        list = WordListItemController.INSTANCE.getWords();
+        list = WordListItemController.INSTANCE.getNotLearningWords();
         close = findViewById(R.id.write_word_with_voice_close_page_cwm);
         progressBar = findViewById(R.id.write_word_with_voice_pb);
         input = findViewById(R.id.write_word_with_voice_et);

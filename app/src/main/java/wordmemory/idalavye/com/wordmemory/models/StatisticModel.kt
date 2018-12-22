@@ -6,4 +6,5 @@ data class StatisticModel(
         var totalWord: Int = 0,
         var totalLearnedWord: Int = 0,
         var totalRepeated: Int = 0,
-        var totalCorrectRepeated: Int = 0)
+        var totalCorrectRepeated: Int = 0,
+        var dailyStatistics: HashMap<String,DailyStatistics>? = null)

@@ -37,8 +37,10 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     private ArrayList<String> answers = new ArrayList<>();
     private ArrayList<WordListItemModel> list;
     private ArrayList<WordListItemModel> questions;
-    private int repeatedWord;
-    private int correctRepeatedWord;
+    private int repeatedWord = 0;
+    private int correctRepeatedWord = 0;
+    private int count = 0;
+    private int countLearned = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +70,9 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
         btn4 = findViewById(R.id.find_cwm_btn4);
         word = findViewById(R.id.find_cwm_word);
         progressBar = findViewById(R.id.find_cwm_pb);
-        list = WordListItemController.INSTANCE.getWords();
+        list = WordListItemController.INSTANCE.getNotLearningWords();
         questions = new ArrayList<>(list);
         find_cwm_word_layout = findViewById(R.id.find_cwm_word_layout);
-        repeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalRepeated();
-        correctRepeatedWord = StatisticController.INSTANCE.getStatisticsForCurrentUser().getTotalCorrectRepeated();
     }
 
     public void choosingAnswerCWM(View view) {
@@ -98,6 +98,7 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
+        count++;
         find_cwm_word_layout.startAnimation(Animations.createFadeInAnimation(getApplicationContext(), 1500));
         btn1.setEnabled(true);
         btn2.setEnabled(true);
@@ -144,6 +145,7 @@ public class FindCorrectWorldMeanExerciseActivity extends AppCompatActivity {
         super.onDestroy();
         WordListItemController.INSTANCE.pullWordItems();
         StatisticController.INSTANCE.updateStatisticsWithRepeatedAndCorrectRepeated(repeatedWord,correctRepeatedWord);
+//        StatisticController.INSTANCE.updateDailyActivity(count,countLearned);
     }
 
 }
