@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.LoginPageActivity" >
+        <activity android:name=".ui.activities.LoginPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,13 +55,10 @@
         <activity
             android:name=".ui.activities.WriteWordWithVoiceExerciseActivity"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".ui.activities.WordCategoryActivity">
-
-        </activity>
-        <activity android:name=".ui.activities.CreateCategoryActivity">
-
-        </activity>
-        <activity android:name=".ui.activities.ListCategoryActivity"></activity>
+        <activity android:name=".ui.activities.WordCategoryActivity"></activity>
+        <activity android:name=".ui.activities.CreateCategoryActivity"></activity>
+        <activity android:name=".ui.activities.ListCategoryActivity" />
+        <activity android:name=".ui.activities.LoginWithEmailActivity"></activity>
     </application>
 
 </manifest>
